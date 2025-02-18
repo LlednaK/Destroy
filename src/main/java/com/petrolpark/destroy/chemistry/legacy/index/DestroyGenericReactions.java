@@ -1,6 +1,41 @@
 package com.petrolpark.destroy.chemistry.legacy.index;
 
-import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.*;
+
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AcylChlorideEsterification;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AcylChlorideFormation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AcylChlorideHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AlcoholDehydration;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AlcoholOxidation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AldehydeOxidation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AlkoxideProtonation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AmideHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.AminePhosgenation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.BoraneOxidation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.BorateEsterHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.BorateEsterification;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.CarboxylicAcidEsterification;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.CyanamideAddition;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.CyanideNucleophilicAddition;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicChlorination;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicChlorohydrination;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicHydroboration;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.BoraneElectrophilicHydroboration;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicHydrochlorination;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicHydroiodination;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ElectrophilicIodination;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.HalideAmineSubstitution;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.HalideAmmoniaSubstitution;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.HalideCyanideSubstitution;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.HalideHydroxideSubstitution;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.IsocyanateHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.NitrileHydrogenation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.NitrileHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.NitroHydrogenation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.SaturatedCarbonHydrogenation;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.SaturatedCarbonHydrolysis;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.WolffKishnerReduction;
+import com.petrolpark.destroy.chemistry.legacy.index.genericreaction.ThionylChlorideSubstitution;
+
 
 public class DestroyGenericReactions {
 
