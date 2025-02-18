@@ -837,6 +837,16 @@ public final class DestroyMolecules {
         .color(0x80F94939)
         .build(),
 
+    ISOPROPANOL = builder()
+            .id("isopropanol")
+            .structure(LegacyMolecularStructure.deserialize("destroy:linear:CC(O)C"))
+            .boilingPoint(82.6f)
+            .density(786f)
+            .specificHeatCapacity(1.54f)
+            .tag(Tags.SOLVENT)
+            .build(),
+
+
     LEAD_II = builder()
         .id("lead_ii")
         .structure(LegacyMolecularStructure.atom(LegacyElement.LEAD, 2))
@@ -1236,7 +1246,18 @@ public final class DestroyMolecules {
         .id("tetrahydroxy_tetraborate")
         .structure(LegacyMolecularStructure.deserialize("destroy:tetraborate:O,O,O,O"))
         .build(),
-    
+
+    THIONYL_CHLORIDE = builder()
+            .id("thionyl_chloride")
+            .structure(LegacyMolecularStructure.deserialize("destroy:linear:S=(=O)(Cl)(Cl)"))
+            .boilingPoint(74.6f)
+            .density(1638f)
+            .molarHeatCapacity(121f)
+            .tag(Tags.SMELLY)
+            .tag(Tags.ACUTELY_TOXIC)
+            .build(),
+
+
     TOLUENE = builder()
         .id("toluene")
         .structure(LegacyMolecularStructure.deserialize("destroy:benzene:C,,,,,"))
