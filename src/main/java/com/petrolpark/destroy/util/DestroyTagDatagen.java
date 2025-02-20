@@ -32,7 +32,8 @@ public class DestroyTagDatagen {
 
         // Create Tags
         prov.tag(AllItemTags.UPRIGHT_ON_BELT.tag)
-            .addTag(DestroyItemTags.SYRINGES.tag);
+            .addTag(DestroyItemTags.SYRINGES.tag)
+            .addTag(DestroyItemTags.SPRAY_BOTTLES.tag);
 
         // Curios Tags
         prov.tag(TagKey.create(Registries.ITEM, CompatMods.CURIOS.asResource("head")))
