@@ -17,6 +17,8 @@ import javax.annotation.Nullable;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.advancement.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.network.packet.SmartExplosionS2CPacket;
+import com.petrolpark.destroy.world.damage.DestroyDamageSources;
+import com.petrolpark.destroy.world.damage.SmartExplosionDamageSource;
 import com.petrolpark.destroy.world.loot.DestroyLootContextParams;
 
 import net.minecraft.client.Minecraft;
@@ -109,7 +111,7 @@ public class SmartExplosion extends Explosion {
      * Create a more flexible Explosion.
      * @param level The Level in which the Explosion is occuring
      * @param source The Entity that caused the Explosion (e.g. a Primed TNT or Creeper)
-     * @param damageSource The type of damage this Explosion should deal (defaults to {@code minecraft:explosion})
+     * @param damageSource The source of damage this Explosion should deal (defaults to {@code minecraft:explosion})
      * @param damageCalculator The class to calculate the damage done to Blocks (defaults to that of vanilla TNT)
      * @param position The center (global co-ordinates) of this Explosion
      * @param radius How large this Explosion should be
@@ -119,6 +121,7 @@ public class SmartExplosion extends Explosion {
         super(level, source, damageSource, damageCalculator, position.x, position.y, position.z, radius, false, Explosion.BlockInteraction.KEEP);
         this.position = position;
         this.irregularity = irregularity > 1f ? 1f : irregularity;
+        if (damageSource == null) this.damageSource = DestroyDamageSources.smartExplosion(level, this);
         stacksToCreate = new HashMap<>();
     };
 
@@ -352,7 +355,8 @@ public class SmartExplosion extends Explosion {
     @SubscribeEvent
     public static void onMobDrops(LivingDropsEvent event) {
         if (event.getEntity().wasExperienceConsumed() || !(event.getEntity().level() instanceof ServerLevel)) return;
-        ExperienceOrb.award((ServerLevel) event.getEntity().level(), event.getEntity().position(), ForgeEventFactory.getExperienceDrop(event.getEntity(), null, event.getEntity().getExperienceReward()));
+        if (!(event.getSource() instanceof SmartExplosionDamageSource ds && ds.explosion.shouldAlwaysDropExperienceFromMobs())) return;
+        ExperienceOrb.award((ServerLevel) event.getEntity().level(), event.getEntity().position(), ForgeEventFactory.getExperienceDrop(event.getEntity(), event.getSource().getEntity() instanceof Player player ? player : null, event.getEntity().getExperienceReward()));
     };
 
     public float getRadius() {

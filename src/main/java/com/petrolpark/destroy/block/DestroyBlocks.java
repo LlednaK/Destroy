@@ -584,6 +584,7 @@ public class DestroyBlocks {
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .properties(p -> p
             .instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+            .sound(SoundType.METAL)
             .strength(7f, 8f)
         ).transform(TagGen.pickaxeOnly())
         .transform(BuilderTransformers.casing(() -> DestroySpriteShifts.STAINLESS_STEEL_BLOCK))

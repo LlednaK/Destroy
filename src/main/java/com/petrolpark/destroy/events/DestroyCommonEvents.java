@@ -484,8 +484,7 @@ public class DestroyCommonEvents {
     };
 
     /**
-     * Disable eating if the Player is in Baby Blue withdrawal or wearing a Gas Mask,
-     * cancel the action of Flint and Steel if it's been made fireproof
+     * Disable eating if the Player is in Baby Blue withdrawal or wearing a Gas Mask
      */
     @SubscribeEvent
     public static void onPlayerRightClick(PlayerInteractEvent.RightClickItem event) {
@@ -504,30 +503,6 @@ public class DestroyCommonEvents {
                 event.setCanceled(true);
             };
         };
-
-        // Fireproof Flint and Steel
-        if (stack.getItem() == Items.FLINT_AND_STEEL && FireproofingHelper.isFireproof(player.level().registryAccess(), stack)) {
-            DestroyAdvancementTrigger.FIREPROOF_FLINT_AND_STEEL.award(player.level(), player);
-            stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
-            event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.SUCCESS);
-        };
-    };
-
-    @SubscribeEvent
-    public static void chainCogwheels(PlayerInteractEvent.RightClickBlock event) {
-        // ItemStack stack = event.getItemStack();
-        // Level level = event.getLevel();
-        // BlockState state = level.getBlockState(event.getPos());
-        // if (stack.is(Items.CHAIN) && (IChainableBlock.isStateChainable(state) || DestroyBlocks.CHAINED_COGWHEEL.has(state))) {
-        //     if (level.isClientSide()) {
-        //         event.setCancellationResult(CogwheelChainingHandler.tryConnect(event.getPos()) ? InteractionResult.SUCCESS : InteractionResult.FAIL);
-        //     } else {
-        //         event.setCancellationResult(InteractionResult.SUCCESS);
-        //     };
-        //     event.setCanceled(true);
-        // };
-        //TODO uncomment when chaining is fully implemented
     };
 
     /**
@@ -679,8 +654,9 @@ public class DestroyCommonEvents {
 
     /**
      * Allow Redstone Link Frequencies to be added to Redstone Programmers without setting the Programmer itself as a Frequency,
-     * and allow IPickUpPutDownBlock's Items to be consumed even if in Creative
-     * and allow empty Test Tubes to be filled from Fluid Tanks
+     * and allow IPickUpPutDownBlock's Items to be consumed even if in Creative,
+     * and allow empty Test Tubes to be filled from Fluid Tanks,
+     * and prevent Flint and Steel from working if its Fireproof
      */
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -721,6 +697,14 @@ public class DestroyCommonEvents {
             event.setCancellationResult(result);
             if (result != InteractionResult.PASS) event.setCanceled(true);
             return;
+        };
+
+        // Fireproof Flint and Steel
+        if (stack.getItem() == Items.FLINT_AND_STEEL && FireproofingHelper.isFireproof(player.level().registryAccess(), stack)) {
+            DestroyAdvancementTrigger.FIREPROOF_FLINT_AND_STEEL.award(player.level(), player);
+            stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
         };
     };
 

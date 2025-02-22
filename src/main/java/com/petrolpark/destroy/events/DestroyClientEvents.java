@@ -12,6 +12,7 @@ import com.petrolpark.destroy.client.gui.button.OpenDestroyMenuButton;
 import com.petrolpark.destroy.client.gui.screen.CustomExplosiveScreen;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.item.ICustomExplosiveMixItem;
+import com.petrolpark.destroy.item.SeismographItem;
 import com.petrolpark.destroy.item.SwissArmyKnifeItem;
 import com.petrolpark.destroy.item.renderer.SeismometerItemRenderer;
 import com.petrolpark.destroy.item.tooltip.ExplosivePropertiesTooltip;
@@ -30,13 +31,18 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderItemInFrameEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.event.ViewportEvent.ComputeFogColor;
@@ -104,6 +110,22 @@ public class DestroyClientEvents {
 
     public static boolean smogEnabled() {
         return PollutionHelper.pollutionEnabled() && DestroyAllConfigs.SERVER.pollution.smog.get();
+    };
+
+    /** 
+     * Render Seismographs like normal Items rather than Maps.
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onRenderItemInFrame(RenderItemInFrameEvent event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.getItem() instanceof SeismographItem) {
+            ItemFrame frame = event.getItemFrameEntity();
+            int light = frame.getType() == EntityType.GLOW_ITEM_FRAME ? 15728880 : event.getPackedLight();
+            event.getPoseStack().scale(0.5f, 0.5f, 0.5f);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, event.getPoseStack(), event.getMultiBufferSource(), frame.level(), frame.getId());
+            event.setCanceled(true);
+        };
     };
 
     /**

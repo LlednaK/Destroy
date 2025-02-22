@@ -27,7 +27,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ArmorItem.Type;
-import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -467,9 +466,9 @@ public class DestroyItems {
         .food(DestroyFoods.CHEWING_GUM)
     ).register();
 
-    public static final ItemEntry<BowlFoodItem>
+    public static final ItemEntry<StackableBowlFoodItem>
     
-    BANGERS_AND_MASH = REGISTRATE.item("bangers_and_mash", BowlFoodItem::new)
+    BANGERS_AND_MASH = REGISTRATE.item("bangers_and_mash", StackableBowlFoodItem::new)
         .properties(p -> p
             .food(DestroyFoods.BANGERS_AND_MASH)
         ).register();

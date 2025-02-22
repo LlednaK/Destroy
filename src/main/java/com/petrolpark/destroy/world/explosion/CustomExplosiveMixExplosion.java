@@ -65,6 +65,7 @@ public class CustomExplosiveMixExplosion extends SmartExplosion {
     protected static CustomExplosiveMixExplosion create(Level level, ExplosiveProperties properties, List<ItemStack> specialItems, @Nullable Entity source, Vec3 position) {
         float oxygenBalance = Math.abs(properties.get(ExplosiveProperty.OXYGEN_BALANCE).value) / 10f;
         if (properties.fulfils(ExplosiveProperties.DROPS_HEADS)) source = new DummyChargedCreeper(level, source);
+        
         return new CustomExplosiveMixExplosion(level, properties, specialItems, source, null, new DamageCalculator(properties), position, (4f + (properties.get(ExplosiveProperty.ENERGY).value / 3f)) * (1f - oxygenBalance * oxygenBalance), 0.5f);
     };
 
