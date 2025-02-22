@@ -116,7 +116,6 @@ public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGo
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         inputBehaviour = new SmartFluidTankBehaviour(SmartFluidTankBehaviour.TYPE, this, 1, BUFFER_TANK_CAPACITY, false)
-            .whenFluidUpdates(this::tryInsertFluidInVat)
             .forbidExtraction();
         behaviours.add(inputBehaviour);
         //fluidCapability = LazyOptional.empty(); // Temporarily set this to an empty optional
