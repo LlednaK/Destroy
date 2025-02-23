@@ -72,11 +72,9 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
     @Override
     public void read(CompoundTag nbt, boolean clientPacket) {
         super.read(nbt, clientPacket);
-        if (quantityObserved.isPresent()) {
-            oldStrength = nbt.getInt("OldRedstoneStrength");
-            lowerThreshold = nbt.getFloat("LowerObservedQuantityThreshold");
-            upperThreshold = nbt.getFloat("UpperObservedQuantityThreshold");
-        };
+        oldStrength = nbt.getInt("OldRedstoneStrength");
+        lowerThreshold = nbt.getFloat("LowerObservedQuantityThreshold");
+        upperThreshold = nbt.getFloat("UpperObservedQuantityThreshold");
     };
 
     @Override
