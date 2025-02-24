@@ -142,7 +142,7 @@ public class DestroyReactions {
 
     BORIC_ACID_NEUTRALIZATION = builder()
         .id("boric_acid_neutralization")
-        .addReactant(DestroyMolecules.BORIC_ACID, 1, 0)
+        .addReactant(DestroyMolecules.BORIC_ACID)
         .addReactant(DestroyMolecules.HYDROXIDE)
         .addProduct(DestroyMolecules.TETRAHYDROXYBORATE)
         .reversible()
@@ -517,7 +517,7 @@ public class DestroyReactions {
 
     HYDROGEN_CYANIDE_DISSOCIATION = builder()
             .id("hydrogen_cyanide_dissociation")
-            .addReactant(DestroyMolecules.HYDROGEN_CYANIDE, 1, 0)
+            .addReactant(DestroyMolecules.HYDROGEN_CYANIDE)
             .addReactant(DestroyMolecules.HYDROXIDE)
             .addProduct(DestroyMolecules.WATER)
             .addProduct(DestroyMolecules.CYANIDE)
@@ -560,7 +560,7 @@ public class DestroyReactions {
 
     HYPOCHLOROUS_ACID_DISSOCIATION = builder()
             .id("hypochlorous_acid_dissociation")
-            .addReactant(DestroyMolecules.HYPOCHLOROUS_ACID, 1, 0)
+            .addReactant(DestroyMolecules.HYPOCHLOROUS_ACID)
             .addReactant(DestroyMolecules.HYDROXIDE)
             .addProduct(DestroyMolecules.WATER)
             .addProduct(DestroyMolecules.HYPOCHLORITE)
