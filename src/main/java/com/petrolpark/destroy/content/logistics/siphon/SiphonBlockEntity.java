@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.ibm.icu.text.DecimalFormat;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.block.entity.IHaveLabGoggleInformation;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
 import com.petrolpark.destroy.core.fluid.GeniusFluidTankBehaviour;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;

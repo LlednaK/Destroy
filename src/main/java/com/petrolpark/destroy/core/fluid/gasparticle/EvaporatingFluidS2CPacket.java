@@ -3,7 +3,6 @@ package com.petrolpark.destroy.core.fluid.gasparticle;
 import java.util.function.Supplier;
 
 import com.petrolpark.destroy.client.DestroyParticleTypes;
-import com.petrolpark.destroy.client.particle.data.GasParticleData;
 import com.petrolpark.network.packet.S2CPacket;
 import com.simibubi.create.foundation.utility.VecHelper;
 

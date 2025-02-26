@@ -6,11 +6,16 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Map.Entry;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockItem.ItemStackRedstoneProgram;
 import com.simibubi.create.foundation.utility.WorldAttached;
 
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class RedstoneProgrammerItemHandler {
 
     public static final WorldAttached<Map<UUID, ItemStackRedstoneProgram>> programs = new WorldAttached<>(level -> new HashMap<>());
@@ -27,6 +32,11 @@ public class RedstoneProgrammerItemHandler {
                 iterator.remove();
             };
         };
+    };
+
+    @SubscribeEvent
+    public static final void onLevelTick(TickEvent.LevelTickEvent event) {
+        tick(event.level);
     };
     
 };

@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.DestroyClient;
 import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
@@ -44,7 +46,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT, modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 @MoveToPetrolparkLibrary
 public class ExtendedInventoryClientHandler {
 
@@ -552,7 +554,7 @@ public class ExtendedInventoryClientHandler {
         return extraGuiAreas;
     };
 
-    @EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(value = Dist.CLIENT, modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
     public static class ModBusEvents {
 
         @SubscribeEvent
@@ -564,6 +566,22 @@ public class ExtendedInventoryClientHandler {
 
     private static Rect2i offset(Rect2i rect, int x, int y) {
         return new Rect2i(rect.getX() + x, rect.getY() + y, rect.getWidth(), rect.getHeight());
+    };
+
+    
+    @SubscribeEvent
+    public static void onScreenInitPost(ScreenEvent.Init.Post event) {
+        DestroyClient.EXTENDED_INVENTORY_HANDLER.onOpenContainerScreen(event);
+    };
+
+    @SubscribeEvent
+    public static void onScreenRenderPre(ScreenEvent.Render.Pre event) {
+        DestroyClient.EXTENDED_INVENTORY_HANDLER.renderScreen(event);
+    };
+
+    @SubscribeEvent
+    public static void onScreenClosing(ScreenEvent.Closing event) {
+        DestroyClient.EXTENDED_INVENTORY_HANDLER.onCloseScreen(event);
     };
 
 

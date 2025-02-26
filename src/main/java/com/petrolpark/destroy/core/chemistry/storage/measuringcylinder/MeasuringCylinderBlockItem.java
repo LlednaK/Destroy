@@ -5,13 +5,13 @@ import java.util.function.Consumer;
 
 import org.joml.Vector3f;
 
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
 import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
 import com.petrolpark.destroy.core.chemistry.storage.ItemMixtureTank;
 import com.petrolpark.destroy.core.chemistry.storage.PlaceableMixtureTankItem;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankItemRenderer;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankRenderer.ISimpleMixtureTankRenderInformation;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBehaviour.ValueSettings;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBoard;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsFormatter;

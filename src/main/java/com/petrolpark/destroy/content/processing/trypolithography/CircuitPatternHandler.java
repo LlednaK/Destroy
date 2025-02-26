@@ -31,7 +31,7 @@ public class CircuitPatternHandler extends SavedData {
 
     public Random random = new Random();
     
-    public Listener RELOAD_LISTENER = new Listener();
+    public final Listener RELOAD_LISTENER = new Listener();
 
     public static final Map<String, Supplier<CircuitPatternGenerator>> GENERATOR_KEYS = new HashMap<>();
 

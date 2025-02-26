@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.recipe.ingredient.fluid.RefrigerantDummyFluidIngredient;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;

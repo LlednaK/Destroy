@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 
 import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.client.DestroyLang;
+import com.petrolpark.destroy.client.DestroyLang.TemperatureUnit;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.block.entity.IHaveLabGoggleInformation;
 import com.petrolpark.destroy.core.chemistry.vat.material.VatMaterial;
@@ -18,8 +20,6 @@ import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMon
 import com.petrolpark.destroy.core.chemistry.vat.uv.IUVLampBlock;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.util.DestroyLang.TemperatureUnit;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;
 import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;

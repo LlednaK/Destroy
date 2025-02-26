@@ -1,4 +1,4 @@
-package com.petrolpark.destroy.util;
+package com.petrolpark.destroy.client;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

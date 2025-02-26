@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
-import com.petrolpark.destroy.util.DestroyLang;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.compat.create.item.directional.DirectionalTransportedItemStack;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 

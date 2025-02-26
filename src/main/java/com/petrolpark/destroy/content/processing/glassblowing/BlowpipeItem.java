@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
 import com.petrolpark.destroy.core.chemistry.hazard.ChemistryHazardHelper;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.ScreenOpener;

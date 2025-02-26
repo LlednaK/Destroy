@@ -15,7 +15,6 @@ import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
 import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 import com.petrolpark.destroy.client.DestroyParticleTypes;
-import com.petrolpark.destroy.client.particle.data.GasParticleData;
 import com.petrolpark.destroy.content.logistics.siphon.SiphonBlockEntity;
 import com.petrolpark.destroy.content.processing.ageing.AgeingBarrelBlockEntity;
 import com.petrolpark.destroy.content.processing.ageing.AgingBarrelBlock;
@@ -25,6 +24,7 @@ import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEnti
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntity;
 import com.petrolpark.destroy.content.processing.treetap.BlockTapping;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapBlockEntity;
+import com.petrolpark.destroy.core.fluid.gasparticle.GasParticleData;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.contraptions.chassis.StickerBlock;
 import com.simibubi.create.content.contraptions.chassis.StickerBlockEntity;

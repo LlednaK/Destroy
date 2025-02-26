@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.EvictingQueue;
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 
 import net.minecraft.core.BlockPos;
@@ -16,13 +17,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class PlayerPreviousPositionsCapability {
 
     public static final Capability<PlayerPreviousPositionsCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<PlayerPreviousPositionsCapability>() {});
@@ -114,6 +120,15 @@ public class PlayerPreviousPositionsCapability {
             createPlayerPreviousPositions().loadNBTData(tag);
         };
         
-    }
+    };
+
+    @SubscribeEvent
+    public static final void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (!player.level().isClientSide()) player.getCapability(PlayerPreviousPositionsCapability.CAPABILITY).ifPresent((playerPreviousPositions -> {
+            playerPreviousPositions.incrementTickCounter();
+            if (playerPreviousPositions.hasBeenSecond()) playerPreviousPositions.recordPosition(player.blockPosition());
+        }));
+    };
     
-}
+};

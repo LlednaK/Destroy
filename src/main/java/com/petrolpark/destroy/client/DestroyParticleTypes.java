@@ -3,12 +3,12 @@ package com.petrolpark.destroy.client;
 import java.util.function.Supplier;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.client.particle.data.BoilingFluidBubbleParticleData;
-import com.petrolpark.destroy.client.particle.data.GasParticleData;
 import com.petrolpark.destroy.content.confetti.ConfettoParticleData;
 import com.petrolpark.destroy.core.chemistry.hazard.mobeffect.TearParticle;
 import com.petrolpark.destroy.core.fluid.RainParticle;
 import com.petrolpark.destroy.core.fluid.TintedSplashParticle;
+import com.petrolpark.destroy.core.fluid.gasparticle.BoilingFluidBubbleParticleData;
+import com.petrolpark.destroy.core.fluid.gasparticle.GasParticleData;
 import com.simibubi.create.foundation.particle.ICustomParticleData;
 import com.simibubi.create.foundation.utility.Lang;
 

@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ImmutableList;
 import com.petrolpark.destroy.MoveToPetrolparkLibrary;
-import com.petrolpark.destroy.util.DestroyLang;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;

@@ -9,8 +9,11 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
+import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.util.DestroyReloadListener;
+import com.simibubi.create.foundation.utility.Iterate;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,14 +24,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
+import net.minecraftforge.event.level.BlockEvent.EntityPlaceEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class PeriodicTableBlock extends HorizontalDirectionalBlock {
 
     public static Set<PeriodicTableEntry> ELEMENTS = new HashSet<>();
@@ -123,7 +132,35 @@ public class PeriodicTableBlock extends HorizontalDirectionalBlock {
         public void afterReload() {
             try {DestroyMessages.sendToAllClients(new RefreshPeriodicTablePonderSceneS2CPacket());} catch (Throwable e) {};
         };
+    };
 
+    /**
+     * Reward the Player with an advancement for assembling a full periodic table.
+     */
+    @SubscribeEvent
+    public static void onEntityPlace(EntityPlaceEvent event) {
+        BlockState state = event.getPlacedBlock();
+        Level level = event.getEntity().level();
+
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            // Periodic Table advancement
+            if (PeriodicTableBlock.isPeriodicTableBlock(state)) {
+                int[] thisPos = PeriodicTableBlock.getXY(state.getBlock());
+                for (Direction direction : Iterate.horizontalDirections) {
+                    boolean allPresent = true;
+                    checkEachBlock: for (PeriodicTableEntry entry : PeriodicTableBlock.ELEMENTS) {
+                        if (!entry.blocks().contains(level.getBlockState(event.getPos().offset(PeriodicTableBlock.relative(thisPos, new int[]{entry.x(), entry.y()}, direction))).getBlock())) {
+                            allPresent = false;
+                            break checkEachBlock;
+                        };
+                    };
+                    if (allPresent) {
+                        DestroyAdvancementTrigger.PERIODIC_TABLE.award(level, serverPlayer);
+                        return;
+                    };
+                };
+            };
+        };
 
     };
     

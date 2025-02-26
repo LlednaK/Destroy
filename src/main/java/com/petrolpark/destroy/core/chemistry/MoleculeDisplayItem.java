@@ -10,10 +10,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpeciesTag;
+import com.petrolpark.destroy.client.DestroyLang;
+import com.petrolpark.destroy.client.DestroyLang.TemperatureUnit;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.item.tooltip.DestroyTooltipComponent;
-import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.util.DestroyLang.TemperatureUnit;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;

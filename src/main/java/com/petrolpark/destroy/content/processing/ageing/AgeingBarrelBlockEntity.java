@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.DestroySoundEvents;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;

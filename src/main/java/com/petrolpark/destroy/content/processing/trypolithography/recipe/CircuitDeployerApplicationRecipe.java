@@ -3,30 +3,38 @@ package com.petrolpark.destroy.content.processing.trypolithography.recipe;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
 import com.petrolpark.destroy.mixin.accessor.ProcessingRecipeAccessor;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
+import com.simibubi.create.content.kinetics.deployer.DeployerRecipeSearchEvent;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeFactory;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class CircuitDeployerApplicationRecipe extends DeployerApplicationRecipe implements IConfersCircuitPatternRecipe {
 
     private final boolean example;
@@ -168,6 +176,19 @@ public class CircuitDeployerApplicationRecipe extends DeployerApplicationRecipe 
             return newStack;
         };
 
+    };
+
+    @SubscribeEvent
+    public static void onDeployerRecipeSearch(DeployerRecipeSearchEvent event) {
+        RecipeWrapper inv = event.getInventory();
+
+        // Circuit deployer application
+        if (inv.hasAnyMatching(stack -> stack.getItem() instanceof CircuitPatternItem)) {
+            Recipe<?> recipe = event.getRecipe() instanceof CircuitDeployerApplicationRecipe ? event.getRecipe() : null;
+            if (recipe == null) recipe = DestroyRecipeTypes.CIRCUIT_DEPLOYING.find(event.getInventory(), event.getBlockEntity().getLevel()).orElse(null);
+            if (recipe == null) recipe = SequencedAssemblyRecipe.getRecipe(event.getBlockEntity().getLevel(), event.getInventory(), DestroyRecipeTypes.CIRCUIT_DEPLOYING.getType(), CircuitDeployerApplicationRecipe.class).orElse(null);
+            if (recipe != null && recipe instanceof CircuitDeployerApplicationRecipe circuitRecipe) event.addRecipe(() -> Optional.of(circuitRecipe.specify(inv)), 150);
+        };
     };
     
 };

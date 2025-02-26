@@ -2,9 +2,9 @@ package com.petrolpark.destroy.core.pollution.pollutometer;
 
 import java.util.List;
 
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.pollution.PollutometerBlock;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;

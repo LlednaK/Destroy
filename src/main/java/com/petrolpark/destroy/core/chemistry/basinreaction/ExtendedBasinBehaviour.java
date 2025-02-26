@@ -3,9 +3,11 @@ package com.petrolpark.destroy.core.chemistry.basinreaction;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
 import com.petrolpark.destroy.chemistry.legacy.ReactionResult;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
+import com.simibubi.create.api.event.BlockEntityBehaviourEvent;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -18,8 +20,11 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class ExtendedBasinBehaviour extends BlockEntityBehaviour {
 
     public static final BehaviourType<ExtendedBasinBehaviour> TYPE = new BehaviourType<>();
@@ -112,5 +117,10 @@ public class ExtendedBasinBehaviour extends BlockEntityBehaviour {
         evaporatedFluid.writeToNBT(fluidTag);
         nbt.put("EvaporatedFluid", fluidTag);
 	};
+
+    @SubscribeEvent
+    public static void onAttachBasinBehaviours(BlockEntityBehaviourEvent<BasinBlockEntity> event) {
+        event.attach(new ExtendedBasinBehaviour(event.getBlockEntity()));
+    };
     
 };

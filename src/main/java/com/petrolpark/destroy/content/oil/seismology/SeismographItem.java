@@ -5,26 +5,36 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.Iterate;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderItemInFrameEvent;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(value = Dist.CLIENT, modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class SeismographItem extends MapItem {
 
     public SeismographItem(Properties properties) {
@@ -240,6 +250,22 @@ public class SeismographItem extends MapItem {
 
     public static int mapChunkLowerCorner(int chunkCoordinate) {
         return mapChunkCenter(chunkCoordinate) - 4;
+    };
+
+    /** 
+     * Render Seismographs like normal Items rather than Maps.
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onRenderItemInFrame(RenderItemInFrameEvent event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.getItem() instanceof SeismographItem) {
+            ItemFrame frame = event.getItemFrameEntity();
+            int light = frame.getType() == EntityType.GLOW_ITEM_FRAME ? 15728880 : event.getPackedLight();
+            event.getPoseStack().scale(0.5f, 0.5f, 0.5f);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, event.getPoseStack(), event.getMultiBufferSource(), frame.level(), frame.getId());
+            event.setCanceled(true);
+        };
     };
     
 };

@@ -2,9 +2,9 @@ package com.petrolpark.destroy.content.processing.glassblowing;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.petrolpark.destroy.client.DestroyFluidRenderer;
 import com.petrolpark.destroy.client.DestroyItemDisplayContexts;
 import com.petrolpark.destroy.content.processing.glassblowing.GlassblowingRecipe.BlowingShape;
-import com.petrolpark.destroy.util.DestroyFluidRenderer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
 import net.minecraft.client.Minecraft;

@@ -20,8 +20,8 @@ import com.petrolpark.destroy.chemistry.legacy.index.DestroyGroupTypes;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
 import com.petrolpark.destroy.chemistry.naming.INameableProduct;
 import com.petrolpark.destroy.chemistry.serializer.Branch;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.chemistry.MoleculeRenderer;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.utility.Pair;
 
 import net.minecraft.client.resources.language.I18n;

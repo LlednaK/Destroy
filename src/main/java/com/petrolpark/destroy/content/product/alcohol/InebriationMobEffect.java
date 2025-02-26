@@ -1,9 +1,11 @@
 package com.petrolpark.destroy.content.product.alcohol;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.MoveToPetrolparkLibrary;
+import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
 
 import net.minecraft.world.effect.MobEffectCategory;
@@ -11,8 +13,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.level.SleepFinishedTimeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @MoveToPetrolparkLibrary
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class InebriationMobEffect extends UncurableMobEffect {
     
     public InebriationMobEffect() {
@@ -45,4 +51,18 @@ public class InebriationMobEffect extends UncurableMobEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     };
-}
+
+    // Give hangovers when waking up
+    @SubscribeEvent
+    public static void onSleepFinished(SleepFinishedTimeEvent event) {
+        for (Player player : event.getLevel().players()) {
+            if (!player.isSleeping()) continue;
+            MobEffectInstance effect = player.getEffect(DestroyMobEffects.INEBRIATION.get());
+            if (effect != null) {
+                player.addEffect(new MobEffectInstance(DestroyMobEffects.HANGOVER.get(), DestroyAllConfigs.SERVER.substances.hangoverDuration.get() * (effect.getAmplifier() + 1)));
+                player.removeEffect(DestroyMobEffects.INEBRIATION.get());
+                DestroyAdvancementTrigger.HANGOVER.award(player.level(), player);
+            };
+        };
+    };
+};

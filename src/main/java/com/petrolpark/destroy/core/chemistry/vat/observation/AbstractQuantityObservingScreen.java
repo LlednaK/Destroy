@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
-import com.petrolpark.destroy.util.DestroyLang;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;

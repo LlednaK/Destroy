@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.DestroyTags.Items;
 import com.petrolpark.destroy.chemistry.legacy.LegacyElement;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
+import com.petrolpark.destroy.client.DestroyLang;
+import com.petrolpark.destroy.config.DestroySubstancesConfigs;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
+import com.petrolpark.destroy.core.pollution.PollutionHelper;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,8 +28,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+@EventBusSubscriber(modid = Destroy.MOD_ID)
 public class ChemistryHazardHelper {
   
     /**
@@ -144,6 +157,43 @@ public class ChemistryHazardHelper {
 
         static {
             NOSE.registerTest(le -> le.hasEffect(DestroyMobEffects.FRAGRANCE.get()));
+        };
+    };
+
+    // Give cancer if unprotected in direct sunlight
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (player.level().canSeeSky(player.blockPosition()) && !player.hasEffect(DestroyMobEffects.SUN_PROTECTION.get()) && player.getRandom().nextInt(PollutionType.OZONE_DEPLETION.max * 600) < PollutionHelper.getPollution(player.level(), player.blockPosition(), PollutionType.OZONE_DEPLETION)) player.addEffect(DestroyMobEffects.cancerInstance());
+    };
+
+    /**
+     * Prevent eating if protective headwear is worn.
+     */
+    @SubscribeEvent
+    public static void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        ItemStack stack = event.getItemStack();
+        Player player = event.getEntity();
+
+        if (stack.isEdible()) {
+            if (DestroySubstancesConfigs.babyBlueEnabled() && stack.getItem() != DestroyItems.BABY_BLUE_POWDER.get() && player.hasEffect(DestroyMobEffects.BABY_BLUE_WITHDRAWAL.get()) && !stack.getFoodProperties(player).canAlwaysEat()) {
+                player.displayClientMessage(DestroyLang.translate("tooltip.eating_prevented.baby_blue").component(), true);
+                event.setCanceled(true);
+            };
+        };
+    };
+
+    /**
+     * Damage entities with the effects of chemicals if they take off contaminated armor without washing it first.
+     * @param event
+     */
+    @SubscribeEvent
+    public static final void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
+        if (event.getSlot() == EquipmentSlot.MAINHAND || event.getSlot() == EquipmentSlot.OFFHAND || !event.getFrom().hasTag()) return;
+        CompoundTag tag = event.getFrom().getTag();
+        if (tag.contains("ContaminatingFluid", Tag.TAG_COMPOUND)) {
+            ChemistryHazardHelper.damage(event.getEntity().level(), event.getEntity(), FluidStack.loadFluidStackFromNBT(tag.getCompound("ContaminatingFluid")), true);
+            ChemistryHazardHelper.decontaminate(event.getFrom());
         };
     };
 };

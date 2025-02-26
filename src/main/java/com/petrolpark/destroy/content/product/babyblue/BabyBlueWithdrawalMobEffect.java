@@ -4,9 +4,9 @@ import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.DestroyMobEffects;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
-import com.petrolpark.destroy.util.DestroyLang;
 
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -52,7 +52,7 @@ public class BabyBlueWithdrawalMobEffect extends UncurableMobEffect {
     };
 
     @SubscribeEvent
-    public static void onPlayerRightClick(PlayerInteractEvent.RightClickItem event) {
+    public static void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ItemStack stack = event.getItemStack();
         Player player = event.getEntity();
 

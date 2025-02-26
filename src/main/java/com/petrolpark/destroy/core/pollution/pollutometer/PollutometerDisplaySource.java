@@ -3,8 +3,8 @@ package com.petrolpark.destroy.core.pollution.pollutometer;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
+import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
-import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.source.PercentOrProgressBarDisplaySource;
 
