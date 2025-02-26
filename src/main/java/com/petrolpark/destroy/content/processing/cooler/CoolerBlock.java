@@ -6,6 +6,7 @@ import com.petrolpark.destroy.DestroyShapes;
 import com.petrolpark.destroy.content.processing.cooler.CoolerBlockEntity.ColdnessLevel;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllShapes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
@@ -31,7 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CoolerBlock extends Block implements IBE<CoolerBlockEntity> {
+public class CoolerBlock extends Block implements IBE<CoolerBlockEntity>, IWrenchable {
 
     public static final EnumProperty<ColdnessLevel> COLD_LEVEL = EnumProperty.create("breeze", ColdnessLevel.class);
 

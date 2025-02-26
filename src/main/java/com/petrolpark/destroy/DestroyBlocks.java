@@ -2,6 +2,8 @@ package com.petrolpark.destroy;
 
 import static com.petrolpark.destroy.Destroy.REGISTRATE;
 import static com.simibubi.create.AllTags.forgeItemTag;
+import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
+import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 import com.petrolpark.destroy.config.DestroyAllConfigs;
@@ -115,7 +117,7 @@ public class DestroyBlocks {
     // BLOCK ENTITIES
 
     public static final BlockEntry<AgingBarrelBlock> AGING_BARREL = REGISTRATE.block("aging_barrel", AgingBarrelBlock::new)
-        .initialProperties(SharedProperties::stone)
+        .initialProperties(SharedProperties::wooden)
         .properties(p -> p
             .mapColor(MapColor.COLOR_BROWN)
             .noOcclusion()
@@ -168,6 +170,7 @@ public class DestroyBlocks {
 
     public static final BlockEntry<ColorimeterBlock> COLORIMETER = REGISTRATE.block("colorimeter", ColorimeterBlock::new)
         .initialProperties(() -> Blocks.OBSERVER)
+        .transform(TagGen.pickaxeOnly())
         .onRegister(AllDisplayBehaviours.assignDataBehaviour(new ColorimeterBlockEntity.ColorimeterDisplaySource()))
         .item()
         .build()
@@ -241,7 +244,8 @@ public class DestroyBlocks {
         .initialProperties(SharedProperties::softMetal)
         .properties(p -> p
             .noCollission()
-        ).item()
+        ).transform(TagGen.pickaxeOnly())
+        .item()
         .transform(customItemModel())
         .register();
 
@@ -249,7 +253,8 @@ public class DestroyBlocks {
         .initialProperties(SharedProperties::softMetal)
         .properties(p -> p
             .noOcclusion()
-        ).item(AssemblyOperatorBlockItem::new)
+        ).transform(TagGen.axeOrPickaxe())
+        .item(AssemblyOperatorBlockItem::new)
         .transform(customItemModel())
         .register();
 
@@ -337,7 +342,8 @@ public class DestroyBlocks {
         .initialProperties(AllBlocks.FLUID_TANK)
         .properties(p -> p
             .mapColor(MapColor.METAL)
-        ).item()
+        ).transform(TagGen.pickaxeOnly())
+        .item()
         .build()
         .register();
 
@@ -351,6 +357,7 @@ public class DestroyBlocks {
 
     public static final BlockEntry<TreeTapBlock> TREE_TAP = REGISTRATE.block("tree_tap", TreeTapBlock::new)
         .initialProperties(AllBlocks.DEPLOYER)
+        .transform(TagGen.axeOrPickaxe())
         .item()
         .build()
         .register();
@@ -365,6 +372,7 @@ public class DestroyBlocks {
         ).onRegister(AllDisplayBehaviours.assignDataBehaviour(VatControllerBlockEntity.ALL_DISPLAY_SOURCE, "vat_controller_all_contents"))
         .onRegister(AllDisplayBehaviours.assignDataBehaviour(VatControllerBlockEntity.SOLUTION_DISPLAY_SOURCE, "vat_controller_solution_contents"))
         .onRegister(AllDisplayBehaviours.assignDataBehaviour(VatControllerBlockEntity.GAS_DISPLAY_SOURCE, "vat_controller_gas_contents"))
+        .transform(TagGen.pickaxeOnly())
         .item()
         .build()
         .register();
@@ -390,7 +398,8 @@ public class DestroyBlocks {
             .mapColor(MapColor.COLOR_PURPLE)
             .sound(SoundType.GLASS)
             .forceSolidOn()
-        ).item()
+        ).transform(TagGen.pickaxeOnly())
+        .item()
         .build()
         .register();
 
@@ -466,6 +475,7 @@ public class DestroyBlocks {
         .properties(p -> p
             .strength(40f, 800f)
         ).transform(TagGen.pickaxeOnly())
+        .tag(BlockTags.NEEDS_IRON_TOOL)
         .tag(DestroyTags.Blocks.ARC_FURNACE_TRANSFORMABLE.tag)
         .transform(TagGen.tagBlockAndItem("storage_blocks/carbon_fiber"))
         .tag(Tags.Items.STORAGE_BLOCKS)
@@ -624,7 +634,10 @@ public class DestroyBlocks {
             .sound(SoundType.METAL)
             .strength(7f, 8f)
         ).transform(TagGen.pickaxeOnly())
-        .transform(BuilderTransformers.casing(() -> DestroySpriteShifts.STAINLESS_STEEL_BLOCK))
+        .properties(p -> p.sound(SoundType.COPPER))
+        .blockstate((c, p) -> p.simpleBlock(c.get()))
+        .onRegister(connectedTextures(() -> new EncasedCTBehaviour(DestroySpriteShifts.STAINLESS_STEEL_BLOCK)))
+        .onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, DestroySpriteShifts.STAINLESS_STEEL_BLOCK)))
         .tag(BlockTags.NEEDS_STONE_TOOL)
         .tag(Tags.Blocks.STORAGE_BLOCKS)
         .tag(BlockTags.BEACON_BASE_BLOCKS)
@@ -899,6 +912,7 @@ public class DestroyBlocks {
 
     CHROMIUM_PERIODIC_TABLE_BLOCK = REGISTRATE.block("chromium_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(CHROMIUM_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/chromium"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/chromium"))
@@ -907,6 +921,7 @@ public class DestroyBlocks {
 
     IRON_PERIODIC_TABLE_BLOCK = REGISTRATE.block("iron_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, Tags.Blocks.STORAGE_BLOCKS_IRON)
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS_IRON)
@@ -915,6 +930,7 @@ public class DestroyBlocks {
 
     NICKEL_PERIODIC_TABLE_BLOCK = REGISTRATE.block("nickel_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(NICKEL_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/nickel"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/nickel"))
@@ -923,6 +939,7 @@ public class DestroyBlocks {
 
     COPPER_PERIODIC_TABLE_BLOCK = REGISTRATE.block("copper_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(() -> Blocks.COPPER_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, Tags.Blocks.STORAGE_BLOCKS_COPPER)
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS_COPPER)
@@ -931,6 +948,7 @@ public class DestroyBlocks {
 
     ZINC_PERIODIC_TABLE_BLOCK = REGISTRATE.block("zinc_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(AllBlocks.ZINC_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/zinc"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/zinc"))
@@ -939,6 +957,7 @@ public class DestroyBlocks {
 
     RHODIUM_PERIODIC_TABLE_BLOCK = REGISTRATE.block("rhodium_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(RHODIUM_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/rhodium"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/rhodium"))
@@ -947,6 +966,7 @@ public class DestroyBlocks {
 
     PALLADIUM_PERIODIC_TABLE_BLOCK = REGISTRATE.block("palladium_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(PALLADIUM_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/palladium"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/palladium"))
@@ -955,6 +975,7 @@ public class DestroyBlocks {
 
     IODINE_PERIODIC_TABLE_BLOCK = REGISTRATE.block("iodine_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(IODINE_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/iodine"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/iodine"))
@@ -963,6 +984,7 @@ public class DestroyBlocks {
 
     PLATINUM_PERIODIC_TABLE_BLOCK = REGISTRATE.block("platinum_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(CHROMIUM_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/platinum"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/platinum"))
@@ -971,6 +993,7 @@ public class DestroyBlocks {
 
     GOLD_PERIODIC_TABLE_BLOCK = REGISTRATE.block("gold_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(() -> Blocks.GOLD_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, Tags.Blocks.STORAGE_BLOCKS_GOLD)
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS_GOLD)
@@ -990,6 +1013,7 @@ public class DestroyBlocks {
 
     LEAD_PERIODIC_TABLE_BLOCK = REGISTRATE.block("lead_periodic_table_block", PeriodicTableBlock::new)
         .initialProperties(CHROMIUM_BLOCK)
+        .transform(TagGen.pickaxeOnly())
         .tag(Tags.Blocks.STORAGE_BLOCKS, AllTags.forgeBlockTag("storage_blocks/lead"))
         .item(PeriodicTableBlockItem::new)
         .tag(Tags.Items.STORAGE_BLOCKS, forgeItemTag("storage_blocks/lead"))
@@ -1052,6 +1076,7 @@ public class DestroyBlocks {
     PLYWOOD = REGISTRATE.block("plywood", FlippableRotatedPillarBlock::new)
         .properties(p -> p
             .mapColor(MapColor.WOOD)
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(4.0f, 6.0f)
         ).tag(BlockTags.MINEABLE_WITH_AXE, BlockTags.PLANKS)
@@ -1063,6 +1088,7 @@ public class DestroyBlocks {
     UNVARNISHED_PLYWOOD = REGISTRATE.block("unvarnished_plywood", FlippableRotatedPillarBlock::new)
         .properties(p -> p
             .mapColor(MapColor.WOOD)
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(3.0f, 5.0f)
             .ignitedByLava()

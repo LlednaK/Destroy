@@ -1,7 +1,6 @@
 package com.petrolpark.destroy.core.pollution.catalyticconverter;
 
-import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;
@@ -16,7 +15,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CatalyticConverterBlock extends DirectionalBlock implements IBE<CatalyticConverterBlockEntity> {
+public class CatalyticConverterBlock extends DirectionalBlock implements IBE<CatalyticConverterBlockEntity>, IWrenchable {
 
     public CatalyticConverterBlock(Properties properties) {
         super(properties);
