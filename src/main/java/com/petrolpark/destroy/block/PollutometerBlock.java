@@ -3,6 +3,7 @@ package com.petrolpark.destroy.block;
 import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.block.entity.PollutometerBlockEntity;
 import com.petrolpark.destroy.block.shape.DestroyShapes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PollutometerBlock extends Block implements IBE<PollutometerBlockEntity> {
+public class PollutometerBlock extends Block implements IBE<PollutometerBlockEntity>, IWrenchable {
 
     public static final DirectionProperty DIRECTION = BlockStateProperties.HORIZONTAL_FACING;
 

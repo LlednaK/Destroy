@@ -457,6 +457,7 @@ public class DestroyItems {
             .food(DestroyFoods.MASHED_POTATO)
         ).register(),
     EMPTY_CARTON = REGISTRATE.item("empty_carton", Item::new)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register();
 
     public static final ItemEntry<ChewingGumItem>
@@ -479,7 +480,8 @@ public class DestroyItems {
         .properties(p -> p
             .food(DestroyFoods.APPLE_JUICE)
             .craftRemainder(EMPTY_CARTON.get())
-        ).register();
+        ).tag(AllItemTags.UPRIGHT_ON_BELT.tag)
+        .register();
 
     public static final ItemEntry<MilkCartonItem>
 
@@ -487,7 +489,8 @@ public class DestroyItems {
         .properties(p -> p
             .food(DestroyFoods.MILK_CARTON)
             .craftRemainder(EMPTY_CARTON.get())
-        ).register();
+        ).tag(AllItemTags.UPRIGHT_ON_BELT.tag)
+        .register();
 
     public static final ItemEntry<AlcoholicDrinkItem>
 
@@ -497,6 +500,7 @@ public class DestroyItems {
             .craftRemainder(Items.GLASS_BOTTLE)
             .stacksTo(16)
         ).tag(DestroyItemTags.ALCOHOLIC_DRINKS.tag)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register(),
     MOONSHINE_BOTTLE = REGISTRATE.item("moonshine_bottle", p -> new AlcoholicDrinkItem(p, 3))
         .properties(p -> p
@@ -504,6 +508,7 @@ public class DestroyItems {
             .craftRemainder(Items.GLASS_BOTTLE)
             .stacksTo(16)
         ).tag(DestroyItemTags.ALCOHOLIC_DRINKS.tag)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register();
     
     public static final ItemEntry<ChorusWineItem>
@@ -514,6 +519,7 @@ public class DestroyItems {
             .craftRemainder(Items.GLASS_BOTTLE)
             .stacksTo(16)
         ).tag(DestroyItemTags.ALCOHOLIC_DRINKS.tag)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register();
 
     // SEQUENCED ASSEMBLY INTERMEDIATES
@@ -709,8 +715,10 @@ public class DestroyItems {
     MESH = REGISTRATE.item("mesh", Item::new)
         .register(),
     TEAR_BOTTLE = REGISTRATE.item("tear_bottle", Item::new)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register(),
     URINE_BOTTLE = REGISTRATE.item("urine_bottle", Item::new)
+        .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
         .register(),
     VOLTAIC_PILE = REGISTRATE.item("voltaic_pile", Item::new)
         .tag(DestroyItemTags.LIABLE_TO_CHANGE.tag)

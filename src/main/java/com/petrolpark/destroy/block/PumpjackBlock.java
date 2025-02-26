@@ -9,6 +9,7 @@ import com.petrolpark.destroy.block.IPumpjackStructuralBlock.Component;
 import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.block.entity.PumpjackBlockEntity;
 import com.petrolpark.destroy.block.shape.DestroyShapes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -17,7 +18,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,12 +33,17 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PumpjackBlock extends HorizontalDirectionalBlock implements IBE<PumpjackBlockEntity> {
+public class PumpjackBlock extends HorizontalDirectionalBlock implements IBE<PumpjackBlockEntity>, IWrenchable {
 
     public PumpjackBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
     };
+
+    @Override
+    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+        return InteractionResult.FAIL;
+    }
 
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
