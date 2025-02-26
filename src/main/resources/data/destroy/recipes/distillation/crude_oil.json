@@ -13,7 +13,7 @@
             "nbt": {
                 "Mixture": {
                     "TranslationKey": "fluid.destroy.molten_sulfur",
-                    "Temperature": "388",
+                    "Temperature": 388,
                     "Contents": [
                         {
                             "Molecule": "destroy:octasulfur",
@@ -29,7 +29,7 @@
             "nbt": {
                 "Mixture": {
                     "TranslationKey": "fluid.destroy.mixed_xylenes",
-                    "Temperature": "388",
+                    "Temperature": 388,
                     "Contents": [
                         {
                             "Molecule": "destroy:paraxylene",
