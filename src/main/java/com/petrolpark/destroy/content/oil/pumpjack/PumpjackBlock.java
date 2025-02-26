@@ -5,7 +5,10 @@ import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
-
+import com.petrolpark.destroy.DestroyBlockEntityTypes;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyShapes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -78,7 +81,7 @@ public class PumpjackBlock extends HorizontalDirectionalBlock implements IBE<Pum
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.getPumpJackShaper(Component.MIDDLE).get(state.getValue(FACING));
+        return DestroyShapes.getPumpJackShaper(IPumpjackStructuralBlock.Component.MIDDLE).get(state.getValue(FACING));
     };
 
     @Override
@@ -123,16 +126,16 @@ public class PumpjackBlock extends HorizontalDirectionalBlock implements IBE<Pum
             pos.relative(facing, 1), // 1
                 DestroyBlocks.PUMPJACK_CAM.getDefaultState()
                     .setValue(DirectionalBlock.FACING, facing.getOpposite())
-                    .setValue(IPumpjackStructuralBlock.COMPONENT, Component.BACK)
+                    .setValue(IPumpjackStructuralBlock.COMPONENT, IPumpjackStructuralBlock.Component.BACK)
                     .setValue(RotatedPillarKineticBlock.AXIS, facing.getClockWise(Axis.Y).getAxis()),
             pos.above(), // 2
                 DestroyBlocks.PUMPJACK_STRUCTURAL.getDefaultState()
                     .setValue(DirectionalBlock.FACING, Direction.DOWN)
-                    .setValue(IPumpjackStructuralBlock.COMPONENT, Component.TOP),
+                    .setValue(IPumpjackStructuralBlock.COMPONENT, IPumpjackStructuralBlock.Component.TOP),
             pos.relative(facing.getOpposite(), 1), // 3
                 DestroyBlocks.PUMPJACK_STRUCTURAL.getDefaultState()
                     .setValue(DirectionalBlock.FACING, facing)
-                    .setValue(IPumpjackStructuralBlock.COMPONENT, Component.FRONT)
+                    .setValue(IPumpjackStructuralBlock.COMPONENT, IPumpjackStructuralBlock.Component.FRONT)
         );
     };
 

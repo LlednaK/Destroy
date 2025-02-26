@@ -6,7 +6,7 @@ import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlace
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyShapes;
-import com.petrolpark.destroy.DestroyTags.Blocks;
+import com.petrolpark.destroy.DestroyTags;
 import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
 import com.petrolpark.recipe.ingredient.BlockIngredient.BlockTagIngredient;
@@ -44,7 +44,7 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
 
     public DynamoBlock(Properties properties) {
         super(properties);
-        arcFurnaceBlockIngredient = new BlockTagIngredient(Blocks.ARC_FURNACE_TRANSFORMABLE.tag);
+        arcFurnaceBlockIngredient = new BlockTagIngredient(DestroyTags.Blocks.ARC_FURNACE_TRANSFORMABLE.tag);
 
         registerDefaultState(
             defaultBlockState()

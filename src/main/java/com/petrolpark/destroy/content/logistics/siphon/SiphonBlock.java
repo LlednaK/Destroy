@@ -1,5 +1,7 @@
 package com.petrolpark.destroy.content.logistics.siphon;
 
+import com.petrolpark.destroy.DestroyBlockEntityTypes;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;
