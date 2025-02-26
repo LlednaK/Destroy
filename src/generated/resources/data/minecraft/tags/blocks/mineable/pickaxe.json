@@ -20,6 +20,7 @@
     "destroy:tree_tap",
     "destroy:vat_controller",
     "destroy:vat_side",
+    "destroy:vat_controller",
     "destroy:blacklight",
     "destroy:carbon_fiber_block",
     "destroy:fluorite_block",
