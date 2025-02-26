@@ -1,10 +1,11 @@
 {
   "values": [
     "destroy:aging_barrel",
+    "destroy:keypunch",
     "destroy:mechanical_sieve",
     "destroy:test_tube_rack",
+    "destroy:tree_tap",
     "destroy:vat_side",
-    "destroy:stainless_steel_block",
     "destroy:plywood",
     "destroy:unvarnished_plywood"
   ]

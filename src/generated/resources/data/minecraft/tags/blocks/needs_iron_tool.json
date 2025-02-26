@@ -1,6 +1,8 @@
 {
   "values": [
+    "destroy:carbon_fiber_block",
     "destroy:fluorite_block",
+    "destroy:nether_crocoite_block",
     "destroy:platinum_block",
     "destroy:fluorite_ore",
     "destroy:vat_controller",

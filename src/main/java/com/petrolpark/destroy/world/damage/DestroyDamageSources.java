@@ -1,12 +1,14 @@
 package com.petrolpark.destroy.world.damage;
 
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
+import com.petrolpark.destroy.world.explosion.SmartExplosion;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -43,6 +45,10 @@ public class DestroyDamageSources {
 
     public static DamageSource needle(Level level, Entity entity) {
         return source(DestroyDamageTypes.Keys.NEEDLE, level, entity);
+    };
+
+    public static DamageSource smartExplosion(Level level, SmartExplosion explosion) {
+        return new SmartExplosionDamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.EXPLOSION), explosion);
     };
 
     /**
