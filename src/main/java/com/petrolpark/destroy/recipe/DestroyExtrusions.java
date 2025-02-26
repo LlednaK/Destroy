@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.recipe;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.FastCoolingMoltenPillarBlock;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.content.processing.moltenblock.FastCoolingMoltenPillarBlock;
 import com.petrolpark.destroy.util.BlockExtrusion;
 
 import net.minecraft.world.level.block.Blocks;

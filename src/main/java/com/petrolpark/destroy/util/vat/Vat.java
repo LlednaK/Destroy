@@ -9,7 +9,7 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
-import com.petrolpark.destroy.block.VatControllerBlock;
+import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlock;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.foundation.utility.Pair;
@@ -33,7 +33,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * A physical Vat and the Blocks that make it up. Handling of the contents of the Vat and the actual chemistry
- * is done in {@link com.petrolpark.destroy.block.entity.VatControllerBlockEntity VatControllerBlockEntity}.
+ * is done in {@link com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity VatControllerBlockEntity}.
  */
 public class Vat {
 

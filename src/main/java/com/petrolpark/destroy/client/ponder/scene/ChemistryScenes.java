@@ -4,11 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.petrolpark.client.ponder.instruction.HighlightTagInstruction;
-import com.petrolpark.destroy.block.ColorimeterBlock;
-import com.petrolpark.destroy.block.PeriodicTableBlock;
-import com.petrolpark.destroy.block.PeriodicTableBlock.PeriodicTableEntry;
-import com.petrolpark.destroy.block.entity.BubbleCapBlockEntity;
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.client.particle.DestroyParticleTypes;
 import com.petrolpark.destroy.client.particle.data.GasParticleData;
 import com.petrolpark.destroy.client.ponder.DestroyPonderTags;
@@ -18,7 +14,11 @@ import com.petrolpark.destroy.client.ponder.instruction.SetVatPressureInstructio
 import com.petrolpark.destroy.client.ponder.instruction.SetVatSideTypeInstruction;
 import com.petrolpark.destroy.client.ponder.instruction.ThermometerInstruction;
 import com.petrolpark.destroy.client.ponder.instruction.ThermometerInstruction.ThermometerElement;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
+import com.petrolpark.destroy.content.product.periodictable.PeriodicTableBlock;
+import com.petrolpark.destroy.content.product.periodictable.PeriodicTableBlock.PeriodicTableEntry;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
+import com.petrolpark.destroy.core.chemistry.vat.observation.colorimeter.ColorimeterBlock;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 import com.simibubi.create.content.redstone.nixieTube.NixieTubeBlockEntity;

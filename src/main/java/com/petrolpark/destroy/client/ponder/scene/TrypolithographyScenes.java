@@ -1,9 +1,9 @@
 package com.petrolpark.destroy.client.ponder.scene;
 
-import com.petrolpark.destroy.block.entity.KeypunchBlockEntity;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.client.ponder.instruction.ShowCircuitPatternInstruction;
-import com.petrolpark.destroy.item.CircuitMaskItem;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitMaskItem;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlockEntity;
 import com.petrolpark.util.BinaryMatrix4x4;
 import com.simibubi.create.content.logistics.depot.EjectorBlockEntity;
 import com.simibubi.create.foundation.ponder.ElementLink;

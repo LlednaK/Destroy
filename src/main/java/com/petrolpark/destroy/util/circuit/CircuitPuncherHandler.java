@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.entity.behaviour.ICircuitPuncher;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.ICircuitPuncher;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.ponder.PonderWorld;
 import com.simibubi.create.foundation.utility.WorldHelper;

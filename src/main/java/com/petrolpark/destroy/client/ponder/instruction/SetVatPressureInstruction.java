@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.client.ponder.instruction;
 
-import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
+import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.instruction.PonderInstruction;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;

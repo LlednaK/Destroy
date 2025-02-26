@@ -3,8 +3,8 @@ package com.petrolpark.destroy.client.gui.screen;
 import java.util.List;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.petrolpark.destroy.block.entity.behaviour.RedstoneQuantityMonitorBehaviour;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMonitorBehaviour;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllGuiTextures;

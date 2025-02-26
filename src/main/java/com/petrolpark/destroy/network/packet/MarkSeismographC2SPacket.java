@@ -2,9 +2,9 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.item.SeismographItem;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph.Mark;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph.Mark;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

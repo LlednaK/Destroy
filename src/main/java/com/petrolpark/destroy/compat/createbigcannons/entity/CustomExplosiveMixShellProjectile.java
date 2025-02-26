@@ -2,7 +2,7 @@ package com.petrolpark.destroy.compat.createbigcannons.entity;
 
 import com.petrolpark.destroy.compat.createbigcannons.block.CreateBigCannonsBlocks;
 import com.petrolpark.destroy.compat.createbigcannons.block.CustomExplosiveMixShellBlock;
-import com.petrolpark.destroy.item.inventory.CustomExplosiveMixInventory;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.petrolpark.destroy.world.explosion.CustomExplosiveMixExplosion;
 import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 import com.petrolpark.destroy.world.explosion.SmartExplosion;
@@ -25,7 +25,7 @@ import rbasamoyai.createbigcannons.munitions.config.components.EntityDamagePrope
 
 public class CustomExplosiveMixShellProjectile extends FuzedBigCannonProjectile {
 
-    protected CustomExplosiveMixInventory inv;
+    protected MixedExplosiveInventory inv;
     public int color;
 
     protected CustomExplosiveMixShellProjectile(EntityType<CustomExplosiveMixShellProjectile> type, Level level) {
@@ -41,11 +41,11 @@ public class CustomExplosiveMixShellProjectile extends FuzedBigCannonProjectile 
 	@Override
 	public void readAdditionalSaveData(CompoundTag tag) {
 		super.readAdditionalSaveData(tag);
-		inv = new CustomExplosiveMixInventory(16);
+		inv = new MixedExplosiveInventory(16);
         inv.deserializeNBT(tag);
 	};
 
-    public void setExplosiveInventory(CustomExplosiveMixInventory inv) {
+    public void setExplosiveInventory(MixedExplosiveInventory inv) {
         this.inv = inv;
     };
 

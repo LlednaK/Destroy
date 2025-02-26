@@ -3,8 +3,8 @@ package com.petrolpark.destroy.world.loot.providers.number;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import com.petrolpark.destroy.capability.Pollution.PollutionType;
-import com.petrolpark.destroy.util.PollutionHelper;
+import com.petrolpark.destroy.core.pollution.PollutionHelper;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.GsonHelper;

@@ -7,11 +7,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpeciesTag;
 import com.petrolpark.destroy.client.gui.MoleculeRenderer;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.item.tooltip.DestroyTooltipComponent;
+import com.petrolpark.destroy.core.item.tooltip.DestroyTooltipComponent;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.DestroyLang.TemperatureUnit;
 

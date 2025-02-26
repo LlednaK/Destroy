@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.world.explosion;
 
-import com.petrolpark.destroy.util.DestroyTags.DestroyBlockTags;
+import com.petrolpark.destroy.DestroyTags.Blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +18,7 @@ public class AnfoExplosion extends SmartExplosion {
 
         @Override
         public boolean shouldBlockExplode(Explosion explosion, BlockGetter reader, BlockPos pos, BlockState state, float power) {
-            return (!reader.getFluidState(pos).isEmpty() || state.is(DestroyBlockTags.GANGUE.tag)) && !state.is(Tags.Blocks.ORES);
+            return (!reader.getFluidState(pos).isEmpty() || state.is(Blocks.GANGUE.tag)) && !state.is(Tags.Blocks.ORES);
         };
     };
 

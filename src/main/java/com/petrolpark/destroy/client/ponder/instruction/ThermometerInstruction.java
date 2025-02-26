@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
 import com.simibubi.create.foundation.gui.Theme;
 import com.simibubi.create.foundation.gui.element.BoxElement;
 import com.simibubi.create.foundation.ponder.PonderScene;

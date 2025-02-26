@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Map.Entry;
 
-import com.petrolpark.destroy.item.RedstoneProgrammerBlockItem.ItemStackRedstoneProgram;
+import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockItem.ItemStackRedstoneProgram;
 import com.simibubi.create.foundation.utility.WorldAttached;
 
 import net.minecraft.world.level.LevelAccessor;

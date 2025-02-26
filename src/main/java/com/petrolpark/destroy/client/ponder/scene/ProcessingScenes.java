@@ -6,23 +6,23 @@ import com.petrolpark.client.ponder.PonderPlayer;
 import com.petrolpark.client.ponder.instruction.LivingEntitySwingInstruction;
 import com.petrolpark.client.ponder.instruction.OutlineAABBInstruction;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.AgingBarrelBlock;
-import com.petrolpark.destroy.block.BubbleCapBlock;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.entity.AgingBarrelBlockEntity;
-import com.petrolpark.destroy.block.entity.BlowpipeBlockEntity;
-import com.petrolpark.destroy.block.entity.BubbleCapBlockEntity;
-import com.petrolpark.destroy.block.entity.CentrifugeBlockEntity;
-import com.petrolpark.destroy.block.entity.SiphonBlockEntity;
-import com.petrolpark.destroy.block.entity.TreeTapBlockEntity;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.legacy.LegacyMixture;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
+import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 import com.petrolpark.destroy.client.particle.DestroyParticleTypes;
 import com.petrolpark.destroy.client.particle.data.GasParticleData;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.fluid.MixtureFluid;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.content.logistics.siphon.SiphonBlockEntity;
+import com.petrolpark.destroy.content.processing.ageing.AgeingBarrelBlockEntity;
+import com.petrolpark.destroy.content.processing.ageing.AgingBarrelBlock;
+import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeBlockEntity;
+import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeBlockEntity;
+import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlock;
+import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
+import com.petrolpark.destroy.content.processing.treetap.TreeTapBlockEntity;
 import com.petrolpark.destroy.util.BlockTapping;
 import com.petrolpark.destroy.world.village.DestroyVillagers;
 import com.simibubi.create.AllItems;
@@ -113,7 +113,7 @@ public class ProcessingScenes {
             .withItem(new ItemStack(Items.WATER_BUCKET)),
             30
         );
-        scene.world.modifyBlockEntity(barrel, AgingBarrelBlockEntity.class, be -> {
+        scene.world.modifyBlockEntity(barrel, AgeingBarrelBlockEntity.class, be -> {
             be.getTank().fill(new FluidStack(Fluids.WATER, 1000), FluidAction.EXECUTE);
         });
         scene.idle(50);
@@ -121,14 +121,14 @@ public class ProcessingScenes {
         ItemStack yeast = DestroyItems.YEAST.asStack();
         scene.world.createItemEntity(util.vector.centerOf(barrel.above(2)), Vec3.ZERO, yeast);
         scene.idle(10);
-        scene.world.modifyBlockEntity(barrel, AgingBarrelBlockEntity.class, be -> {
+        scene.world.modifyBlockEntity(barrel, AgeingBarrelBlockEntity.class, be -> {
             be.inventory.insertItem(0, yeast, false);
         });
         scene.world.createItemEntity(util.vector.centerOf(barrel.above(2)), Vec3.ZERO, new ItemStack(Items.WHEAT));
         scene.idle(10);
 
         scene.world.setBlock(barrel, DestroyBlocks.AGING_BARREL.getDefaultState().setValue(AgingBarrelBlock.IS_OPEN, false), false);
-        scene.world.modifyBlockEntity(barrel, AgingBarrelBlockEntity.class, be -> {
+        scene.world.modifyBlockEntity(barrel, AgeingBarrelBlockEntity.class, be -> {
             be.inventory.clearContent();
             be.getTank().drain(1000, FluidAction.EXECUTE);
             be.getTank().fill(new FluidStack(DestroyFluids.UNDISTILLED_MOONSHINE.get(), 1000), FluidAction.EXECUTE);

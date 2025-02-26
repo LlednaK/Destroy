@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
+import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 
 import net.minecraft.core.BlockPos;

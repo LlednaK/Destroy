@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.entity.KeypunchBlockEntity;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;

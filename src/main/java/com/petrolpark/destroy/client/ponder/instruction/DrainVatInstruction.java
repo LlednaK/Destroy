@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.ponder.instruction;
 
-import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.item.IMixtureStorageItem.SinglePhaseVatExtraction;
+import com.petrolpark.destroy.DestroyBlockEntityTypes;
+import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem.SinglePhaseVatExtraction;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.instruction.PonderInstruction;
 

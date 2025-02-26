@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.entity.player.ExtendedInventoryClientHandler;
+import com.petrolpark.destroy.core.extendedinventory.ExtendedInventoryClientHandler;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;

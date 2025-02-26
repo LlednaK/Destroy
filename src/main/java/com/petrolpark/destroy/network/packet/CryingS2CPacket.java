@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.effect.DestroyMobEffects;
+import com.petrolpark.destroy.DestroyMobEffects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

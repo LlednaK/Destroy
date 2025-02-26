@@ -6,46 +6,47 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.advancement.DestroyAdvancementTrigger;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.IPickUpPutDownBlock;
-import com.petrolpark.destroy.block.MeasuringCylinderBlock;
-import com.petrolpark.destroy.block.PeriodicTableBlock;
-import com.petrolpark.destroy.block.PeriodicTableBlock.PeriodicTableEntry;
-import com.petrolpark.destroy.block.entity.behaviour.ExtendedBasinBehaviour;
-import com.petrolpark.destroy.block.entity.behaviour.PollutingBehaviour;
-import com.petrolpark.destroy.capability.Pollution;
-import com.petrolpark.destroy.capability.Pollution.PollutionType;
-import com.petrolpark.destroy.capability.chunk.ChunkCrudeOil;
-import com.petrolpark.destroy.capability.entity.EntityChemicalPoison;
-import com.petrolpark.destroy.capability.player.PlayerCrouching;
-import com.petrolpark.destroy.capability.player.PlayerNovelCompoundsSynthesized;
-import com.petrolpark.destroy.capability.player.babyblue.PlayerBabyBlueAddiction;
-import com.petrolpark.destroy.capability.player.babyblue.PlayerBabyBlueAddictionProvider;
-import com.petrolpark.destroy.capability.player.previousposition.PlayerPreviousPositions;
-import com.petrolpark.destroy.capability.player.previousposition.PlayerPreviousPositionsProvider;
-import com.petrolpark.destroy.commands.AttachedCheckCommand;
-import com.petrolpark.destroy.commands.BabyBlueAddictionCommand;
-import com.petrolpark.destroy.commands.CrudeOilCommand;
-import com.petrolpark.destroy.commands.PollutionCommand;
-import com.petrolpark.destroy.commands.RegenerateCircuitPatternCommand;
-import com.petrolpark.destroy.commands.RegenerateCircuitPatternCommand.CircuitPatternIdArgument;
+import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyAttributes;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.DestroyMobEffects;
+import com.petrolpark.destroy.DestroyTags;
+import com.petrolpark.destroy.DestroyTags.MobEffects;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
-import com.petrolpark.destroy.effect.DestroyMobEffects;
-import com.petrolpark.destroy.entity.attribute.DestroyAttributes;
-import com.petrolpark.destroy.entity.player.ExtendedInventory;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.item.BlowpipeItem;
-import com.petrolpark.destroy.item.CircuitPatternItem;
-import com.petrolpark.destroy.item.CreatineItem;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
+import com.petrolpark.destroy.content.oil.CrudeOilCommand;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph;
+import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.RegenerateCircuitPatternCommand;
+import com.petrolpark.destroy.content.processing.trypolithography.RegenerateCircuitPatternCommand.CircuitPatternIdArgument;
+import com.petrolpark.destroy.content.product.CreatineItem;
+import com.petrolpark.destroy.content.product.babyblue.BabyBlueAddictionCommand;
+import com.petrolpark.destroy.content.product.babyblue.PlayerBabyBlueAddictionCapability;
+import com.petrolpark.destroy.content.product.periodictable.PeriodicTableBlock;
+import com.petrolpark.destroy.content.product.periodictable.PeriodicTableBlock.PeriodicTableEntry;
+import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockItem;
+import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
+import com.petrolpark.destroy.core.chemistry.basinreaction.ExtendedBasinBehaviour;
+import com.petrolpark.destroy.core.chemistry.hazard.EntityChemicalPoisonCapability;
+import com.petrolpark.destroy.core.chemistry.novelcompounds.PlayerNovelCompoundsSynthesizedCapability;
+import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
+import com.petrolpark.destroy.core.chemistry.storage.MeasuringCylinderBlock;
+import com.petrolpark.destroy.core.chemistry.storage.MeasuringCylinderBlockItem;
+import com.petrolpark.destroy.core.debug.AttachedCheckCommand;
+import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory;
+import com.petrolpark.destroy.core.player.PlayerCrouchingCapability;
+import com.petrolpark.destroy.core.player.PlayerPreviousPositionsCapability;
+import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
+import com.petrolpark.destroy.core.pollution.Pollution;
+import com.petrolpark.destroy.core.pollution.PollutionCommand;
+import com.petrolpark.destroy.core.pollution.PollutionHelper;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.item.DiscStamperItem;
-import com.petrolpark.destroy.item.IMixtureStorageItem;
-import com.petrolpark.destroy.item.MeasuringCylinderBlockItem;
-import com.petrolpark.destroy.item.RedstoneProgrammerBlockItem;
-import com.petrolpark.destroy.item.SeismographItem;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.network.packet.CircuitPatternsS2CPacket;
 import com.petrolpark.destroy.network.packet.LevelPollutionS2CPacket;
@@ -61,9 +62,6 @@ import com.petrolpark.destroy.sound.DestroySoundEvents;
 import com.petrolpark.destroy.util.ChemistryDamageHelper;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.FireproofingHelper;
-import com.petrolpark.destroy.util.DestroyTags.DestroyItemTags;
-import com.petrolpark.destroy.util.DestroyTags.DestroyMobEffectTags;
-import com.petrolpark.destroy.util.PollutionHelper;
 import com.petrolpark.destroy.util.RedstoneProgrammerItemHandler;
 import com.petrolpark.destroy.util.vat.VatMaterial;
 import com.petrolpark.destroy.util.vat.VatMaterialResourceListener;
@@ -197,7 +195,7 @@ public class DestroyCommonEvents {
     public static void onAttachCapabilitiesLevel(AttachCapabilitiesEvent<Level> event) {
         Level level = event.getObject();
         if (!level.getCapability(Pollution.CAPABILITY).isPresent()) {
-            event.addCapability(Destroy.asResource("pollution"), level instanceof PonderWorld ? new Pollution.PonderProvider() : new Pollution.Level.Provider());
+            event.addCapability(Destroy.asResource("pollution"), level instanceof PonderWorld ? new Pollution.PonderCapabilityProvider() : new Pollution.Level.Provider());
         };
     };
 
@@ -206,26 +204,26 @@ public class DestroyCommonEvents {
         Entity entity = event.getObject();
         if (entity instanceof LivingEntity) {
             // Add Chemical Poison Capability
-            if (!entity.getCapability(EntityChemicalPoison.Provider.ENTITY_CHEMICAL_POISON).isPresent()) {
-                event.addCapability(Destroy.asResource("chemical_poison"), new EntityChemicalPoison.Provider());
+            if (!entity.getCapability(EntityChemicalPoisonCapability.Provider.ENTITY_CHEMICAL_POISON).isPresent()) {
+                event.addCapability(Destroy.asResource("chemical_poison"), new EntityChemicalPoisonCapability.Provider());
             };
         };
         if (event.getObject() instanceof Player player) {
             // Add Baby Blue Addiction Capability
-            if (!player.getCapability(PlayerBabyBlueAddictionProvider.PLAYER_BABY_BLUE_ADDICTION).isPresent()) {
-                event.addCapability(Destroy.asResource("baby_blue_addiction"), new PlayerBabyBlueAddictionProvider());
+            if (!player.getCapability(PlayerBabyBlueAddictionCapability.CAPABILITY).isPresent()) {
+                event.addCapability(Destroy.asResource("baby_blue_addiction"), new PlayerBabyBlueAddictionCapability.Provider());
             };
             // Add Previous Positions Capability
-            if (!player.getCapability(PlayerPreviousPositionsProvider.PLAYER_PREVIOUS_POSITIONS).isPresent()) {
-                event.addCapability(Destroy.asResource("previous_positions"), new PlayerPreviousPositionsProvider());
+            if (!player.getCapability(PlayerPreviousPositionsCapability.CAPABILITY).isPresent()) {
+                event.addCapability(Destroy.asResource("previous_positions"), new PlayerPreviousPositionsCapability.Provider());
             };
             // Add Crouching Capability
-            if (!player.getCapability(PlayerCrouching.Provider.PLAYER_CROUCHING).isPresent()) {
-                event.addCapability(Destroy.asResource("crouching"), new PlayerCrouching.Provider());
+            if (!player.getCapability(PlayerCrouchingCapability.CAPABILITY).isPresent()) {
+                event.addCapability(Destroy.asResource("crouching"), new PlayerCrouchingCapability.Provider());
             };
             // Add Novel compound Capability
-            if (!player.getCapability(PlayerNovelCompoundsSynthesized.Provider.PLAYER_NOVEL_COMPOUNDS_SYNTHESIZED).isPresent()) {
-                event.addCapability(Destroy.asResource("novel_compounds_synthesized"), new PlayerNovelCompoundsSynthesized.Provider());
+            if (!player.getCapability(PlayerNovelCompoundsSynthesizedCapability.CAPABILITY).isPresent()) {
+                event.addCapability(Destroy.asResource("novel_compounds_synthesized"), new PlayerNovelCompoundsSynthesizedCapability.Provider());
             };
         };
     };
@@ -294,7 +292,7 @@ public class DestroyCommonEvents {
         });
 
         // Clear Chorus wine info
-        player.getCapability(PlayerPreviousPositionsProvider.PLAYER_PREVIOUS_POSITIONS).ifPresent(previousPositions -> {
+        player.getCapability(PlayerPreviousPositionsCapability.CAPABILITY).ifPresent(previousPositions -> {
             previousPositions.clearPositions();
         });
     };
@@ -307,15 +305,15 @@ public class DestroyCommonEvents {
         boolean keepInv = event.getEntity().level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
         if (event.isWasDeath()) {
             // Copy Baby Blue Addiction Data
-            if (DestroyAllConfigs.SERVER.substances.keepBabyBlueAddictionOnDeath.get() || keepInv) event.getOriginal().getCapability(PlayerBabyBlueAddictionProvider.PLAYER_BABY_BLUE_ADDICTION).ifPresent(oldStore -> {
-                event.getEntity().getCapability(PlayerBabyBlueAddictionProvider.PLAYER_BABY_BLUE_ADDICTION).ifPresent(newStore -> {
+            if (DestroyAllConfigs.SERVER.substances.keepBabyBlueAddictionOnDeath.get() || keepInv) event.getOriginal().getCapability(PlayerBabyBlueAddictionCapability.CAPABILITY).ifPresent(oldStore -> {
+                event.getEntity().getCapability(PlayerBabyBlueAddictionCapability.CAPABILITY).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
 
             // Copy Novel Compound Data
-            event.getOriginal().getCapability(PlayerNovelCompoundsSynthesized.Provider.PLAYER_NOVEL_COMPOUNDS_SYNTHESIZED).ifPresent(oldStore -> {
-                event.getEntity().getCapability(PlayerNovelCompoundsSynthesized.Provider.PLAYER_NOVEL_COMPOUNDS_SYNTHESIZED).ifPresent(newStore -> {
+            event.getOriginal().getCapability(PlayerNovelCompoundsSynthesizedCapability.CAPABILITY).ifPresent(oldStore -> {
+                event.getEntity().getCapability(PlayerNovelCompoundsSynthesizedCapability.CAPABILITY).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
@@ -343,10 +341,10 @@ public class DestroyCommonEvents {
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(ChunkCrudeOil.class);
         event.register(Pollution.class);
-        event.register(PlayerBabyBlueAddiction.class);
-        event.register(PlayerPreviousPositions.class);
-        event.register(PlayerCrouching.class);
-        event.register(EntityChemicalPoison.class);
+        event.register(PlayerBabyBlueAddictionCapability.class);
+        event.register(PlayerPreviousPositionsCapability.class);
+        event.register(PlayerCrouchingCapability.class);
+        event.register(EntityChemicalPoisonCapability.class);
     };
 
     @SubscribeEvent
@@ -394,7 +392,7 @@ public class DestroyCommonEvents {
     };
 
     /**
-     * Store the Player's previous positions (for use with {@link com.petrolpark.destroy.item.ChorusWineItem Chorus Wine}),
+     * Store the Player's previous positions (for use with {@link com.petrolpark.destroy.content.product.alcohol.ChorusWineItem Chorus Wine}),
      * and check if the Player should be urinating
      */
     @SubscribeEvent
@@ -403,7 +401,7 @@ public class DestroyCommonEvents {
         Level level = player.level();
 
         // Store the positions of this player for use with Chorus Wine
-        if (!level.isClientSide()) player.getCapability(PlayerPreviousPositionsProvider.PLAYER_PREVIOUS_POSITIONS).ifPresent((playerPreviousPositions -> {
+        if (!level.isClientSide()) player.getCapability(PlayerPreviousPositionsCapability.CAPABILITY).ifPresent((playerPreviousPositions -> {
             playerPreviousPositions.incrementTickCounter();
             if (playerPreviousPositions.hasBeenSecond()) {
                 playerPreviousPositions.recordPosition(player.blockPosition());
@@ -415,19 +413,19 @@ public class DestroyCommonEvents {
         BlockState stateOn = level.getBlockState(posOn);
         boolean urinating = (stateOn.getBlock() == Blocks.WATER_CAULDRON || stateOn.getBlock() == Blocks.CAULDRON) && player.hasEffect(DestroyMobEffects.FULL_BLADDER.get());
         if (player.isCrouching()) {
-            player.getCapability(PlayerCrouching.Provider.PLAYER_CROUCHING).ifPresent(crouchingCap -> {
+            player.getCapability(PlayerCrouchingCapability.CAPABILITY).ifPresent(crouchingCap -> {
                 crouchingCap.ticksCrouching++;
                 if (urinating) {crouchingCap.ticksUrinating++;} else crouchingCap.ticksUrinating = 0;
             });
         } else {
-            player.getCapability(PlayerCrouching.Provider.PLAYER_CROUCHING).ifPresent(crouchingCap -> {
+            player.getCapability(PlayerCrouchingCapability.CAPABILITY).ifPresent(crouchingCap -> {
                 crouchingCap.ticksCrouching = 0;
                 crouchingCap.ticksUrinating = 0;
             });
         };
 
         // Enact the effects of urinating
-        int ticksUrinating = player.getCapability(PlayerCrouching.Provider.PLAYER_CROUCHING).map(crouchingCap -> crouchingCap.ticksUrinating).orElse(0);
+        int ticksUrinating = player.getCapability(PlayerCrouchingCapability.CAPABILITY).map(crouchingCap -> crouchingCap.ticksUrinating).orElse(0);
         if (ticksUrinating > 0) {
             Vec3 pos = player.position();
             if (level.isClientSide())
@@ -528,7 +526,7 @@ public class DestroyCommonEvents {
     public static void onJoinEntity(EntityJoinLevelEvent event) {
 
         // Award achievement for shooting a Hefty Beetroot
-        if (event.getEntity() instanceof PotatoProjectileEntity projectile && projectile.getOwner() instanceof ServerPlayer player && DestroyItemTags.HEFTY_BEETROOTS.matches(projectile.getItem().getItem())) {
+        if (event.getEntity() instanceof PotatoProjectileEntity projectile && projectile.getOwner() instanceof ServerPlayer player && DestroyTags.Items.HEFTY_BEETROOTS.matches(projectile.getItem().getItem())) {
             DestroyAdvancementTrigger.SHOOT_HEFTY_BEETROOT.award(player.level(), player);
         };
 
@@ -787,7 +785,7 @@ public class DestroyCommonEvents {
 
         // Failure due to infertility
         for (Mob parent : parents) {
-            if (parent.getActiveEffects().stream().anyMatch(DestroyMobEffectTags.CAUSES_INFERTILITY::matches)) {
+            if (parent.getActiveEffects().stream().anyMatch(MobEffects.CAUSES_INFERTILITY::matches)) {
                 failure = true;
                 break;
             };
@@ -834,7 +832,7 @@ public class DestroyCommonEvents {
      */
     @SubscribeEvent
     public static void onCropBonemealed(BonemealEvent event) {
-        if (!PollutionHelper.pollutionEnabled() || !DestroyAllConfigs.SERVER.pollution.growingAffected.get() || !DestroyAllConfigs.SERVER.pollution.bonemealingAffected.get() || event.getStack().is(DestroyItemTags.BONEMEAL_BYPASSES_POLLUTION.tag)) return;
+        if (!PollutionHelper.pollutionEnabled() || !DestroyAllConfigs.SERVER.pollution.growingAffected.get() || !DestroyAllConfigs.SERVER.pollution.bonemealingAffected.get() || event.getStack().is(DestroyTags.Items.BONEMEAL_BYPASSES_POLLUTION.tag)) return;
         Level level = event.getLevel();
         BlockPos pos = event.getPos();
         for (PollutionType pollutionType : new PollutionType[]{PollutionType.SMOG, PollutionType.GREENHOUSE, PollutionType.ACID_RAIN}) {

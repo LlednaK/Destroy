@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Iterator;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
 
 import net.minecraft.world.level.block.state.BlockState;

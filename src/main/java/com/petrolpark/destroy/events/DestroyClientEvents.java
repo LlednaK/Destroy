@@ -6,19 +6,19 @@ import org.apache.commons.lang3.mutable.MutableObject;
 
 import com.mojang.datafixers.util.Either;
 import com.petrolpark.destroy.DestroyClient;
-import com.petrolpark.destroy.block.renderer.BlockEntityBehaviourRenderer;
-import com.petrolpark.destroy.capability.Pollution.PollutionType;
 import com.petrolpark.destroy.client.gui.button.OpenDestroyMenuButton;
-import com.petrolpark.destroy.client.gui.screen.CustomExplosiveScreen;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.item.ICustomExplosiveMixItem;
-import com.petrolpark.destroy.item.SeismographItem;
-import com.petrolpark.destroy.item.SwissArmyKnifeItem;
-import com.petrolpark.destroy.item.renderer.SeismometerItemRenderer;
-import com.petrolpark.destroy.item.tooltip.ExplosivePropertiesTooltip;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem;
+import com.petrolpark.destroy.content.oil.seismology.SeismometerItemRenderer;
+import com.petrolpark.destroy.content.tool.swissarmyknife.SwissArmyKnifeItem;
+import com.petrolpark.destroy.core.block.entity.BlockEntityBehaviourRenderer;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosivePropertiesTooltip;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.IMixedExplosiveItem;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveScreen;
+import com.petrolpark.destroy.core.pollution.PollutionHelper;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.mixin.accessor.MenuRowsAccessor;
 import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.util.PollutionHelper;
 import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.Color;
@@ -185,9 +185,9 @@ public class DestroyClientEvents {
     public static void onGatherTooltips(RenderTooltipEvent.GatherComponents event) {
         Minecraft mc = Minecraft.getInstance();
         ExplosiveProperties properties = null;
-        if (event.getItemStack().getItem() instanceof ICustomExplosiveMixItem mixItem) {
+        if (event.getItemStack().getItem() instanceof IMixedExplosiveItem mixItem) {
             properties = mixItem.getExplosiveInventory(event.getItemStack()).getExplosiveProperties().withConditions(mixItem.getApplicableExplosionConditions());
-        } else if (mc.screen instanceof CustomExplosiveScreen) {
+        } else if (mc.screen instanceof MixedExplosiveScreen) {
             properties = ExplosiveProperties.ITEM_EXPLOSIVE_PROPERTIES.get(event.getItemStack().getItem());
         };
         if (properties != null) event.getTooltipElements().add(Either.right(new ExplosivePropertiesTooltip(properties)));

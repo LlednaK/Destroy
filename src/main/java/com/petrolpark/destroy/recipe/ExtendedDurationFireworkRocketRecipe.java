@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.DestroyItems;
-import com.petrolpark.destroy.util.DestroyTags.DestroyItemTags;
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.DestroyTags;
 import com.simibubi.create.foundation.utility.Iterate;
 
 import net.minecraft.core.NonNullList;
@@ -44,7 +44,7 @@ public class ExtendedDurationFireworkRocketRecipe extends CustomRecipe {
     };
 
     public static final Ingredient explosiveIngredient(boolean secondaryExplosive) {
-        return Ingredient.of(secondaryExplosive ? DestroyItemTags.SECONDARY_EXPLOSIVES.tag : DestroyItemTags.PRIMARY_EXPLOSIVES.tag);
+        return Ingredient.of(secondaryExplosive ? DestroyTags.Items.SECONDARY_EXPLOSIVES.tag : DestroyTags.Items.PRIMARY_EXPLOSIVES.tag);
     };
 
     @Override

@@ -1,8 +1,8 @@
 package com.petrolpark.destroy.recipe;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
-import com.petrolpark.destroy.item.DestroyItems;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.jei.ConversionRecipe;
 import com.simibubi.create.compat.jei.category.MysteriousItemConversionCategory;

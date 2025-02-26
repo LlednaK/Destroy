@@ -2,8 +2,8 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.capability.entity.EntityChemicalPoison;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
+import com.petrolpark.destroy.core.chemistry.hazard.EntityChemicalPoisonCapability;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
@@ -42,9 +42,9 @@ public class ChemicalPoisonS2CPacket extends S2CPacket {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.player != null) {
                 if (molecule == null) {
-                    EntityChemicalPoison.removeMolecule(minecraft.player);
+                    EntityChemicalPoisonCapability.removeMolecule(minecraft.player);
                 } else {
-                    EntityChemicalPoison.setMolecule(minecraft.player, molecule);
+                    EntityChemicalPoisonCapability.setMolecule(minecraft.player, molecule);
                 };
             }
         });

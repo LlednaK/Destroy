@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.entity.BlowpipeBlockEntity;
+import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeBlockEntity;
 import com.petrolpark.destroy.recipe.GlassblowingRecipe;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.recipe.RecipeFinder;

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.petrolpark.destroy.capability.entity.EntityChemicalPoison;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyMobEffects;
+import com.petrolpark.destroy.DestroyTags.Items;
 import com.petrolpark.destroy.chemistry.legacy.LegacyElement;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
-import com.petrolpark.destroy.effect.DestroyMobEffects;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.util.DestroyTags.DestroyItemTags;
+import com.petrolpark.destroy.core.chemistry.hazard.EntityChemicalPoisonCapability;
 import com.petrolpark.destroy.world.damage.DestroyDamageSources;
 
 import net.minecraft.nbt.CompoundTag;
@@ -72,7 +72,7 @@ public class ChemistryDamageHelper {
 
         // Acutely toxic Molecules
         if (toxicMolecule != null && !sensitivePartsProtected && !level.isClientSide()) {
-            EntityChemicalPoison.setMolecule(entity, toxicMolecule);
+            EntityChemicalPoisonCapability.setMolecule(entity, toxicMolecule);
             if (!entity.hasEffect(DestroyMobEffects.CHEMICAL_POISON.get())) entity.addEffect(new MobEffectInstance(DestroyMobEffects.CHEMICAL_POISON.get(), 219, 0, false, false));
         };
         
@@ -100,7 +100,7 @@ public class ChemistryDamageHelper {
     };
     
     public static void contaminate(ItemStack stack, FluidStack fluidStack) {
-        if (DestroyItemTags.CONTAMINABLE.matches(stack.getItem())) {
+        if (Items.CONTAMINABLE.matches(stack.getItem())) {
             CompoundTag tag = stack.getOrCreateTag();
             if (tag.contains("ContaminatingFluid")) return;
             CompoundTag fluidTag = new CompoundTag();
@@ -114,19 +114,19 @@ public class ChemistryDamageHelper {
     };
 
     public static enum Protection {
-        FEET(EquipmentSlot.FEET, DestroyItemTags.CHEMICAL_PROTECTION_FEET),
-        LEGS(EquipmentSlot.LEGS, DestroyItemTags.CHEMICAL_PROTECTION_LEGS),
-        BODY(EquipmentSlot.CHEST, DestroyItemTags.CHEMICAL_PROTECTION_CHEST),
-        HEAD(EquipmentSlot.HEAD, DestroyItemTags.CHEMICAL_PROTECTION_HEAD),
-        EYES(EquipmentSlot.HEAD, DestroyItemTags.CHEMICAL_PROTECTION_EYES),
-        NOSE(EquipmentSlot.HEAD, DestroyItemTags.CHEMICAL_PROTECTION_NOSE),
-        MOUTH(EquipmentSlot.HEAD, DestroyItemTags.CHEMICAL_PROTECTION_MOUTH),
+        FEET(EquipmentSlot.FEET, Items.CHEMICAL_PROTECTION_FEET),
+        LEGS(EquipmentSlot.LEGS, Items.CHEMICAL_PROTECTION_LEGS),
+        BODY(EquipmentSlot.CHEST, Items.CHEMICAL_PROTECTION_CHEST),
+        HEAD(EquipmentSlot.HEAD, Items.CHEMICAL_PROTECTION_HEAD),
+        EYES(EquipmentSlot.HEAD, Items.CHEMICAL_PROTECTION_EYES),
+        NOSE(EquipmentSlot.HEAD, Items.CHEMICAL_PROTECTION_NOSE),
+        MOUTH(EquipmentSlot.HEAD, Items.CHEMICAL_PROTECTION_MOUTH),
         /**
          * Whether the mouth is obstructed, preventing things that require an open mouth like eating.
          */
-        MOUTH_COVERED(EquipmentSlot.HEAD, DestroyItemTags.CHEMICAL_PROTECTION_MOUTH);
+        MOUTH_COVERED(EquipmentSlot.HEAD, Items.CHEMICAL_PROTECTION_MOUTH);
 
-        public final DestroyItemTags defaultTag;
+        public final Items defaultTag;
 
         private List<Predicate<LivingEntity>> tests = new ArrayList<>();
 
@@ -138,7 +138,7 @@ public class ChemistryDamageHelper {
             return tests.stream().anyMatch(t -> t.test(livingEntity));
         };
 
-        private Protection(EquipmentSlot defaultEquipmentSlot, DestroyItemTags defaultTag) {
+        private Protection(EquipmentSlot defaultEquipmentSlot, Items defaultTag) {
             this.defaultTag = defaultTag;
             registerTest(le -> defaultTag.matches(le.getItemBySlot(defaultEquipmentSlot).getItem()));
         };

@@ -2,7 +2,7 @@ package com.petrolpark.destroy.mixin.compat.jei;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.item.DiscStamperItem;
 import com.petrolpark.destroy.recipe.DiscStampingRecipe;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;

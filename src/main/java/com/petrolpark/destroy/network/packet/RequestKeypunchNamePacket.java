@@ -3,7 +3,7 @@ package com.petrolpark.destroy.network.packet;
 import java.util.List;
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.KeypunchBlock;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlock;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.util.NameLists;
 

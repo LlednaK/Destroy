@@ -1,5 +1,6 @@
 package com.petrolpark.destroy.item;
 
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ISpecialEffectExplosiveItem;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.network.packet.ConfettiBurstPacket;
 import com.petrolpark.destroy.world.explosion.SmartExplosion;

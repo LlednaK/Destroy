@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import com.petrolpark.destroy.effect.potion.PotionFluidMixingRecipes;
-import com.petrolpark.destroy.fluid.DestroyFluids;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.content.processing.centrifuge.potion.PotionFluidMixingRecipes;
 import com.petrolpark.destroy.mixin.accessor.BasinOperatingBlockEntityAccessor;
 import com.petrolpark.destroy.recipe.ReactionInBasinRecipe;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.tooltip.ExplosivePropertiesTooltip;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosivePropertiesTooltip;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.DestroyReloadListener;
 import com.simibubi.create.foundation.utility.Lang;

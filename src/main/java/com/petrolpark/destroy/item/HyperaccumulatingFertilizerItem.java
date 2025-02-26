@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.item;
 
-import com.petrolpark.destroy.advancement.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.util.CropMutation;
 
 import net.minecraft.core.BlockPos;

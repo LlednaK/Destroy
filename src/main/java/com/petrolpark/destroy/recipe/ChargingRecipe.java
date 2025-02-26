@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.compat.jei.category.AssemblyChargingSubCategory;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemblySubCategory;

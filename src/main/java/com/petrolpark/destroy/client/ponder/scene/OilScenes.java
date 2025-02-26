@@ -1,13 +1,13 @@
 package com.petrolpark.destroy.client.ponder.scene;
 
 import com.petrolpark.client.ponder.PonderPlayer;
-import com.petrolpark.destroy.block.entity.PumpjackBlockEntity;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.client.ponder.instruction.ShowSeismographInstruction;
 import com.petrolpark.destroy.client.ponder.instruction.ShowSeismographInstruction.SeismographElement;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.item.DestroyItems;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph.Mark;
+import com.petrolpark.destroy.content.oil.pumpjack.PumpjackBlockEntity;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph.Mark;
 import com.simibubi.create.foundation.ponder.ElementLink;
 import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.SceneBuilder;

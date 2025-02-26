@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.gui.screen;
 
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.network.packet.RedstoneQuantityMonitorThresholdChangeC2SPacket;
 import com.petrolpark.destroy.util.DestroyLang;

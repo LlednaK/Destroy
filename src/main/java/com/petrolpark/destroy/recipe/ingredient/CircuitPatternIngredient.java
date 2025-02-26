@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

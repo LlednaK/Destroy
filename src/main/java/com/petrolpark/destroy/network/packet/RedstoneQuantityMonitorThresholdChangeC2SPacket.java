@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.block.entity.behaviour.RedstoneQuantityMonitorBehaviour;
+import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMonitorBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import net.minecraft.core.BlockPos;

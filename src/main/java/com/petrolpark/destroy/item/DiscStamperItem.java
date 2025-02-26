@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.core.item.WithSecondaryItem;
 import com.tterrag.registrate.util.nullness.NonnullType;
 
 import net.minecraft.ChatFormatting;

@@ -4,10 +4,10 @@ import java.util.function.Supplier;
 
 import com.petrolpark.client.ponder.particle.PetrolparkEmitters;
 import com.petrolpark.compat.CompatMods;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.entity.CustomExplosiveMixBlockEntity;
-import com.petrolpark.destroy.block.entity.IDyeableCustomExplosiveMixBlockEntity;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockEntity;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.IDyeableMixedExplosiveBlockEntity;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.ponder.ElementLink;
 import com.simibubi.create.foundation.ponder.PonderPalette;
@@ -179,7 +179,7 @@ public class ExplosivesScenes {
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(craftingTable), Pointing.DOWN).withItem(new ItemStack(Items.RED_DYE)), 40);
         scene.idle(60);
 
-        scene.world.modifyBlockEntity(first, BlockEntity.class, be -> ((IDyeableCustomExplosiveMixBlockEntity)be).setColor(red));
+        scene.world.modifyBlockEntity(first, BlockEntity.class, be -> ((IDyeableMixedExplosiveBlockEntity)be).setColor(red));
         scene.world.showSection(util.select.position(first), Direction.DOWN);
         scene.idle(20);
 
@@ -189,7 +189,7 @@ public class ExplosivesScenes {
         scene.idle(40);
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(first), Pointing.DOWN).rightClick().withItem(new ItemStack(Items.BLUE_DYE)), 40);
         scene.idle(5);
-        scene.world.modifyBlockEntity(first, BlockEntity.class, be -> ((IDyeableCustomExplosiveMixBlockEntity)be).setColor(purple));
+        scene.world.modifyBlockEntity(first, BlockEntity.class, be -> ((IDyeableMixedExplosiveBlockEntity)be).setColor(purple));
         scene.addInstruction(s -> s.forEach(WorldSectionElement.class, WorldSectionElement::queueRedraw));
         scene.idle(55);
 
@@ -203,7 +203,7 @@ public class ExplosivesScenes {
         scene.idle(50);
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(second), Pointing.DOWN).leftClick().withItem(AllBlocks.CLIPBOARD.asStack()), 40);
         scene.idle(5);
-        scene.world.modifyBlockEntity(second, BlockEntity.class, be -> ((IDyeableCustomExplosiveMixBlockEntity)be).setColor(purple));
+        scene.world.modifyBlockEntity(second, BlockEntity.class, be -> ((IDyeableMixedExplosiveBlockEntity)be).setColor(purple));
         scene.addInstruction(s -> s.forEach(WorldSectionElement.class, WorldSectionElement::queueRedraw));
         scene.idle(25);
 
@@ -230,7 +230,7 @@ public class ExplosivesScenes {
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(anvil), Pointing.DOWN).withItem(namedStack), 40);
         scene.idle(60);
 
-        scene.world.modifyBlockEntity(first, CustomExplosiveMixBlockEntity.class, be -> be.setCustomName(name));
+        scene.world.modifyBlockEntity(first, MixedExplosiveBlockEntity.class, be -> be.setCustomName(name));
         scene.world.showSection(util.select.position(first), Direction.DOWN);
         scene.idle(20);
 
@@ -249,7 +249,7 @@ public class ExplosivesScenes {
         scene.idle(50);
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(second), Pointing.DOWN).leftClick().withItem(AllBlocks.CLIPBOARD.asStack()), 40);
         scene.idle(5);
-        scene.world.modifyBlockEntity(second, CustomExplosiveMixBlockEntity.class, be -> be.setCustomName(name));
+        scene.world.modifyBlockEntity(second, MixedExplosiveBlockEntity.class, be -> be.setCustomName(name));
         scene.idle(55);
 
         if (CompatMods.BIG_CANNONS.isLoaded()) {

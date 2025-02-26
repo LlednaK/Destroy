@@ -1,8 +1,8 @@
 package com.petrolpark.destroy.client.ponder.instruction;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
-import com.petrolpark.destroy.item.tooltip.CircuitPatternTooltip;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternTooltipComponent;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.element.AnimatedOverlayElement;
 import com.simibubi.create.foundation.ponder.instruction.FadeInOutInstruction;
@@ -68,7 +68,7 @@ public class ShowCircuitPatternInstruction extends FadeInOutInstruction {
             ms.translate(sceneToScreen.x + xFade, sceneToScreen.y + yFade, 400);
             PonderUI.renderSpeechBox(graphics, 0, 0, 48, 48, false, direction, true);
             ms.translate(0, 0, 100);
-            CircuitPatternTooltip.renderCircuitMask(graphics, pattern, false, DestroyGuiTextures.CIRCUIT_MASK_BORDER, DestroyGuiTextures.CIRCUIT_MASK_CELL, DestroyGuiTextures.CIRCUIT_MASK_CELL_SHADING);
+            CircuitPatternTooltipComponent.renderCircuitMask(graphics, pattern, false, DestroyGuiTextures.CIRCUIT_MASK_BORDER, DestroyGuiTextures.CIRCUIT_MASK_CELL, DestroyGuiTextures.CIRCUIT_MASK_CELL_SHADING);
             ms.translate(0, 0, 100);
             ms.popPose();
         };

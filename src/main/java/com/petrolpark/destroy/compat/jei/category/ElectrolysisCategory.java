@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.compat.jei.category;
 
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.compat.jei.animation.AnimatedDynamo;
-import com.petrolpark.destroy.item.DestroyItems;
 import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
 import com.petrolpark.destroy.recipe.DiscElectroplatingRecipe;
 import com.simibubi.create.compat.jei.CreateJEI;

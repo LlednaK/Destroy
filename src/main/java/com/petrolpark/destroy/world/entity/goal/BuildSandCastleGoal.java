@@ -2,9 +2,9 @@ package com.petrolpark.destroy.world.entity.goal;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.block.entity.behaviour.SentimentalBehaviour;
-import com.petrolpark.destroy.item.BucketAndSpadeItem;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.content.sandcastle.BucketAndSpadeItem;
+import com.petrolpark.destroy.content.sandcastle.SentimentalBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import net.minecraft.core.BlockPos;

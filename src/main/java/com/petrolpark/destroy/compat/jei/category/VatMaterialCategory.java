@@ -6,7 +6,7 @@ import java.util.Collections;
 import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.vat.VatMaterial;

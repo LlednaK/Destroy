@@ -50,7 +50,7 @@ public class GasParticleData implements ParticleOptions, ICustomParticleDataWith
      * A Particle with the apperance of a cloud of smoke and the color of a given Fluid.
      * @param type See {@link com.petrolpark.destroy.client.particle.DestroyParticleTypes here}
      * @param fluid The Fluid of which this Particle should take the appearance
-     * @param blocks How many blocks upward this Particle should float before disappearing (used for the {@link com.petrolpark.destroy.block.entity.BubbleCapBlockEntity#spawnParticles Distillation Tower})
+     * @param blocks How many blocks upward this Particle should float before disappearing (used for the {@link com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity#spawnParticles Distillation Tower})
      */
     @SuppressWarnings("unchecked")
     public GasParticleData(ParticleType<?> type, FluidStack fluid, float blockHeight) {

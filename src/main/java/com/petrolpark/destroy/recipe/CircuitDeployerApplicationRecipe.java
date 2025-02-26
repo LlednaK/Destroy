@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.petrolpark.destroy.item.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
 import com.petrolpark.destroy.mixin.accessor.ProcessingRecipeAccessor;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;

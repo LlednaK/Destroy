@@ -1,8 +1,8 @@
 package com.petrolpark.destroy.client.ponder;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.util.vat.VatMaterial;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.ponder.PonderRegistry;

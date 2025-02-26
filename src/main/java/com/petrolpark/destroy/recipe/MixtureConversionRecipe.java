@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.recipe;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.fluid.DestroyFluids;
+import com.petrolpark.destroy.DestroyFluids;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
 
 import net.minecraftforge.fluids.FluidStack;

@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.gui.button;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyItems;
 import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 import com.simibubi.create.foundation.utility.Components;

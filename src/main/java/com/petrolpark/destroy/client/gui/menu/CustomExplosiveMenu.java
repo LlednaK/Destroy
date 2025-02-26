@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.gui.menu;
 
-import com.petrolpark.destroy.block.entity.ICustomExplosiveMixBlockEntity;
-import com.petrolpark.destroy.item.inventory.CustomExplosiveMixInventory;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.IMixedExplosiveBlockEntity;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
 import com.simibubi.create.foundation.gui.menu.MenuBase;
@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class CustomExplosiveMenu extends MenuBase<ICustomExplosiveMixBlockEntity> {
+public class CustomExplosiveMenu extends MenuBase<IMixedExplosiveBlockEntity> {
 
     private int explosiveSlots = 0;
 
@@ -23,28 +23,28 @@ public class CustomExplosiveMenu extends MenuBase<ICustomExplosiveMixBlockEntity
         super(type, id, playerInv, extraData);
     };
 
-    protected CustomExplosiveMenu(MenuType<?> type, int id, Inventory playerInv, ICustomExplosiveMixBlockEntity contentHolder) {
+    protected CustomExplosiveMenu(MenuType<?> type, int id, Inventory playerInv, IMixedExplosiveBlockEntity contentHolder) {
 		super(type, id, playerInv, contentHolder);
         explosiveSlots = contentHolder.getExplosiveInventory().getSlots();
 	};
 
-    public static CustomExplosiveMenu create(int id, Inventory playerInv, ICustomExplosiveMixBlockEntity be) {
+    public static CustomExplosiveMenu create(int id, Inventory playerInv, IMixedExplosiveBlockEntity be) {
         return new CustomExplosiveMenu(DestroyMenuTypes.CUSTOM_EXPLOSIVE.get(), id, playerInv, be);
     };
 
     @Override
-    protected ICustomExplosiveMixBlockEntity createOnClient(FriendlyByteBuf extraData) {
+    protected IMixedExplosiveBlockEntity createOnClient(FriendlyByteBuf extraData) {
         return new DummyCustomExplosiveMixBlockEntity(extraData);
     };
 
     @Override
-    protected void initAndReadInventory(ICustomExplosiveMixBlockEntity contentHolder) {
+    protected void initAndReadInventory(IMixedExplosiveBlockEntity contentHolder) {
         
     };
 
     @Override
     protected void addSlots() {
-        CustomExplosiveMixInventory inv = contentHolder.getExplosiveInventory();
+        MixedExplosiveInventory inv = contentHolder.getExplosiveInventory();
         for (int slot = 0; slot < inv.getSlots(); slot++) {
             addSlot(new SlotItemHandler(inv, slot, 94 + 18 * (slot % 4), 25 + 18 * (slot/ 4)));
         };
@@ -52,7 +52,7 @@ public class CustomExplosiveMenu extends MenuBase<ICustomExplosiveMixBlockEntity
     };
 
     @Override
-    protected void saveData(ICustomExplosiveMixBlockEntity contentHolder) {};
+    protected void saveData(IMixedExplosiveBlockEntity contentHolder) {};
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
@@ -69,15 +69,15 @@ public class CustomExplosiveMenu extends MenuBase<ICustomExplosiveMixBlockEntity
         return ItemStack.EMPTY;
     };
 
-    protected static class DummyCustomExplosiveMixBlockEntity implements ICustomExplosiveMixBlockEntity {
+    protected static class DummyCustomExplosiveMixBlockEntity implements IMixedExplosiveBlockEntity {
 
         private final Component name;
-        private CustomExplosiveMixInventory inv;
+        private MixedExplosiveInventory inv;
         private final ExplosivePropertyCondition[] conditions; // May contain null entries
 
         protected DummyCustomExplosiveMixBlockEntity(FriendlyByteBuf buffer) {
             this.name = buffer.readComponent();
-            inv = new CustomExplosiveMixInventory(buffer.readVarInt());
+            inv = new MixedExplosiveInventory(buffer.readVarInt());
             inv.deserializeNBT(buffer.readNbt());
             int conditionCount = buffer.readVarInt();
             conditions = new ExplosivePropertyCondition[conditionCount];
@@ -90,12 +90,12 @@ public class CustomExplosiveMenu extends MenuBase<ICustomExplosiveMixBlockEntity
         };
 
         @Override
-        public CustomExplosiveMixInventory getExplosiveInventory() {
+        public MixedExplosiveInventory getExplosiveInventory() {
             return inv;
         };
 
         @Override
-        public void setExplosiveInventory(CustomExplosiveMixInventory inv) {
+        public void setExplosiveInventory(MixedExplosiveInventory inv) {
             this.inv = inv;
         }
 

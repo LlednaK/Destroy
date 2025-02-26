@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.ponder.instruction;
 
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity;
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity.DisplayType;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity.DisplayType;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.instruction.PonderInstruction;
 

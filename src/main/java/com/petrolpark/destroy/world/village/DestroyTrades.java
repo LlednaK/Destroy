@@ -11,9 +11,8 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.entity.npc.VillagerTrades;
 
 import com.simibubi.create.AllItems;
-
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
 
 public class DestroyTrades {
 

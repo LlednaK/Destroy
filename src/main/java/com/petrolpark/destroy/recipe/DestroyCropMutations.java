@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.recipe;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.util.CropMutation;
 import com.simibubi.create.AllBlocks;
 

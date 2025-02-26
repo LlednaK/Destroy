@@ -2,6 +2,8 @@ package com.petrolpark.destroy.item;
 
 import java.util.Set;
 
+import com.petrolpark.destroy.core.item.DrinkItem;
+
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;

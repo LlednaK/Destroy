@@ -2,8 +2,8 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.capability.Pollution;
-import com.petrolpark.destroy.capability.level.pollution.ClientLevelPollutionData;
+import com.petrolpark.destroy.core.pollution.ClientLevelPollutionData;
+import com.petrolpark.destroy.core.pollution.Pollution;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

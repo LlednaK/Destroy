@@ -4,10 +4,6 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 import com.petrolpark.compat.CompatMods;
-import com.petrolpark.destroy.advancement.DestroyAdvancementTrigger;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.entity.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.block.movementchecks.DestroyMovementChecks;
 import com.petrolpark.destroy.chemistry.api.Chemistry;
 import com.petrolpark.destroy.chemistry.forge.event.ForgeChemistryEventFirer;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyGenericReactions;
@@ -20,20 +16,9 @@ import com.petrolpark.destroy.client.particle.DestroyParticleTypes;
 import com.petrolpark.destroy.compat.createbigcannons.CreateBigCannons;
 import com.petrolpark.destroy.compat.curios.DestroyCurios;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.effect.DestroyMobEffects;
-import com.petrolpark.destroy.effect.potion.DestroyPotions;
-import com.petrolpark.destroy.entity.DestroyEntityTypes;
-import com.petrolpark.destroy.entity.attribute.DestroyAttributes;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.fluid.pipeEffectHandler.DestroyOpenEndedPipeEffects;
-import com.petrolpark.destroy.item.DestroyItems;
-import com.petrolpark.destroy.item.attributes.DestroyItemAttributes;
-import com.petrolpark.destroy.item.compostable.DestroyCompostables;
-import com.petrolpark.destroy.item.creativeModeTab.DestroyCreativeModeTabs;
-import com.petrolpark.destroy.item.potatoCannonProjectileType.DestroyPotatoCannonProjectileTypes;
-import com.petrolpark.destroy.item.tooltip.ContaminatedItemDescription;
-import com.petrolpark.destroy.item.tooltip.IDynamicItemDescription;
-import com.petrolpark.destroy.item.tooltip.TempramentalItemDescription;
+import com.petrolpark.destroy.core.chemistry.hazard.ContaminatedItemTooltipModifier;
+import com.petrolpark.destroy.core.item.tooltip.IDynamicItemDescription;
+import com.petrolpark.destroy.core.item.tooltip.TempramentalItemDescription;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.recipe.DestroyCropMutations;
 import com.petrolpark.destroy.recipe.DestroyExtrusions;
@@ -41,7 +26,6 @@ import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
 import com.petrolpark.destroy.sound.DestroySoundEvents;
 import com.petrolpark.destroy.stats.DestroyStats;
 import com.petrolpark.destroy.util.DestroyTagDatagen;
-import com.petrolpark.destroy.util.DestroyTags;
 import com.petrolpark.destroy.util.circuit.CircuitPatternHandler;
 import com.petrolpark.destroy.util.circuit.CircuitPuncherHandler;
 import com.petrolpark.destroy.util.vat.VatMaterial;
@@ -95,7 +79,7 @@ public class Destroy {
 				.andThen(TooltipModifier.mapNull(KineticStats.create(item)))
                 .andThen(TooltipModifier.mapNull(IDynamicItemDescription.create(item)))
                 .andThen(new TempramentalItemDescription())
-                .andThen(new ContaminatedItemDescription());
+                .andThen(new ContaminatedItemTooltipModifier());
 		});
 	};
 

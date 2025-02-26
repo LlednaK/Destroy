@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.fluid.ingredient.MixtureFluidIngredient;
-import com.petrolpark.destroy.fluid.ingredient.mixturesubtype.MixtureFluidIngredientSubType;
+import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredient;
+import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredientSubType;
 import com.petrolpark.destroy.util.vat.VatMaterial;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipHelper.Palette;

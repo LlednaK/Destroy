@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import org.jetbrains.annotations.Nullable;
 
 import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
 import com.petrolpark.recipe.advancedprocessing.AdvancedProcessingRecipeSerializer;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;

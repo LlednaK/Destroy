@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.advancement.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.network.packet.SmartExplosionS2CPacket;
 import com.petrolpark.destroy.world.damage.DestroyDamageSources;
 import com.petrolpark.destroy.world.damage.SmartExplosionDamageSource;

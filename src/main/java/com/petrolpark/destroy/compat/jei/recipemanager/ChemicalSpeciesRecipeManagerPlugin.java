@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.petrolpark.destroy.DestroyFluids;
 import com.petrolpark.destroy.chemistry.legacy.LegacyFunctionalGroup;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
@@ -12,9 +13,8 @@ import com.petrolpark.destroy.compat.jei.DestroyJEI;
 import com.petrolpark.destroy.compat.jei.MoleculeJEIIngredient;
 import com.petrolpark.destroy.compat.jei.category.GenericReactionCategory;
 import com.petrolpark.destroy.compat.jei.category.ReactionCategory;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.fluid.ingredient.MixtureFluidIngredient;
-import com.petrolpark.destroy.fluid.ingredient.mixturesubtype.MixtureFluidIngredientSubType;
+import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredient;
+import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredientSubType;
 import com.petrolpark.destroy.recipe.ReactionRecipe;
 
 import mezz.jei.api.forge.ForgeTypes;

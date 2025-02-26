@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.client.ponder.instruction;
 
-import com.petrolpark.destroy.capability.Pollution;
-import com.petrolpark.destroy.capability.Pollution.PollutionType;
+import com.petrolpark.destroy.core.pollution.Pollution;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.element.WorldSectionElement;
 import com.simibubi.create.foundation.ponder.instruction.PonderInstruction;

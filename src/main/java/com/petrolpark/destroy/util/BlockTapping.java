@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 import com.petrolpark.destroy.chemistry.legacy.LegacyMixture;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
-import com.petrolpark.destroy.fluid.MixtureFluid;
+import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;

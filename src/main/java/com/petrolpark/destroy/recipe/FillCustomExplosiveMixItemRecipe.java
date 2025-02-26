@@ -2,8 +2,8 @@ package com.petrolpark.destroy.recipe;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.item.ICustomExplosiveMixItem;
-import com.petrolpark.destroy.item.inventory.CustomExplosiveMixInventory;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.IMixedExplosiveItem;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.simibubi.create.foundation.utility.Iterate;
 
 import net.minecraft.core.RegistryAccess;
@@ -34,11 +34,11 @@ public class FillCustomExplosiveMixItemRecipe extends CustomRecipe {
     public ItemStack assemble(CraftingContainer container, @Nullable RegistryAccess registryAccess) {
         boolean anyExplosiveFound = false;
         ItemStack mixItem = ItemStack.EMPTY;
-        CustomExplosiveMixInventory inv = null;
+        MixedExplosiveInventory inv = null;
         for (boolean findMixItem : Iterate.trueAndFalse) {
             for (int slot = 0; slot < container.getContainerSize(); slot++) {
                 ItemStack stack = container.getItem(slot);
-                if (stack.getItem() instanceof ICustomExplosiveMixItem customMixItem) { 
+                if (stack.getItem() instanceof IMixedExplosiveItem customMixItem) { 
                     if (findMixItem) { // If we're looking for a mix container and we've found one
                         if (inv != null) return ItemStack.EMPTY; // Only one mix container allowed
                         else {
@@ -46,7 +46,7 @@ public class FillCustomExplosiveMixItemRecipe extends CustomRecipe {
                             inv = customMixItem.getExplosiveInventory(stack);
                         };
                     };
-                } else if (CustomExplosiveMixInventory.canBeAdded(stack)) {
+                } else if (MixedExplosiveInventory.canBeAdded(stack)) {
                     anyExplosiveFound = true;
                     if (!findMixItem && inv != null && ItemHandlerHelper.insertItem(inv, stack, false) != ItemStack.EMPTY) return ItemStack.EMPTY; 
                 } else if (!stack.isEmpty()) {
@@ -56,7 +56,7 @@ public class FillCustomExplosiveMixItemRecipe extends CustomRecipe {
         };
         if (!anyExplosiveFound || mixItem.isEmpty()) return ItemStack.EMPTY; // If a mix Item or explosive was never found
         ItemStack result = mixItem.copy();
-        if (result.getItem() instanceof ICustomExplosiveMixItem customMixItem) customMixItem.setExplosiveInventory(result, inv); // Check should never fail
+        if (result.getItem() instanceof IMixedExplosiveItem customMixItem) customMixItem.setExplosiveInventory(result, inv); // Check should never fail
         return result;
     };
 

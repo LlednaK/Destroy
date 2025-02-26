@@ -6,20 +6,20 @@ import java.util.stream.Stream;
 
 import com.petrolpark.client.rendering.item.decorator.DecayingItemDecorator;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.color.DyeableCustomExplosiveMixBlockColor;
-import com.petrolpark.destroy.block.color.SmogAffectedBlockColor;
-import com.petrolpark.destroy.block.color.TankPeriodicTableBlockColor;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.naming.SaltNameOverrides;
 import com.petrolpark.destroy.client.model.CircuitPatternItemModel;
 import com.petrolpark.destroy.client.model.UniversalArmorTrimModel;
-import com.petrolpark.destroy.entity.renderer.layer.BlowpipeLayer;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeItemRenderLayer;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternTooltipComponent;
+import com.petrolpark.destroy.content.product.periodictable.TankPeriodicTableBlockColor;
+import com.petrolpark.destroy.content.product.periodictable.TankPeriodicTableBlockItemColor;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.DyeableMixedExplosiveBlockColor;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.DyeableMixedExplosiveItemColor;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosivePropertiesTooltip;
+import com.petrolpark.destroy.core.pollution.SmogAffectedBlockColor;
 import com.petrolpark.destroy.item.MoleculeDisplayItem.MoleculeTooltip;
-import com.petrolpark.destroy.item.color.DyeableCustomExplosiveMixItemColor;
-import com.petrolpark.destroy.item.color.TankPeriodicTableBlockItemColor;
-import com.petrolpark.destroy.item.tooltip.CircuitPatternTooltip;
-import com.petrolpark.destroy.item.tooltip.ExplosivePropertiesTooltip;
 import com.petrolpark.destroy.util.NameLists;
 
 import net.minecraft.client.Minecraft;
@@ -56,17 +56,17 @@ public class DestroyClientModEvents {
     @SubscribeEvent
     public static void changeItemColors(RegisterColorHandlersEvent.Item event) {
         event.register(TankPeriodicTableBlockItemColor.INSTANCE, DestroyBlocks.HYDROGEN_PERIODIC_TABLE_BLOCK, DestroyBlocks.NITROGEN_PERIODIC_TABLE_BLOCK, DestroyBlocks.OXYGEN_PERIODIC_TABLE_BLOCK, DestroyBlocks.FLUORINE_PERIODIC_TABLE_BLOCK, DestroyBlocks.CHLORINE_PERIODIC_TABLE_BLOCK, DestroyBlocks.MERCURY_PERIODIC_TABLE_BLOCK);
-        event.register(DyeableCustomExplosiveMixItemColor.INSTANCE, DestroyBlocks.CUSTOM_EXPLOSIVE_MIX);
+        event.register(DyeableMixedExplosiveItemColor.INSTANCE, DestroyBlocks.CUSTOM_EXPLOSIVE_MIX);
     };
 
     /**
-     * Override all the color generators to account for the {@link com.petrolpark.destroy.capability.Pollution.PollutionType smog level}.
+     * Override all the color generators to account for the {@link com.petrolpark.destroy.core.pollution.Pollution.PollutionType smog level}.
      * @param event
      */
     @SubscribeEvent
     public static void changeBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register(TankPeriodicTableBlockColor.INSTANCE, DestroyBlocks.HYDROGEN_PERIODIC_TABLE_BLOCK.get(), DestroyBlocks.NITROGEN_PERIODIC_TABLE_BLOCK.get(), DestroyBlocks.OXYGEN_PERIODIC_TABLE_BLOCK.get(), DestroyBlocks.FLUORINE_PERIODIC_TABLE_BLOCK.get(), DestroyBlocks.CHLORINE_PERIODIC_TABLE_BLOCK.get(), DestroyBlocks.MERCURY_PERIODIC_TABLE_BLOCK.get());
-        event.register(DyeableCustomExplosiveMixBlockColor.INSTANCE, DestroyBlocks.CUSTOM_EXPLOSIVE_MIX.get());
+        event.register(DyeableMixedExplosiveBlockColor.INSTANCE, DestroyBlocks.CUSTOM_EXPLOSIVE_MIX.get());
         event.register(SmogAffectedBlockColor.GRASS, Blocks.GRASS, Blocks.GRASS_BLOCK, Blocks.FERN, Blocks.TALL_GRASS);
         event.register(SmogAffectedBlockColor.DOUBLE_TALL_GRASS, Blocks.TALL_GRASS, Blocks.LARGE_FERN);
         event.register(SmogAffectedBlockColor.PINK_PETALS, Blocks.PINK_PETALS);
@@ -89,7 +89,7 @@ public class DestroyClientModEvents {
     @SubscribeEvent
     public static void onRegisterClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(MoleculeTooltip.class, MoleculeTooltip::getClientTooltipComponent);
-        event.register(CircuitPatternTooltip.class, CircuitPatternTooltip::getClientTooltipComponent);
+        event.register(CircuitPatternTooltipComponent.class, CircuitPatternTooltipComponent::getClientTooltipComponent);
         event.register(ExplosivePropertiesTooltip.class, ExplosivePropertiesTooltip::getClientTooltipComponent);
     };
 
@@ -123,7 +123,7 @@ public class DestroyClientModEvents {
     @SubscribeEvent
     public static void addEntityRendererLayers(EntityRenderersEvent.AddLayers event) {
         EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        BlowpipeLayer.registerOnAll(dispatcher);
+        BlowpipeItemRenderLayer.registerOnAll(dispatcher);
     };
 
 };

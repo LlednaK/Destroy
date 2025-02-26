@@ -6,9 +6,9 @@ import java.util.Set;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
-import com.petrolpark.destroy.item.SeismographItem.Seismograph;
-import com.petrolpark.destroy.item.renderer.SeismographItemRenderer;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItemRenderer;
+import com.petrolpark.destroy.content.oil.seismology.SeismographItem.Seismograph;
 import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.PonderScene;
 import com.simibubi.create.foundation.ponder.SceneBuilder;

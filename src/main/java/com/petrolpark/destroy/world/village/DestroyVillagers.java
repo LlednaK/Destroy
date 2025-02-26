@@ -2,7 +2,7 @@ package com.petrolpark.destroy.world.village;
 
 import com.google.common.collect.ImmutableSet;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyBlocks;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;

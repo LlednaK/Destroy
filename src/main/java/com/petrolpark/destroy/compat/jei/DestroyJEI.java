@@ -11,9 +11,11 @@ import java.util.function.Supplier;
 
 import com.petrolpark.compat.jei.category.builder.PetrolparkCategoryBuilder;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.DestroyBlocks;
+import com.petrolpark.destroy.DestroyArmorMaterials;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
-import com.petrolpark.destroy.client.gui.screen.RedstoneProgrammerScreen;
 import com.petrolpark.destroy.compat.jei.animation.ArcFurnaceIcon;
 import com.petrolpark.destroy.compat.jei.category.AgingCategory;
 import com.petrolpark.destroy.compat.jei.category.ArcFurnaceCategory;
@@ -43,14 +45,12 @@ import com.petrolpark.destroy.compat.jei.recipemanager.FireproofingRecipeManager
 import com.petrolpark.destroy.compat.jei.recipemanager.ItemReverseReactionRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.tfmg.SharedDistillationRecipes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.effect.potion.PotionSeparationRecipes;
-import com.petrolpark.destroy.fluid.DestroyFluids;
-import com.petrolpark.destroy.item.CustomExplosiveMixBlockItem;
-import com.petrolpark.destroy.item.DestroyItems;
-import com.petrolpark.destroy.item.armorMaterial.DestroyArmorMaterials;
+import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
+import com.petrolpark.destroy.content.processing.centrifuge.potion.PotionSeparationRecipes;
+import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerScreen;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockItem;
 import com.petrolpark.destroy.recipe.AgingRecipe;
 import com.petrolpark.destroy.recipe.ArcFurnaceRecipe;
-import com.petrolpark.destroy.recipe.CentrifugationRecipe;
 import com.petrolpark.destroy.recipe.ChargingRecipe;
 import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
 import com.petrolpark.destroy.recipe.DistillationRecipe;
@@ -188,7 +188,7 @@ public class DestroyJEI implements IModPlugin {
 
         obliteration = builder(ObliterationRecipe.class)
             .addTypedRecipes(DestroyRecipeTypes.OBLITERATION)
-            .itemIcon(CustomExplosiveMixBlockItem::getExampleItemStack)
+            .itemIcon(MixedExplosiveBlockItem::getExampleItemStack)
             .emptyBackground(177, 70)
             .build("obliteration", ObliterationCategory::new),
 
@@ -249,7 +249,7 @@ public class DestroyJEI implements IModPlugin {
         mixable_explosive = builder(MixableExplosiveRecipe.class)
             .addRecipes(MixableExplosiveCategory::getAllRecipes)
             .catalysts(DestroyJEISetup.CUSTOM_MIX_EXPLOSIVES)
-            .doubleItemIcon(CustomExplosiveMixBlockItem::getExampleItemStack, () -> new ItemStack(Items.GUNPOWDER))
+            .doubleItemIcon(MixedExplosiveBlockItem::getExampleItemStack, () -> new ItemStack(Items.GUNPOWDER))
             .emptyBackground(180, 121)
             .build("mixable_explosive", MixableExplosiveCategory::new),
 

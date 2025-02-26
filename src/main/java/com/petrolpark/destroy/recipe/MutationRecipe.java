@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.recipe;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.util.CropMutation;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;

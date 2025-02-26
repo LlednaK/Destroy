@@ -2,7 +2,7 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.item.renderer.SeismometerItemRenderer;
+import com.petrolpark.destroy.content.oil.seismology.SeismometerItemRenderer;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;

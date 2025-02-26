@@ -2,7 +2,7 @@ package com.petrolpark.destroy.util;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.petrolpark.destroy.block.movementbehaviour.ExtrudableMovementBehaviour;
+import com.petrolpark.destroy.content.processing.extrusion.ExtrudableMovementBehaviour;
 import com.simibubi.create.AllMovementBehaviours;
 
 import net.minecraft.core.Direction;

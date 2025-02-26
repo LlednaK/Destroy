@@ -2,8 +2,8 @@ package com.petrolpark.destroy.item;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.itemdecay.ConfiguredDecayingItem;
-import com.petrolpark.itemdecay.IDecayingItem;
+import com.petrolpark.item.decay.ConfiguredDecayingItem;
+import com.petrolpark.item.decay.IDecayingItem;
 import com.simibubi.create.foundation.config.ConfigBase.ConfigInt;
 
 import net.minecraft.world.entity.Entity;

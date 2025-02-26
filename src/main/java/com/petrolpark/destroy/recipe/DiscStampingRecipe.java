@@ -3,7 +3,7 @@ package com.petrolpark.destroy.recipe;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.item.DiscStamperItem;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;

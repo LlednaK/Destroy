@@ -7,8 +7,8 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.ISpecialEffectExplosiveItem;
-import com.petrolpark.destroy.item.inventory.CustomExplosiveMixInventory;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ISpecialEffectExplosiveItem;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosiveProperty;
 
 import net.minecraft.client.Minecraft;
@@ -58,7 +58,7 @@ public class CustomExplosiveMixExplosion extends SmartExplosion {
         this.specialItems = specialItems;
     };
 
-    public static CustomExplosiveMixExplosion create(Level level, CustomExplosiveMixInventory inv, @Nullable Entity source, Vec3 position) {
+    public static CustomExplosiveMixExplosion create(Level level, MixedExplosiveInventory inv, @Nullable Entity source, Vec3 position) {
         return create(level, inv.getExplosiveProperties(), inv.getSpecialItems(), source, position);
     };
 

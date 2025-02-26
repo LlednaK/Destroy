@@ -2,8 +2,8 @@ package com.petrolpark.destroy.client.particle;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.block.entity.BubbleCapBlockEntity;
 import com.petrolpark.destroy.client.particle.data.GasParticleData;
+import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
 import com.simibubi.create.content.fluids.particle.FluidStackParticle;
 
 import net.minecraft.client.multiplayer.ClientLevel;

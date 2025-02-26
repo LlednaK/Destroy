@@ -3,12 +3,12 @@ package com.petrolpark.destroy.client.gui.screen;
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.petrolpark.destroy.block.entity.ColorimeterBlockEntity;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
-import com.petrolpark.destroy.client.gui.DestroyIcons;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyIcons;
 import com.petrolpark.destroy.client.gui.MoleculeRenderer;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.chemistry.vat.observation.colorimeter.ColorimeterBlockEntity;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.network.packet.ConfigureColorimeterC2SPacket;
 import com.petrolpark.destroy.network.packet.RedstoneQuantityMonitorThresholdChangeC2SPacket;

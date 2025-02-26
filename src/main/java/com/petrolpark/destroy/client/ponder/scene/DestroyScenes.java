@@ -1,9 +1,9 @@
 package com.petrolpark.destroy.client.ponder.scene;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity;
-import com.petrolpark.destroy.block.entity.VatSideBlockEntity.DisplayType;
-import com.petrolpark.destroy.item.DestroyItems;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
+import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity.DisplayType;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
 import com.simibubi.create.content.redstone.link.RedstoneLinkBlock;

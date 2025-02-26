@@ -9,7 +9,7 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.petrolpark.destroy.item.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
 import com.petrolpark.recipe.manualonly.ManualOnlyShapedRecipe;
 import com.simibubi.create.foundation.utility.Iterate;
 

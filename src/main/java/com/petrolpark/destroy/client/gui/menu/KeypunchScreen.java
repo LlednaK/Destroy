@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.petrolpark.destroy.block.entity.KeypunchBlockEntity;
-import com.petrolpark.destroy.client.gui.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlockEntity;
 import com.petrolpark.destroy.network.DestroyMessages;
 import com.petrolpark.destroy.network.packet.ChangeKeypunchPositionC2SPacket;
 import com.petrolpark.destroy.network.packet.NameKeypunchC2SPacket;

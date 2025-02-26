@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.petrolpark.destroy.item.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeSerializer;

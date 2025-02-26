@@ -4,8 +4,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.item.SwissArmyKnifeItem;
-import com.petrolpark.destroy.item.SwissArmyKnifeItem.Tool;
+import com.petrolpark.destroy.content.tool.swissarmyknife.SwissArmyKnifeItem;
+import com.petrolpark.destroy.content.tool.swissarmyknife.SwissArmyKnifeItem.Tool;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

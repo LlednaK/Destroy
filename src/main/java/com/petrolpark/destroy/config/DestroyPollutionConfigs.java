@@ -3,7 +3,7 @@ package com.petrolpark.destroy.config;
 import java.util.EnumMap;
 import java.util.stream.Stream;
 
-import com.petrolpark.destroy.capability.Pollution.PollutionType;
+import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.util.DestroyLang;
 
 public class DestroyPollutionConfigs extends DestroyConfigBase {

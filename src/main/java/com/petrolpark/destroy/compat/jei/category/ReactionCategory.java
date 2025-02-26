@@ -12,6 +12,7 @@ import org.joml.Vector2i;
 import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.JEITextureDrawable;
 import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.chemistry.legacy.IItemReactant;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
@@ -21,7 +22,6 @@ import com.petrolpark.destroy.client.gui.stackedtextbox.AbstractStackedTextBox.L
 import com.petrolpark.destroy.compat.jei.MoleculeJEIIngredient;
 import com.petrolpark.destroy.compat.jei.tooltip.ReactionTooltipHelper;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.item.DestroyItems;
 import com.petrolpark.destroy.recipe.ReactionRecipe;
 import com.petrolpark.destroy.recipe.ReactionRecipe.GenericReactionRecipe;
 import com.petrolpark.destroy.util.DestroyLang;

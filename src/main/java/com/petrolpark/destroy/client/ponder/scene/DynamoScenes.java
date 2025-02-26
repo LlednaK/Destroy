@@ -1,9 +1,9 @@
 package com.petrolpark.destroy.client.ponder.scene;
 
-import com.petrolpark.destroy.block.DestroyBlocks;
-import com.petrolpark.destroy.block.DynamoBlock;
-import com.petrolpark.destroy.block.entity.DynamoBlockEntity;
-import com.petrolpark.destroy.block.entity.behaviour.ChargingBehaviour;
+import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.content.processing.dynamo.ChargingBehaviour;
+import com.petrolpark.destroy.content.processing.dynamo.DynamoBlock;
+import com.petrolpark.destroy.content.processing.dynamo.DynamoBlockEntity;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.redstone.nixieTube.NixieTubeBlockEntity;
 import com.simibubi.create.foundation.ponder.ElementLink;

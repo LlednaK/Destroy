@@ -2,8 +2,8 @@ package com.petrolpark.destroy.network.packet;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.item.IMixtureStorageItem;
-import com.petrolpark.destroy.item.ItemMixtureTank;
+import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
+import com.petrolpark.destroy.core.chemistry.storage.ItemMixtureTank;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

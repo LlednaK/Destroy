@@ -3,7 +3,7 @@ package com.petrolpark.destroy.network.packet;
 import java.util.function.Supplier;
 
 import com.petrolpark.destroy.client.gui.menu.RedstoneProgrammerMenu.DummyRedstoneProgram;
-import com.petrolpark.destroy.client.gui.screen.RedstoneProgrammerScreen;
+import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
