@@ -3,7 +3,7 @@ package com.petrolpark.destroy.content.tool;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
+import com.petrolpark.destroy.DestroySoundEvents;
 
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;

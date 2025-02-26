@@ -3,7 +3,7 @@ package com.petrolpark.destroy.item;
 import java.util.List;
 
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
+import com.petrolpark.destroy.DestroySoundEvents;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;

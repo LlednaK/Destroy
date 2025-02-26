@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroySoundEvents;
 import com.petrolpark.destroy.client.particle.DestroyParticleTypes;
 import com.petrolpark.destroy.client.particle.data.GasParticleData;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
@@ -19,7 +20,6 @@ import com.petrolpark.destroy.core.chemistry.MixtureContentsDisplaySource;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
 import com.petrolpark.destroy.core.fluid.GeniusFluidTankBehaviour;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.DestroyLang.TemperatureUnit;
 import com.petrolpark.destroy.util.DistillationTower;

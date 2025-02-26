@@ -11,11 +11,11 @@ import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlace
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroySoundEvents;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;

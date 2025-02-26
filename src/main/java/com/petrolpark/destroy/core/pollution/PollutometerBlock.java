@@ -1,6 +1,5 @@
 package com.petrolpark.destroy.core.pollution;
 
-
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyShapes;
 import com.petrolpark.destroy.core.pollution.pollutometer.PollutometerBlockEntity;

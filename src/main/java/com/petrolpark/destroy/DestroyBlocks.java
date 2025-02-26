@@ -65,7 +65,6 @@ import com.petrolpark.destroy.core.item.CombustibleBlockItem;
 import com.petrolpark.destroy.core.pollution.PollutometerBlock;
 import com.petrolpark.destroy.core.pollution.catalyticconverter.CatalyticConverterBlock;
 import com.petrolpark.destroy.core.pollution.pollutometer.PollutometerDisplaySource;
-import com.petrolpark.destroy.sound.DestroySoundTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.AllTags.AllBlockTags;

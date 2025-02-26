@@ -43,7 +43,6 @@ import com.petrolpark.destroy.item.MilkCartonItem;
 import com.petrolpark.destroy.item.MoleculeDisplayItem;
 import com.petrolpark.destroy.item.OxidizingItem;
 import com.petrolpark.destroy.item.WaterSensitiveSpontaneouslyCombustingItem;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags.AllItemTags;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;

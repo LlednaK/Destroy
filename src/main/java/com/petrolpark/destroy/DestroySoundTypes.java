@@ -1,4 +1,4 @@
-package com.petrolpark.destroy.sound;
+package com.petrolpark.destroy;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.util.ForgeSoundType;

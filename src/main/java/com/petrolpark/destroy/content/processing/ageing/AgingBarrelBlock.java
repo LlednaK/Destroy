@@ -4,7 +4,7 @@ import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyShapes;
-import com.petrolpark.destroy.sound.DestroySoundEvents;
+import com.petrolpark.destroy.DestroySoundEvents;
 import com.simibubi.create.content.contraptions.ITransformableBlock;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;

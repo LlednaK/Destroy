@@ -1,10 +1,8 @@
-package com.petrolpark.destroy.stats;
+package com.petrolpark.destroy;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.petrolpark.destroy.Destroy;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;

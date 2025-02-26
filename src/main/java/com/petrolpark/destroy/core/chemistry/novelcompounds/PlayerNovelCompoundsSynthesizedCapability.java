@@ -6,8 +6,8 @@ import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.petrolpark.destroy.DestroyStats;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
-import com.petrolpark.destroy.stats.DestroyStats;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
