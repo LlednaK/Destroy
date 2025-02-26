@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.processing.phytomining;
 
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +30,7 @@ public class MagicBeetrootShootsBlock extends BushBlock implements BonemealableB
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return DestroyShapes.MAGIC_BEETROOT_SEEDS;
+        return DestroyVoxelShapes.MAGIC_BEETROOT_SEEDS;
     };
 
     @Override

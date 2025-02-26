@@ -2,7 +2,7 @@ package com.petrolpark.destroy.core.pollution.catalyticconverter;
 
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -38,7 +38,7 @@ public class CatalyticConverterBlock extends DirectionalBlock implements IBE<Cat
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return DestroyShapes.CATALYTIC_CONVERER.get(pState.getValue(FACING));
+        return DestroyVoxelShapes.CATALYTIC_CONVERER.get(pState.getValue(FACING));
     };
 
     @Override

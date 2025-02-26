@@ -2,7 +2,7 @@ package com.petrolpark.destroy.core.chemistry.vat.uv;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.contraptions.ITransformableBlock;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -50,7 +50,7 @@ public class BlacklightBlock extends Block implements IUVLampBlock, IWrenchable,
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(FLIPPED) ? DestroyShapes.BLACKLIGHT_FLIPPED.get(state.getValue(SIDE)) : DestroyShapes.BLACKLIGHT.get(state.getValue(SIDE));
+        return state.getValue(FLIPPED) ? DestroyVoxelShapes.BLACKLIGHT_FLIPPED.get(state.getValue(SIDE)) : DestroyVoxelShapes.BLACKLIGHT.get(state.getValue(SIDE));
     };
 
     @Override

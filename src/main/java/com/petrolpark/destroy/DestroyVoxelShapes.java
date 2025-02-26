@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DestroyShapes {
+public class DestroyVoxelShapes {
 
     public static final VoxelShape
 

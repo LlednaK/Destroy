@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.processing.phytomining;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.core.block.FullyGrownCropBlock;
 
 import net.minecraft.core.BlockPos;
@@ -20,7 +20,7 @@ public class HeftyBeetrootBlock extends FullyGrownCropBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext pContext) {
-        return DestroyShapes.HEFTY_BEETROOT;
+        return DestroyVoxelShapes.HEFTY_BEETROOT;
     };
     
 };

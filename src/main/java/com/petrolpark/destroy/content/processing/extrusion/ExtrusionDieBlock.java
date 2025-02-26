@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyDamageSources;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -38,7 +38,7 @@ public class ExtrusionDieBlock extends RotatedPillarBlock implements IBE<Extrusi
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.EXTRUSION_DIE.get(state.getValue(AXIS));
+        return DestroyVoxelShapes.EXTRUSION_DIE.get(state.getValue(AXIS));
     };
 
     @Override

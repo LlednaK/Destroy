@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.content.logistics.creativepump;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.fluids.pump.PumpBlock;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
 
@@ -20,7 +20,7 @@ public class CreativePumpBlock extends PumpBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.CREATIVE_PUMP.get(state.getValue(FACING).getAxis());
+        return DestroyVoxelShapes.CREATIVE_PUMP.get(state.getValue(FACING).getAxis());
     };
 
     @Override

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
@@ -71,7 +71,7 @@ public class RedstoneProgrammerBlock extends HorizontalDirectionalBlock implemen
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return DestroyShapes.REDSTONE_PROGRAMMER;
+        return DestroyVoxelShapes.REDSTONE_PROGRAMMER;
     };
 
     @Override

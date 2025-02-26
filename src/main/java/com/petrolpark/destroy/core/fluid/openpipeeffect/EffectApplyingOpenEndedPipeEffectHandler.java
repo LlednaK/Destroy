@@ -11,12 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class EffectApplyingOpenEndedPipeEffect implements IEffectHandler {
+public class EffectApplyingOpenEndedPipeEffectHandler implements IEffectHandler {
 
     protected final MobEffectInstance effect;
     protected final Fluid fluid;
 
-    public EffectApplyingOpenEndedPipeEffect(MobEffectInstance effect, Fluid fluid) {
+    public EffectApplyingOpenEndedPipeEffectHandler(MobEffectInstance effect, Fluid fluid) {
         this.effect = effect;
         this.fluid = fluid;
     };

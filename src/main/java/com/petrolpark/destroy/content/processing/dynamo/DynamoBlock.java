@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.DestroyTags;
 import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
@@ -99,7 +99,7 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext pContext) {
-        return state.getValue(ARC_FURNACE) ? DestroyShapes.DYNAMO_ARC_FURNACE : DestroyShapes.DYNAMO;
+        return state.getValue(ARC_FURNACE) ? DestroyVoxelShapes.DYNAMO_ARC_FURNACE : DestroyVoxelShapes.DYNAMO;
     };
 
     @Override

@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -81,7 +81,7 @@ public class PumpjackBlock extends HorizontalDirectionalBlock implements IBE<Pum
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.getPumpJackShaper(IPumpjackStructuralBlock.Component.MIDDLE).get(state.getValue(FACING));
+        return DestroyVoxelShapes.getPumpJackShaper(IPumpjackStructuralBlock.Component.MIDDLE).get(state.getValue(FACING));
     };
 
     @Override

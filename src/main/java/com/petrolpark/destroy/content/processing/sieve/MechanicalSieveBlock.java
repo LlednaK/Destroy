@@ -3,7 +3,7 @@ package com.petrolpark.destroy.content.processing.sieve;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.contraptions.ITransformableBlock;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
@@ -57,12 +57,12 @@ public class MechanicalSieveBlock extends KineticBlock implements IBE<Mechanical
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.MECHANICAL_SIEVE;
+        return DestroyVoxelShapes.MECHANICAL_SIEVE;
     };
 
     @Override
     public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext context) {
-        if (context instanceof EntityCollisionContext entityContext && entityContext.getEntity() instanceof ItemEntity) return DestroyShapes.MECHANICAL_SIEVE_COLLISION;
+        if (context instanceof EntityCollisionContext entityContext && entityContext.getEntity() instanceof ItemEntity) return DestroyVoxelShapes.MECHANICAL_SIEVE_COLLISION;
         return getShape(pState, pLevel, pPos, context);
     };
 

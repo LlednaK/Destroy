@@ -3,7 +3,7 @@ package com.petrolpark.destroy.content.processing.ageing;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.DestroySoundEvents;
 import com.simibubi.create.content.contraptions.ITransformableBlock;
 import com.simibubi.create.content.contraptions.StructureTransform;
@@ -147,9 +147,9 @@ public class AgingBarrelBlock extends HorizontalDirectionalBlock implements IBE<
     @Override
     public VoxelShape getShape(BlockState blockstate, BlockGetter level, BlockPos pos, CollisionContext context) {
         if (blockstate.getValue(IS_OPEN)) {
-            return DestroyShapes.AGING_BARREL_OPEN.get(blockstate.getValue(FACING));
+            return DestroyVoxelShapes.AGING_BARREL_OPEN.get(blockstate.getValue(FACING));
         } else {
-            return DestroyShapes.agingBarrelClosed(blockstate.getValue(PROGRESS));
+            return DestroyVoxelShapes.agingBarrelClosed(blockstate.getValue(PROGRESS));
         }
     };
 
@@ -157,14 +157,14 @@ public class AgingBarrelBlock extends HorizontalDirectionalBlock implements IBE<
     public VoxelShape getCollisionShape(BlockState blockstate, BlockGetter level, BlockPos pos, CollisionContext context) {
         // If the Entity is an Item and the Barrel is empty the collision box is higher so the Items actually register when they fall in
         if (context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof ItemEntity) {
-            return DestroyShapes.AGING_BARREL_INTERIOR;
+            return DestroyVoxelShapes.AGING_BARREL_INTERIOR;
         };
         return getShape(blockstate, level, pos, context);
     };
 
     @Override
     public VoxelShape getInteractionShape(BlockState blockstate, BlockGetter level, BlockPos pos) {
-        return DestroyShapes.AGING_BARREL_OPEN_RAYTRACE.get(blockstate.getValue(FACING));
+        return DestroyVoxelShapes.AGING_BARREL_OPEN_RAYTRACE.get(blockstate.getValue(FACING));
     };
 
     @Override

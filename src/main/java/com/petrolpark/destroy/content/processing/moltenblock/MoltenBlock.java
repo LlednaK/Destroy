@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.processing.moltenblock;
 
 import java.util.Optional;
 
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.foundation.utility.Iterate;
 
 import net.minecraft.core.BlockPos;
@@ -93,7 +93,7 @@ public abstract class MoltenBlock extends Block implements BucketPickup {
         if (context instanceof EntityCollisionContext entitycollisioncontext) {
             Entity entity = entitycollisioncontext.getEntity();
             if (entity != null) {
-                if (entity.fallDistance > 2.5f) return DestroyShapes.SEMI_MOLTEN_BLOCK_COLLISION;
+                if (entity.fallDistance > 2.5f) return DestroyVoxelShapes.SEMI_MOLTEN_BLOCK_COLLISION;
                 if (entity instanceof FallingBlockEntity || (entity instanceof LivingEntity livingEntity && livingEntity.canStandOnFluid(Fluids.LAVA.getSource(false)))) return Shapes.block();
             };
         };

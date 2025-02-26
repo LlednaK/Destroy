@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.processing.cooler;
 
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.content.processing.cooler.CoolerBlockEntity.ColdnessLevel;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllShapes;
@@ -91,7 +91,7 @@ public class CoolerBlock extends Block implements IBE<CoolerBlockEntity>, IWrenc
 
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.COOLER;
+        return DestroyVoxelShapes.COOLER;
     };
 
     @Override

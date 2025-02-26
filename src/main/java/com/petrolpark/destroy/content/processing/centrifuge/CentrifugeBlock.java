@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.foundation.block.IBE;
@@ -49,7 +49,7 @@ public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlock
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.CENTRIFUGE;
+        return DestroyVoxelShapes.CENTRIFUGE;
     };
 
     @Override

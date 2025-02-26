@@ -2,7 +2,7 @@ package com.petrolpark.destroy.core.block;
 
 import java.util.function.Supplier;
 
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
@@ -47,7 +47,7 @@ public class FullyGrownCropBlock extends BushBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext pContext) {
-        return DestroyShapes.CROP;
+        return DestroyVoxelShapes.CROP;
     };
 
     @Override

@@ -11,7 +11,7 @@ import com.simibubi.create.content.fluids.OpenEndedPipe.IEffectHandler;
 
 import net.minecraftforge.fluids.FluidStack;
 
-public class PollutingOpenEndedPipeEffect implements IEffectHandler {
+public class PollutingOpenEndedPipeEffectHandler implements IEffectHandler {
 
     private static final Random random = new Random();
 

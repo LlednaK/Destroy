@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.core.chemistry.storage.measuringcylinder;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.chemistry.storage.PlaceableMixtureTankBlock;
 
@@ -25,7 +25,7 @@ public class MeasuringCylinderBlock extends PlaceableMixtureTankBlock<MeasuringC
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return DestroyShapes.MEASURING_CYLINDER;
+        return DestroyVoxelShapes.MEASURING_CYLINDER;
     };
 
     @Override

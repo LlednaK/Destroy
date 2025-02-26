@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
@@ -82,7 +82,7 @@ public class BlowpipeBlock extends DirectionalBlock implements IBE<BlowpipeBlock
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.BLOWPIPE.get(state.getValue(FACING).getAxis());
+        return DestroyVoxelShapes.BLOWPIPE.get(state.getValue(FACING).getAxis());
     };
 
     @Override

@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -89,7 +89,7 @@ public class BubbleCapBlock extends Block implements IBE<BubbleCapBlockEntity>, 
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.bubbleCap(state.getValue(BOTTOM), state.getValue(TOP));
+        return DestroyVoxelShapes.bubbleCap(state.getValue(BOTTOM), state.getValue(TOP));
     };
 
     @Override

@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.content.sandcastle;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Lang;
@@ -42,7 +42,7 @@ public class SandCastleBlock extends Block implements IBE<SandCastleBlockEntity>
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext pContext) {
-        return DestroyShapes.SAND_CASTLE;
+        return DestroyVoxelShapes.SAND_CASTLE;
     };
 
     public static void setOwner(Level level, BlockPos pos, LivingEntity owner) {

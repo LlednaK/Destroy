@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.equipment.goggles.IProxyHoveringInformation;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.render.MultiPosDestructionHandler;
@@ -42,11 +42,11 @@ public interface IPumpjackStructuralBlock extends IProxyHoveringInformation, IWr
 
     public default VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		if (stillValid(level, pos, state)) {
-			return DestroyShapes
+			return DestroyVoxelShapes
 				.getPumpJackShaper(state.getValue(COMPONENT)) // Get the appropriate shape
 				.get(level.getBlockState(getMaster(level, pos, state)).getValue(PumpjackBlock.FACING)); // Face it in the right direction
 		};
-		return DestroyShapes.BLOCK;
+		return DestroyVoxelShapes.BLOCK;
 	};
 
 	@Override

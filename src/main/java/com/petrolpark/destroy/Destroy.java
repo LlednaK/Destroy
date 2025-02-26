@@ -135,10 +135,10 @@ public class Destroy {
         });
         DestroyStats.register();
         VatMaterial.registerDestroyVatMaterials();
-        DestroyOpenEndedPipeEffects.register();
+        DestroyOpenEndedPipeEffectHandlers.register();
         DestroyAdvancementTrigger.register();
         DestroyPotatoCannonProjectileTypes.register();
-        DestroyExtrusions.register();
+        DestroyBlockExtrusions.register();
 
         // Chemistry
         DestroyGroupFinder.register();

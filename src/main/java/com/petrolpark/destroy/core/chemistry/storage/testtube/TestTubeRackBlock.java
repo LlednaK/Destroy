@@ -3,7 +3,7 @@ package com.petrolpark.destroy.core.chemistry.storage.testtube;
 import java.util.List;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
 import com.petrolpark.destroy.core.chemistry.storage.ISpecialMixtureContainerBlock;
 import com.petrolpark.util.RayHelper;
@@ -56,7 +56,7 @@ public class TestTubeRackBlock extends Block implements IBE<TestTubeRackBlockEnt
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(X) ? DestroyShapes.TEST_TUBE_RACK_X : DestroyShapes.TEST_TUBE_RACK_Z;
+        return state.getValue(X) ? DestroyVoxelShapes.TEST_TUBE_RACK_X : DestroyVoxelShapes.TEST_TUBE_RACK_Z;
     };
 
     @Override

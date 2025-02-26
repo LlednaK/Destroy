@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlock;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 
@@ -70,7 +70,7 @@ public class ArcFurnaceLidBlock extends Block implements IWrenchable {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.ARC_FURNACE_LID.get(state.getValue(AXIS));
+        return DestroyVoxelShapes.ARC_FURNACE_LID.get(state.getValue(AXIS));
     };
 
 };

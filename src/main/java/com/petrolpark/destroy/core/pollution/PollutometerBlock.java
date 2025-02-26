@@ -1,7 +1,7 @@
 package com.petrolpark.destroy.core.pollution;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.petrolpark.destroy.core.pollution.pollutometer.PollutometerBlockEntity;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
@@ -34,7 +34,7 @@ public class PollutometerBlock extends Block implements IBE<PollutometerBlockEnt
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return DestroyShapes.POLLUTOMETER.get(state.getValue(DIRECTION));
+        return DestroyVoxelShapes.POLLUTOMETER.get(state.getValue(DIRECTION));
     };
 
     @Override

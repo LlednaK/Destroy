@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class DestroyExtrusions {
+public class DestroyBlockExtrusions {
     
     public static void register() {
         // Vanilla

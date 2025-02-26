@@ -6,11 +6,11 @@ import com.simibubi.create.content.fluids.OpenEndedPipe.LavaEffectHandler;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class BurningOpenEndedPipeEffect extends LavaEffectHandler {
+public class BurningOpenEndedPipeEffectHandler extends LavaEffectHandler {
 
     protected final Fluid fluid;
 
-    public BurningOpenEndedPipeEffect(Fluid fluid) {
+    public BurningOpenEndedPipeEffectHandler(Fluid fluid) {
         this.fluid = fluid;
     };
     

@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.processing.treetap;
 
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.DestroyShapes;
+import com.petrolpark.destroy.DestroyVoxelShapes;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
@@ -45,7 +45,7 @@ public class TreeTapBlock extends HorizontalKineticBlock implements IBE<TreeTapB
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return DestroyShapes.TREE_TAP;
+        return DestroyVoxelShapes.TREE_TAP;
     };
 
     @Override
