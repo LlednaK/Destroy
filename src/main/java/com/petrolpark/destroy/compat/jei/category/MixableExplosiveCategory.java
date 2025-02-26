@@ -9,8 +9,8 @@ import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
 import com.petrolpark.destroy.compat.jei.DestroyJEI;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosivePropertiesTooltip;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

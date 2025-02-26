@@ -4,11 +4,6 @@ import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyEntityTypes;
-import com.petrolpark.destroy.world.explosion.AnfoExplosion;
-import com.petrolpark.destroy.world.explosion.DebrisMiningExplosion;
-import com.petrolpark.destroy.world.explosion.ObliterationExplosion;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
-import com.petrolpark.destroy.world.explosion.UnderwaterExplosion;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

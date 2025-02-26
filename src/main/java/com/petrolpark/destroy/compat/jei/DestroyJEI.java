@@ -15,6 +15,7 @@ import com.petrolpark.destroy.DestroyArmorMaterials;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyFluids;
 import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.compat.jei.animation.ArcFurnaceIcon;
 import com.petrolpark.destroy.compat.jei.category.AgingCategory;
@@ -45,28 +46,27 @@ import com.petrolpark.destroy.compat.jei.recipemanager.FireproofingRecipeManager
 import com.petrolpark.destroy.compat.jei.recipemanager.ItemReverseReactionRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.tfmg.SharedDistillationRecipes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.content.processing.ageing.AgeingRecipe;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
 import com.petrolpark.destroy.content.processing.centrifuge.potion.PotionSeparationRecipes;
+import com.petrolpark.destroy.content.processing.distillation.DistillationRecipe;
+import com.petrolpark.destroy.content.processing.dynamo.ChargingRecipe;
+import com.petrolpark.destroy.content.processing.dynamo.ElectrolysisRecipe;
+import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceRecipe;
+import com.petrolpark.destroy.content.processing.extrusion.ExtrusionRecipe;
+import com.petrolpark.destroy.content.processing.glassblowing.GlassblowingRecipe;
+import com.petrolpark.destroy.content.processing.phytomining.PhytominingRecipe;
+import com.petrolpark.destroy.content.processing.sieve.SievingRecipe;
+import com.petrolpark.destroy.content.processing.treetap.TappingRecipe;
+import com.petrolpark.destroy.content.product.fireretardant.FlameRetardantApplicationRecipe;
+import com.petrolpark.destroy.content.product.periodictable.ElementTankFillingRecipe;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerScreen;
+import com.petrolpark.destroy.core.chemistry.recipe.MixtureConversionRecipe;
+import com.petrolpark.destroy.core.chemistry.recipe.ReactionRecipe;
+import com.petrolpark.destroy.core.chemistry.recipe.ReactionRecipe.GenericReactionRecipe;
+import com.petrolpark.destroy.core.explosion.ExtendedDurationFireworkRocketRecipe;
+import com.petrolpark.destroy.core.explosion.ObliterationRecipe;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockItem;
-import com.petrolpark.destroy.recipe.AgingRecipe;
-import com.petrolpark.destroy.recipe.ArcFurnaceRecipe;
-import com.petrolpark.destroy.recipe.ChargingRecipe;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.DistillationRecipe;
-import com.petrolpark.destroy.recipe.ElectrolysisRecipe;
-import com.petrolpark.destroy.recipe.ElementTankFillingRecipe;
-import com.petrolpark.destroy.recipe.ExtendedDurationFireworkRocketRecipe;
-import com.petrolpark.destroy.recipe.ExtrusionRecipe;
-import com.petrolpark.destroy.recipe.FlameRetardantApplicationRecipe;
-import com.petrolpark.destroy.recipe.GlassblowingRecipe;
-import com.petrolpark.destroy.recipe.MixtureConversionRecipe;
-import com.petrolpark.destroy.recipe.MutationRecipe;
-import com.petrolpark.destroy.recipe.ObliterationRecipe;
-import com.petrolpark.destroy.recipe.ReactionRecipe;
-import com.petrolpark.destroy.recipe.ReactionRecipe.GenericReactionRecipe;
-import com.petrolpark.destroy.recipe.SievingRecipe;
-import com.petrolpark.destroy.recipe.TappingRecipe;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
@@ -132,7 +132,7 @@ public class DestroyJEI implements IModPlugin {
 
         CreateRecipeCategory<?>
 
-        aging = builder(AgingRecipe.class)
+        aging = builder(AgeingRecipe.class)
             .addTypedRecipes(DestroyRecipeTypes.AGING)
             .acceptsMixtures()
             .catalyst(DestroyBlocks.AGING_BARREL::get)
@@ -179,7 +179,7 @@ public class DestroyJEI implements IModPlugin {
             .emptyBackground(177, 55)
             .build("extrusion", ExtrusionCategory::new),
         
-        mutation = builder(MutationRecipe.class)
+        mutation = builder(PhytominingRecipe.class)
             .addRecipes(() -> MutationCategory.RECIPES)
             .catalyst(DestroyItems.HYPERACCUMULATING_FERTILIZER::get)
             .itemIcon(DestroyItems.HYPERACCUMULATING_FERTILIZER.get())

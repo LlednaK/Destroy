@@ -3,7 +3,6 @@ package com.petrolpark.destroy.content.processing.trypolithography.keypunch;
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.client.gui.menu.KeypunchScreen;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;

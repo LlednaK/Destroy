@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -84,10 +83,11 @@ public class TestTubeRackBlock extends Block implements IBE<TestTubeRackBlockEnt
     };
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-        withBlockEntityDo(world, pos, be -> ItemHelper.dropContents(be.getLevel(), pos, be.inv));
+        withBlockEntityDo(world, pos, be -> ItemHelper.dropContents(world, pos, be.inv));
         super.onRemove(state, world, pos, newState, isMoving);
-    }
+    };
 
     /**
      * @param state

@@ -9,7 +9,6 @@ import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
 import com.petrolpark.destroy.core.fluid.GeniusFluidTankBehaviour;
-import com.petrolpark.destroy.util.BlockTapping;
 import com.simibubi.create.content.kinetics.base.BlockBreakingKineticBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.BlockHelper;

@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosiveProperty;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosiveProperty;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.FireworkStarItem;

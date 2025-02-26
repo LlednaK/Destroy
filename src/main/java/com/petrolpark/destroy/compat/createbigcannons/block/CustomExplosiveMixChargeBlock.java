@@ -10,10 +10,10 @@ import com.petrolpark.destroy.compat.createbigcannons.DestroyMunitionPropertiesH
 import com.petrolpark.destroy.compat.createbigcannons.block.entity.CreateBigCannonBlockEntityTypes;
 import com.petrolpark.destroy.compat.createbigcannons.item.CustomExplosiveMixChargeBlockItem;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.SimpleDyeableNameableMixedExplosiveBlockEntity;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosiveProperty;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosiveProperty;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;

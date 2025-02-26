@@ -7,10 +7,8 @@ import java.util.stream.Stream;
 import com.petrolpark.PetrolparkTags;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAttributes;
-import com.petrolpark.destroy.client.gui.menu.IExtendedInventoryMenu;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.ExtraInventorySizeChangeS2CPacket;
 
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;

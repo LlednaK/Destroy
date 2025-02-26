@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.compat.jei.animation.GUIBlockRenderer;
-import com.petrolpark.destroy.recipe.ExtrusionRecipe;
+import com.petrolpark.destroy.content.processing.extrusion.ExtrusionRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 

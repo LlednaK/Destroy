@@ -8,7 +8,7 @@ import com.mojang.datafixers.util.Either;
 import com.petrolpark.client.rendering.item.TransparentItemRenderer;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.client.model.DummyBaker;
+import com.petrolpark.destroy.client.DummyBaker;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
 import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;

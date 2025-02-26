@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.bettervaluesettings.SidedScrollValueBehaviour;
 import com.petrolpark.destroy.core.block.entity.ISpecialWhenHoveredBlockEntity;
-import com.petrolpark.destroy.core.block.entity.behaviour.SidedScrollValueBehaviour;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;

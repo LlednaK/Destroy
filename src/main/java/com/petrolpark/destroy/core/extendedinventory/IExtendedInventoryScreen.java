@@ -2,7 +2,6 @@ package com.petrolpark.destroy.core.extendedinventory;
 
 import java.util.List;
 
-import com.petrolpark.destroy.client.gui.menu.IExtendedInventoryMenu;
 import com.petrolpark.destroy.config.DestroyClientConfigs;
 
 import net.minecraft.client.renderer.Rect2i;

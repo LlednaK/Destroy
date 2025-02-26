@@ -14,8 +14,7 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.CircuitPatternsS2CPacket;
+import com.petrolpark.destroy.DestroyMessages;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

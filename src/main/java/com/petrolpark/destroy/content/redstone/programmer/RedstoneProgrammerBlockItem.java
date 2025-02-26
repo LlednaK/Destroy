@@ -5,10 +5,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.client.gui.menu.RedstoneProgrammerMenu;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
-import com.petrolpark.destroy.util.RedstoneProgram;
-import com.petrolpark.destroy.util.RedstoneProgrammerItemHandler;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.minecraft.core.BlockPos;

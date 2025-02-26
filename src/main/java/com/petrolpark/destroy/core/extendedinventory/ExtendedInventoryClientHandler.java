@@ -7,19 +7,16 @@ import java.util.function.Consumer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
+import com.petrolpark.destroy.client.DestroyKeys;
 import com.petrolpark.destroy.client.DestroyNineSlices;
-import com.petrolpark.destroy.client.gui.menu.IExtendedInventoryMenu;
-import com.petrolpark.destroy.client.key.DestroyKeys;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.config.DestroyClientConfigs;
 import com.petrolpark.destroy.config.DestroyClientConfigs.ExtraInventoryClientSettings;
 import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory.DelayedSlotPopulation;
 import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory.SlotFactory;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.ExtraInventorySizeChangeS2CPacket;
-import com.petrolpark.destroy.network.packet.RequestInventoryFullStateC2SPacket;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.utility.Iterate;
 

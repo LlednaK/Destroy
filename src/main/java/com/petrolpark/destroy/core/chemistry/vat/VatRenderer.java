@@ -9,7 +9,6 @@ import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 import com.petrolpark.destroy.client.DestroyPartials;
 import com.petrolpark.destroy.client.DestroyRenderTypes;
-import com.petrolpark.destroy.util.vat.Vat;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 import com.simibubi.create.foundation.item.SmartInventory;

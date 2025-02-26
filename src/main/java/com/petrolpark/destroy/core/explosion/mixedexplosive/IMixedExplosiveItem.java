@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.core.explosion.mixedexplosive;
 
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.world.item.ItemStack;
 

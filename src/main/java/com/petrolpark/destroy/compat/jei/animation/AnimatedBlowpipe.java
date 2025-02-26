@@ -4,9 +4,9 @@ import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeBlock;
-import com.petrolpark.destroy.content.processing.blowpipe.BlowpipeBlockEntityRenderer;
-import com.petrolpark.destroy.recipe.GlassblowingRecipe;
+import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlock;
+import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntityRenderer;
+import com.petrolpark.destroy.content.processing.glassblowing.GlassblowingRecipe;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 

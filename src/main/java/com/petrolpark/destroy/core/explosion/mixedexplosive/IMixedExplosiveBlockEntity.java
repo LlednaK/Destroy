@@ -3,8 +3,7 @@ package com.petrolpark.destroy.core.explosion.mixedexplosive;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.petrolpark.destroy.client.gui.menu.CustomExplosiveMenu;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.ItemHelper.ExtractionCountMode;
@@ -48,7 +47,7 @@ public interface IMixedExplosiveBlockEntity extends MenuProvider, ClipboardClone
 
     @Override
     public default AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return CustomExplosiveMenu.create(containerId, playerInventory, this);
+        return MixedExplosiveMenu.create(containerId, playerInventory, this);
     };
 
     public default void writeToBuffer(FriendlyByteBuf buffer) {

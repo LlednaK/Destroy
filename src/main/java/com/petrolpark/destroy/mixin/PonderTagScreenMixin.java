@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.petrolpark.destroy.client.ponder.DestroyPonderTags;
+import com.petrolpark.destroy.client.DestroyPonderTags;
 import com.petrolpark.destroy.mixin.accessor.PonderTagScreenAccessor;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.ponder.ui.PonderTagScreen;

@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import com.petrolpark.destroy.compat.createbigcannons.block.entity.CustomExplosiveMixChargeBlockEntity;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.DyeableMixedExplosiveBlockItem;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;

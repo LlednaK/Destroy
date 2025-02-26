@@ -6,10 +6,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.client.gui.screen.RedstoneMonitorVatSideScreen;
 import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
 import com.petrolpark.destroy.core.chemistry.storage.ISpecialMixtureContainerBlock;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity.DisplayType;
+import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneMonitorVatSideScreen;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.decoration.copycat.CopycatBlock;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;

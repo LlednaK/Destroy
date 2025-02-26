@@ -3,10 +3,10 @@ package com.petrolpark.destroy.compat.createbigcannons.block.entity;
 import org.jetbrains.annotations.Nullable;
 
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.SimpleDyeableNameableMixedExplosiveBlockEntity;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

@@ -4,9 +4,9 @@ import com.petrolpark.destroy.content.product.alcohol.HangoverMobEffect;
 import com.petrolpark.destroy.content.product.alcohol.InebriationMobEffect;
 import com.petrolpark.destroy.content.product.babyblue.BabyBlueHighMobEffect;
 import com.petrolpark.destroy.content.product.babyblue.BabyBlueWithdrawalMobEffect;
-import com.petrolpark.destroy.core.chemistry.hazard.ChemicalPoisonMobEffect;
-import com.petrolpark.destroy.core.chemistry.hazard.CryingMobEffect;
-import com.petrolpark.destroy.core.chemistry.hazard.LeadPoisoningMobEffect;
+import com.petrolpark.destroy.core.chemistry.hazard.mobeffect.ChemicalPoisonMobEffect;
+import com.petrolpark.destroy.core.chemistry.hazard.mobeffect.CryingMobEffect;
+import com.petrolpark.destroy.core.chemistry.hazard.mobeffect.LeadPoisoningMobEffect;
 import com.petrolpark.destroy.core.mobeffect.DestroyMobEffect;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
 

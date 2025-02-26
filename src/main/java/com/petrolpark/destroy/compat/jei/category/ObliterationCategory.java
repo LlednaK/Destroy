@@ -1,15 +1,10 @@
 package com.petrolpark.destroy.compat.jei.category;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
-import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyTags.Items;
+import com.petrolpark.destroy.core.explosion.ObliterationRecipe;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockItem;
-import com.petrolpark.destroy.recipe.ObliterationRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 

@@ -3,7 +3,7 @@ package com.petrolpark.destroy.core.block.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.petrolpark.destroy.core.block.entity.behaviour.SidedScrollValueBehaviour;
+import com.petrolpark.destroy.core.bettervaluesettings.SidedScrollValueBehaviour;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.CreateClient;

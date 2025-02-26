@@ -2,10 +2,10 @@ package com.petrolpark.destroy.compat.createbigcannons.entity;
 
 import com.petrolpark.destroy.compat.createbigcannons.block.CreateBigCannonsBlocks;
 import com.petrolpark.destroy.compat.createbigcannons.block.CustomExplosiveMixShellBlock;
+import com.petrolpark.destroy.core.explosion.SmartExplosion;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.CustomExplosiveMixExplosion;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
-import com.petrolpark.destroy.world.explosion.CustomExplosiveMixExplosion;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;

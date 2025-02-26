@@ -3,7 +3,7 @@ package com.petrolpark.destroy.compat.createbigcannons.item;
 import com.petrolpark.destroy.compat.createbigcannons.block.entity.CustomExplosiveMixShellBlockEntity;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.DyeableMixedExplosiveBlockItem;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.world.level.block.Block;
 

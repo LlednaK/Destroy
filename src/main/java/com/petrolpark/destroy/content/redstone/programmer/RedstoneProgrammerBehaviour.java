@@ -2,8 +2,6 @@ package com.petrolpark.destroy.content.redstone.programmer;
 
 import java.util.function.BooleanSupplier;
 
-import com.petrolpark.destroy.client.gui.menu.RedstoneProgrammerMenu;
-import com.petrolpark.destroy.util.RedstoneProgram;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler.Frequency;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;

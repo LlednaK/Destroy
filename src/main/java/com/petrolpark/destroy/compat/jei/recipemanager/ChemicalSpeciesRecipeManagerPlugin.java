@@ -13,9 +13,9 @@ import com.petrolpark.destroy.compat.jei.DestroyJEI;
 import com.petrolpark.destroy.compat.jei.MoleculeJEIIngredient;
 import com.petrolpark.destroy.compat.jei.category.GenericReactionCategory;
 import com.petrolpark.destroy.compat.jei.category.ReactionCategory;
+import com.petrolpark.destroy.core.chemistry.recipe.ReactionRecipe;
 import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredient;
 import com.petrolpark.destroy.core.recipe.ingredient.fluid.MixtureFluidIngredientSubType;
-import com.petrolpark.destroy.recipe.ReactionRecipe;
 
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.helpers.IJeiHelpers;

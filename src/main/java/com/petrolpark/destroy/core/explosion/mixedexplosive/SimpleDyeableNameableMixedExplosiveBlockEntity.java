@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.Dynamic;
 import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 

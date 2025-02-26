@@ -9,10 +9,9 @@ import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.DestroySoundEvents;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.recipe.AgingRecipe;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
@@ -93,7 +92,7 @@ public class AgeingBarrelBlockEntity extends SmartBlockEntity implements IHaveGo
         if (!hasLevel() || getLevel().isClientSide()) return; // It thinks getLevel() might be null (it's not)
         List<Recipe<?>> allRecipes = RecipeFinder.get(agingRecipeKey, level, r -> r.getType() == DestroyRecipeTypes.AGING.getType());
         List<Recipe<?>> possibleRecipes = allRecipes.stream().filter(r -> {
-            AgingRecipe recipe = (AgingRecipe) r;
+            AgeingRecipe recipe = (AgeingRecipe) r;
             if (!recipe.getFluidIngredients().get(0).test(getTank().getFluid())) {
                 return false;
             };
@@ -122,7 +121,7 @@ public class AgeingBarrelBlockEntity extends SmartBlockEntity implements IHaveGo
         }).collect(Collectors.toList());
 
         if (possibleRecipes.size() >= 1) { // If a Recipe is found
-            AgingRecipe recipe = (AgingRecipe) possibleRecipes.get(0);
+            AgeingRecipe recipe = (AgeingRecipe) possibleRecipes.get(0);
             onTimerChange(); // Update how the Barrel looks before any Fluids are changed
             getTank().drain(TANK_CAPACITY, FluidAction.EXECUTE); // Drain input
             inventory.clearContent(); // Empty Inventory

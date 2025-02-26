@@ -1,5 +1,6 @@
 package com.petrolpark.destroy.core.fluid;
 
+import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.simibubi.create.AllFluids.TintedFluidType;
 
 import net.minecraft.core.BlockPos;
@@ -8,6 +9,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidStack;
 
+@MoveToPetrolparkLibrary
 public class ColoredFluidType extends TintedFluidType {
 
     private final int color;

@@ -13,15 +13,13 @@ import org.joml.Math;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.block.entity.IHaveLabGoggleInformation;
+import com.petrolpark.destroy.core.chemistry.vat.material.VatMaterial;
 import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMonitorBehaviour;
+import com.petrolpark.destroy.core.chemistry.vat.uv.IUVLampBlock;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.petrolpark.destroy.util.DestroyLang.TemperatureUnit;
-import com.petrolpark.destroy.util.vat.IUVLampBlock;
-import com.petrolpark.destroy.util.vat.IVatHeaterBlock;
-import com.petrolpark.destroy.util.vat.Vat;
-import com.petrolpark.destroy.util.vat.VatMaterial;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;
 import com.simibubi.create.content.equipment.goggles.IHaveHoveringInformation;
@@ -78,7 +76,7 @@ public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGo
     protected int initializationTicks;
 
     /**
-     * The power in/output from a {@link com.petrolpark.destroy.util.vat.IVatHeaterBlock heater or cooler} this
+     * The power in/output from a {@link com.petrolpark.destroy.core.chemistry.vat.IVatHeaterBlock heater or cooler} this
      * Vat Side had last time its adjacent block was changed.
      */
     protected float oldPower;

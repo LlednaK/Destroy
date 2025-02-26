@@ -3,8 +3,6 @@ package com.petrolpark.destroy.core.explosion;
 import org.jetbrains.annotations.Nullable;
 
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
-import com.petrolpark.destroy.world.explosion.ExcavationExplosion;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;

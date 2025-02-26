@@ -4,8 +4,8 @@ import javax.annotation.Nullable;
 
 import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
+import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyShapes;
-import com.petrolpark.destroy.world.damage.DestroyDamageSources;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 

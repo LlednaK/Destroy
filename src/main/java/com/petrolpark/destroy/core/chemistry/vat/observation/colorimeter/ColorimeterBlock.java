@@ -9,7 +9,6 @@ import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyFluids;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
-import com.petrolpark.destroy.client.gui.screen.ColorimeterScreen;
 import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;

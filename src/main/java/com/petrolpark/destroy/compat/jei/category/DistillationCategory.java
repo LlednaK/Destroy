@@ -4,7 +4,7 @@ import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.compat.jei.animation.HeatConditionRenderer;
-import com.petrolpark.destroy.recipe.DistillationRecipe;
+import com.petrolpark.destroy.content.processing.distillation.DistillationRecipe;
 
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

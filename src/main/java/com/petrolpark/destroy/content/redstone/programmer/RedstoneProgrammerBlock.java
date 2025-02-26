@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyShapes;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
-import com.petrolpark.destroy.util.RedstoneProgram;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;

@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.SievingRecipe;
 import com.petrolpark.recipe.RecipeHelper;
 import com.petrolpark.recipe.advancedprocessing.firsttimelucky.FirstTimeLuckyRecipesBehaviour;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;

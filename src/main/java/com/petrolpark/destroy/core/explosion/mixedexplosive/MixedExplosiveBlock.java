@@ -7,9 +7,7 @@ import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyEntityTypes;
 import com.petrolpark.destroy.core.explosion.PrimeableBombBlock;
-import com.petrolpark.destroy.world.explosion.CustomExplosiveMixExplosion;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
+import com.petrolpark.destroy.core.explosion.SmartExplosion;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.core.BlockPos;

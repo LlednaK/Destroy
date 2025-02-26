@@ -9,13 +9,12 @@ import com.petrolpark.compat.create.item.directional.DirectionalTransportedItemS
 import com.petrolpark.compat.create.item.directional.IDirectionalOnBelt;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.content.processing.trypolithography.CircuitMaskItem;
 import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternItem;
+import com.petrolpark.destroy.content.processing.trypolithography.CircuitPuncherHandler;
 import com.petrolpark.destroy.content.processing.trypolithography.keypunch.CircuitPunchingBehaviour.CircuitPunchingSpecifics;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.RequestKeypunchNamePacket;
-import com.petrolpark.destroy.util.circuit.CircuitPuncherHandler;
 import com.petrolpark.util.BinaryMatrix4x4;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
@@ -153,7 +152,7 @@ public class KeypunchBlockEntity extends KineticBlockEntity implements ICircuitP
         if (!namedYet && !getLevel().isClientSide()) {
             Player player = namingBehaviour.getPlayer();
             if (player != null && player instanceof ServerPlayer serverPlayer) {
-                DestroyMessages.sendToClient(new RequestKeypunchNamePacket(getBlockPos()), serverPlayer);
+                DestroyMessages.sendToClient(new RequestKeypunchNameS2CPacket(getBlockPos()), serverPlayer);
             } else {
                 name = "Unnamed";
             };

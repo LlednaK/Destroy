@@ -5,11 +5,11 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.petrolpark.destroy.DestroyRecipeTypes;
+import com.petrolpark.destroy.content.product.periodictable.ElementTankFillingRecipe;
 import com.petrolpark.destroy.core.block.entity.IHaveLabGoggleInformation;
 import com.petrolpark.destroy.core.fluid.GeniusFluidTankBehaviour;
 import com.petrolpark.destroy.core.pollution.PollutingBehaviour;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.ElementTankFillingRecipe;
 import com.petrolpark.destroy.util.DestroyLang;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;

@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.minecraft.network.chat.Component;

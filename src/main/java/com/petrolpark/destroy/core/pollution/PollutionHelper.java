@@ -7,15 +7,13 @@ import org.joml.Vector3f;
 
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.chemistry.hazard.ChemistryHazardHelper;
+import com.petrolpark.destroy.core.fluid.gasparticle.EvaporatingFluidS2CPacket;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.EvaporatingFluidS2CPacket;
-import com.petrolpark.destroy.network.packet.LevelPollutionS2CPacket;
-import com.petrolpark.destroy.network.packet.SyncChunkPollutionS2CPacket;
-import com.petrolpark.destroy.util.ChemistryDamageHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -155,7 +153,7 @@ public class PollutionHelper {
             pollute(level, blockPos, multiplier, fluidStack);
             if (particleWeight == 1 || level.getRandom().nextInt(particleWeight) == 0); DestroyMessages.sendToAllClients(new EvaporatingFluidS2CPacket(blockPos, fluidStack));
             for (LivingEntity entity : nearbyEntities) {
-                ChemistryDamageHelper.damage(level, entity, fluidStack, true);
+                ChemistryHazardHelper.damage(level, entity, fluidStack, true);
             };
         };
     };

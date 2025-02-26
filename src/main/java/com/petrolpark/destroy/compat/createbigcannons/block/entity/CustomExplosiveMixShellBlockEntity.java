@@ -5,10 +5,10 @@ import javax.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.IDyeableMixedExplosiveBlockEntity;
 import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveInventory;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties.ExplosivePropertyCondition;
+import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties.ExplosivePropertyCondition;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

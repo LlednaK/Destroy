@@ -1,12 +1,12 @@
 package com.petrolpark.destroy.content.product.babyblue;
 
 import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
 import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.world.damage.DestroyDamageSources;
 
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;

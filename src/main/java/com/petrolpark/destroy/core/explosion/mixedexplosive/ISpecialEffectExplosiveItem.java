@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.core.explosion.mixedexplosive;
 
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
+import com.petrolpark.destroy.core.explosion.SmartExplosion;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;

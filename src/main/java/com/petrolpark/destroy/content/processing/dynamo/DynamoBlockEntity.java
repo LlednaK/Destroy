@@ -5,14 +5,13 @@ import java.util.Optional;
 
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlocks;
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.DestroySoundEvents;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.content.processing.discstamping.DiscElectroplatingRecipe;
 import com.petrolpark.destroy.content.processing.dynamo.ChargingBehaviour.ChargingBehaviourSpecifics;
+import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceRecipe;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
-import com.petrolpark.destroy.recipe.ArcFurnaceRecipe;
-import com.petrolpark.destroy.recipe.ChargingRecipe;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.DiscElectroplatingRecipe;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;

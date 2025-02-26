@@ -14,27 +14,26 @@ import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyRecipeTypes;
 import com.petrolpark.destroy.chemistry.api.util.Constants;
 import com.petrolpark.destroy.chemistry.legacy.LegacyMixture;
+import com.petrolpark.destroy.chemistry.legacy.LegacyMixture.ReactionContext;
 import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
 import com.petrolpark.destroy.chemistry.legacy.ReadOnlyMixture;
-import com.petrolpark.destroy.chemistry.legacy.LegacyMixture.ReactionContext;
 import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
-import com.petrolpark.destroy.client.particle.data.BoilingFluidBubbleParticleData;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.block.entity.IHaveLabGoggleInformation;
 import com.petrolpark.destroy.core.block.entity.ISpecialWhenHoveredBlockEntity;
 import com.petrolpark.destroy.core.chemistry.MixtureContentsDisplaySource;
+import com.petrolpark.destroy.core.chemistry.recipe.MixtureConversionRecipe;
 import com.petrolpark.destroy.core.chemistry.vat.VatFluidTankBehaviour.VatTankSegment.VatFluidTank;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity.DisplayType;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
+import com.petrolpark.destroy.core.explosion.SmartExplosion;
+import com.petrolpark.destroy.core.fluid.gasparticle.BoilingFluidBubbleParticleData;
 import com.petrolpark.destroy.core.pollution.Pollution;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.MixtureConversionRecipe;
 import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.util.vat.Vat;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.contraptions.ITransformableBlockEntity;
 import com.simibubi.create.content.contraptions.StructureTransform;
@@ -119,7 +118,7 @@ public class VatControllerBlockEntity extends SmartBlockEntity implements IHaveL
 
     protected int initializationTicks;
     /**
-     * Whether the {@link com.petrolpark.destroy.util.vat.Vat Vat} associated with this Vat Controller is already under the process of being deleted.
+     * Whether the {@link com.petrolpark.destroy.core.chemistry.vat.Vat Vat} associated with this Vat Controller is already under the process of being deleted.
      */
     protected boolean underDeconstruction;
 
@@ -408,7 +407,7 @@ public class VatControllerBlockEntity extends SmartBlockEntity implements IHaveL
     };
 
     /**
-     * Try to make a {@link com.petrolpark.destroy.util.vat.Vat Vat} attached to this Vat Controller.
+     * Try to make a {@link com.petrolpark.destroy.core.chemistry.vat.Vat Vat} attached to this Vat Controller.
      */
     @SuppressWarnings("null") // It thinks getLevel() might be null (it's not)
     public boolean tryMakeVat() {
@@ -642,7 +641,7 @@ public class VatControllerBlockEntity extends SmartBlockEntity implements IHaveL
     };
 
     /**
-     * Get the pressure (above air pressure) of gas in this Vat as a proportion of the {@link com.petrolpark.destroy.util.vat.Vat#getMaxPressure maximum pressure}
+     * Get the pressure (above air pressure) of gas in this Vat as a proportion of the {@link com.petrolpark.destroy.core.chemistry.vat.Vat#getMaxPressure maximum pressure}
      * the Vat can withstand.
      */
     public float getPercentagePressure() {

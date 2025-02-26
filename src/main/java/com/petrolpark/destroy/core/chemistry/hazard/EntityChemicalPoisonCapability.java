@@ -3,9 +3,8 @@ package com.petrolpark.destroy.core.chemistry.hazard;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.ChemicalPoisonS2CPacket;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

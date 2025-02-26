@@ -1,10 +1,10 @@
 package com.petrolpark.destroy.content.product.alcohol;
 
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
+import com.petrolpark.destroy.DestroyDamageSources;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
-import com.petrolpark.destroy.world.damage.DestroyDamageSources;
 
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;

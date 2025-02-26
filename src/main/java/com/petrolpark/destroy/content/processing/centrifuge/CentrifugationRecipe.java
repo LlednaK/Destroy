@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.HashSet;
 
 import com.ibm.icu.impl.locale.XCldrStub.ImmutableSet;
-import com.petrolpark.destroy.recipe.DestroyRecipeTypes;
-import com.petrolpark.destroy.recipe.SingleFluidRecipe;
+import com.petrolpark.destroy.DestroyRecipeTypes;
+import com.petrolpark.destroy.core.recipe.SingleFluidRecipe;
 import com.petrolpark.recipe.advancedprocessing.IBiomeSpecificProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
 

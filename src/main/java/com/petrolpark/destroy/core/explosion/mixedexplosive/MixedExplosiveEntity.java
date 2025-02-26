@@ -4,8 +4,7 @@ import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyEntityTypes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.explosion.PrimedBombEntity;
-import com.petrolpark.destroy.world.explosion.CustomExplosiveMixExplosion;
-import com.petrolpark.destroy.world.explosion.SmartExplosion;
+import com.petrolpark.destroy.core.explosion.SmartExplosion;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

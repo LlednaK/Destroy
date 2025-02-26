@@ -6,10 +6,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.compat.CompatMods;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
 import com.petrolpark.destroy.client.DestroyIcons;
-import com.petrolpark.destroy.client.gui.menu.CustomExplosiveMenu;
 import com.petrolpark.destroy.compat.jei.category.MixableExplosiveCategory;
 import com.petrolpark.destroy.util.DestroyLang;
-import com.petrolpark.destroy.world.explosion.ExplosiveProperties;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
@@ -21,17 +19,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class MixedExplosiveScreen extends AbstractSimiContainerScreen<CustomExplosiveMenu> {
+public class MixedExplosiveScreen extends AbstractSimiContainerScreen<MixedExplosiveMenu> {
 
     private final DestroyGuiTextures background;
 
-    private final CustomExplosiveMenu menu;
+    private final MixedExplosiveMenu menu;
     private final IMixedExplosiveBlockEntity be;
     private ExplosiveProperties explosiveProperties = null;
 
     protected IconButton viewJeiButton, confirmButton;
 
-    public MixedExplosiveScreen(CustomExplosiveMenu container, Inventory inv, Component title) {
+    public MixedExplosiveScreen(MixedExplosiveMenu container, Inventory inv, Component title) {
         super(container, inv, title);
         menu = container;
         be = menu.contentHolder;

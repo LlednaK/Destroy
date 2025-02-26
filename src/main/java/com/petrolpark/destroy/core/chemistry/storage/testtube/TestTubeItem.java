@@ -7,10 +7,10 @@ import java.util.function.Consumer;
 import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyItems;
+import com.petrolpark.destroy.core.chemistry.hazard.ChemistryHazardHelper;
 import com.petrolpark.destroy.core.chemistry.storage.IMixtureStorageItem;
 import com.petrolpark.destroy.core.chemistry.storage.ItemMixtureTank;
 import com.petrolpark.destroy.core.item.ILayerTintsWithAlphaItem;
-import com.petrolpark.destroy.util.ChemistryDamageHelper;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.minecraft.core.BlockPos;
@@ -52,7 +52,7 @@ public class TestTubeItem extends Item implements ILayerTintsWithAlphaItem, IMix
         super.inventoryTick(stack, level, entity, slotId, isSelected);
         Optional<FluidStack> contentsOptional = getContents(stack);
         if (entity instanceof LivingEntity livingEntity && contentsOptional.isPresent()) {
-            ChemistryDamageHelper.damage(level, livingEntity, contentsOptional.get(), false);
+            ChemistryHazardHelper.damage(level, livingEntity, contentsOptional.get(), false);
         };
     };
 

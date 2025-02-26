@@ -3,9 +3,9 @@ package com.petrolpark.destroy.core.pollution;
 import java.util.Random;
 
 import com.petrolpark.destroy.DestroyFluids;
+import com.petrolpark.destroy.DestroyMessages;
+import com.petrolpark.destroy.core.fluid.gasparticle.EvaporatingFluidS2CPacket;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.EvaporatingFluidS2CPacket;
 import com.simibubi.create.content.fluids.OpenEndedPipe;
 import com.simibubi.create.content.fluids.OpenEndedPipe.IEffectHandler;
 

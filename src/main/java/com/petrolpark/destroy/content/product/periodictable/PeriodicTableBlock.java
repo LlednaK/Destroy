@@ -9,8 +9,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.RefreshPeriodicTablePonderSceneS2CPacket;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.util.DestroyReloadListener;
 
 import net.minecraft.core.BlockPos;
