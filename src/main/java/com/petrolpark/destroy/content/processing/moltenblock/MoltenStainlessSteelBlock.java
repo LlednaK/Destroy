@@ -3,21 +3,13 @@ package com.petrolpark.destroy.content.processing.moltenblock;
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.DestroyItems;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MoltenStainlessSteelBlock extends MoltenBlock {
+public class MoltenStainlessSteelBlock extends AbstractMoltenBlock {
 
     public MoltenStainlessSteelBlock(Properties properties) {
         super(properties);
-    };
-
-    @Override
-    public ItemStack pickupBlock(LevelAccessor level, BlockPos pos, BlockState state) {
-        return DestroyItems.MOLTEN_STAINLESS_STEEL_BUCKET.asStack();
     };
 
     @Override

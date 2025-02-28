@@ -3,7 +3,6 @@ package com.petrolpark.destroy;
 import java.util.Optional;
 
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlock;
-import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
 import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlock;
 import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlock;
@@ -58,14 +57,8 @@ public class DestroyMovementChecks {
         return BlockMovementChecks.CheckResult.PASS;
     };
 
-    public static BlockMovementChecks.CheckResult attachedCheckArcFurnace(BlockState state, Level level, BlockPos pos, Direction attached) {
-        if (state.getBlock() instanceof DynamoBlock && state.getValue(DynamoBlock.ARC_FURNACE) && attached == Direction.DOWN) return BlockMovementChecks.CheckResult.SUCCESS;
-        if (state.getBlock() instanceof ArcFurnaceLidBlock && attached == Direction.UP) return BlockMovementChecks.CheckResult.SUCCESS;
-        return BlockMovementChecks.CheckResult.PASS;
-    };
-
     public static void register() {
         BlockMovementChecks.registerAttachedCheck(DestroyMovementChecks::attachedCheckVats);
-        BlockMovementChecks.registerAttachedCheck(DestroyMovementChecks::attachedCheckArcFurnace);
+        BlockMovementChecks.registerMovementAllowedCheck(DynamoBlock::isMovementAllowed);
     };
 };

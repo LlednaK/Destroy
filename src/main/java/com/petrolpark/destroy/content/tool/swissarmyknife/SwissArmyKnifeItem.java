@@ -35,6 +35,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.PumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -174,7 +175,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
             if (shiftDown || tool == null) {
                 if (state.getBlock() instanceof PumpkinBlock) tool = Tool.SHEARS;
                 if (AxeItem.getAxeStrippingState(state) != null) tool = Tool.AXE;
-                if (ShovelItem.FLATTENABLES.containsKey(state.getBlock())) tool = Tool.SHOVEL;
+                if (ShovelItem.FLATTENABLES.containsKey(state.getBlock()) || (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT))) tool = Tool.SHOVEL;
                 if (HoeItem.TILLABLES.containsKey(state.getBlock())) tool = Tool.HOE;
             };
         } else if (ray instanceof EntityHitResult ehr) {

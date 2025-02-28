@@ -18,12 +18,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,9 +35,9 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public abstract class MoltenBlock extends Block implements BucketPickup {
+public abstract class AbstractMoltenBlock extends Block implements BucketPickup {
 
-    public MoltenBlock(Properties properties) {
+    public AbstractMoltenBlock(Properties properties) {
         super(properties);
     };
 
@@ -69,10 +69,11 @@ public abstract class MoltenBlock extends Block implements BucketPickup {
     };
 
     @Override
-    public abstract ItemStack pickupBlock(LevelAccessor level, BlockPos pos, BlockState state);
-
-    @Override
-    public abstract Item asItem();
+    public ItemStack pickupBlock(LevelAccessor level, BlockPos pos, BlockState state) {
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+        if (!level.isClientSide()) level.levelEvent(2001, pos, Block.getId(state));
+        return new ItemStack(asItem());
+    };
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {

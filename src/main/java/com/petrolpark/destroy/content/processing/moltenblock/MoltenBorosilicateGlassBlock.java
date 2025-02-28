@@ -6,23 +6,16 @@ import com.petrolpark.destroy.DestroyItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class MoltenBorosilicateGlassBlock extends MoltenBlock {
+public class MoltenBorosilicateGlassBlock extends AbstractMoltenBlock {
 
     public MoltenBorosilicateGlassBlock(Properties properties) {
         super(properties);
-    };
-
-    @Override
-    public ItemStack pickupBlock(LevelAccessor level, BlockPos pos, BlockState state) {
-        return DestroyItems.MOLTEN_BOROSILICATE_GLASS_BUCKET.asStack();
     };
 
     @Override

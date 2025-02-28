@@ -18,6 +18,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder; 
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -71,6 +72,11 @@ public class ArcFurnaceLidBlock extends Block implements IWrenchable {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return DestroyVoxelShapes.ARC_FURNACE_LID.get(state.getValue(AXIS));
+    };
+
+    @Override
+    public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation rotation) {
+        return (rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.COUNTERCLOCKWISE_90) ? state.cycle(AXIS) : state;
     };
 
 };

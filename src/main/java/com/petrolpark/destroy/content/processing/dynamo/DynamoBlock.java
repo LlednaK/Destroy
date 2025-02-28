@@ -10,6 +10,8 @@ import com.petrolpark.destroy.DestroyTags;
 import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
 import com.petrolpark.recipe.ingredient.BlockIngredient.BlockTagIngredient;
+import com.simibubi.create.content.contraptions.BlockMovementChecks;
+import com.simibubi.create.content.contraptions.BlockMovementChecks.CheckResult;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 
@@ -22,9 +24,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
@@ -87,7 +91,7 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock() && DestroyBlocks.ARC_FURNACE_LID.has(level.getBlockState(pos.below()))) {
-            level.setBlock(pos.below(), getBlockEntity(level, pos).arcFurnaceBlock.get(), 3);
+            getBlockEntityOptional(level, pos).ifPresent(be -> level.setBlock(pos.below(), be.arcFurnaceBlock.get(), 3));
         };  
         super.onRemove(state, level, pos, newState, isMoving);
     };
@@ -115,6 +119,11 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
         return InteractionResult.SUCCESS;
     };
 
+    public static BlockMovementChecks.CheckResult isMovementAllowed(BlockState state, Level world, BlockPos pos) {
+        if ((state.getBlock() instanceof DynamoBlock && state.getValue(ARC_FURNACE)) || state.getBlock() instanceof ArcFurnaceLidBlock) return CheckResult.FAIL;
+        return BlockMovementChecks.CheckResult.PASS;
+    };
+
     public void checkForArcFurnace(Level level, BlockPos pos, BlockState state) {
         BlockState stateBelow = level.getBlockState(pos.below());
         boolean belowIsArcFurnaceLidBlock = stateBelow.is(DestroyBlocks.CARBON_FIBER_BLOCK.get()) || level.getBlockState(pos.below()).getBlock() instanceof ArcFurnaceLidBlock;
@@ -132,6 +141,11 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
             };
         };
     };
+    
+    @Override
+    public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation rotation) {
+        return (rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.COUNTERCLOCKWISE_90) ? state.cycle(AXIS) : state;
+    };
 
     @Override
     public Class<DynamoBlockEntity> getBlockEntityClass() {
@@ -143,4 +157,4 @@ public class DynamoBlock extends KineticBlock implements IBE<DynamoBlockEntity> 
         return DestroyBlockEntityTypes.DYNAMO.get();
     };
     
-}
+};

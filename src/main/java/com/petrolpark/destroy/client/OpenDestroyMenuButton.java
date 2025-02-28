@@ -1,5 +1,7 @@
 package com.petrolpark.destroy.client;
 
+import java.util.function.Supplier;
+
 import org.apache.commons.lang3.mutable.MutableObject;
 
 import com.petrolpark.destroy.Destroy;
@@ -33,7 +35,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(value = Dist.CLIENT, modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class OpenDestroyMenuButton extends Button {
 
-    public static final ItemStack ICON = DestroyItems.LOGO.asStack();
+    public static final Supplier<ItemStack> ICON = DestroyItems.LOGO::asStack;
 
 	public OpenDestroyMenuButton(int x, int y) {
 		super(x, y, 20, 20, Components.immutableEmpty(), OpenDestroyMenuButton::click, DEFAULT_NARRATION);
@@ -41,7 +43,7 @@ public class OpenDestroyMenuButton extends Button {
 
     @Override
 	public void renderString(GuiGraphics graphics, Font pFont, int pColor) {
-		graphics.renderItem(ICON, getX() + 2, getY() + 2);
+		graphics.renderItem(ICON.get(), getX() + 2, getY() + 2);
 	};
 	
 	public static void click(Button b) {
@@ -55,7 +57,7 @@ public class OpenDestroyMenuButton extends Button {
      * @param event
      */
     @SubscribeEvent
-    public static void onGuiInit(ScreenEvent.Init event) {
+    public static final void onGuiInit(ScreenEvent.Init event) {
         Screen gui = event.getScreen();
 
         MenuRows menu = null;
