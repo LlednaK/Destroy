@@ -94,6 +94,14 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
     };
 
     @Override
+    public void onClose() {
+        lowerBound.setFocused(false);
+        upperBound.setFocused(false);
+        tick();
+        super.onClose();
+    }
+
+    @Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (getFocused() instanceof EditBox && (keyCode == InputConstants.KEY_RETURN || keyCode == InputConstants.KEY_NUMPADENTER)) for (EditBox box : List.of(lowerBound, upperBound)) {
             if (box.isFocused()) {

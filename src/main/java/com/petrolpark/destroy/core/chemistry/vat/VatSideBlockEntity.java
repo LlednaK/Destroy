@@ -240,6 +240,13 @@ public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGo
             spoutingFluid = FluidStack.loadFluidStackFromNBT(tag.getCompound("SpoutingFluid"));
             ventOpenness.chase(displayType == DisplayType.OPEN_VENT ? 1f : 0f, 0.3f, Chaser.EXP);
         };
+
+        if(!redstoneMonitor.quantityObserved.isPresent() && getDisplayType().quantityObserved.isPresent()) {
+            redstoneMonitor.quantityObserved = getDisplayType().quantityObserved.map(f -> () -> {
+                VatControllerBlockEntity vc = getController();
+                return vc == null ? 0.f : f.apply(vc);
+            });
+        }
         redstoneMonitor.withLabel(getDisplayType().quantityLabel);
     };
 
