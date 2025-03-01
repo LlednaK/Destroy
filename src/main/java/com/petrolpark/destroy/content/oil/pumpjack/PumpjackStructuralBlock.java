@@ -41,7 +41,7 @@ public class PumpjackStructuralBlock extends DirectionalBlock implements IPumpja
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return IPumpjackStructuralBlock.super.getShape(state, level, pos, context);
+		return IPumpjackStructuralBlock.getShape(state, level, pos, context);
 	};
 
 	@Override

@@ -40,7 +40,7 @@ public interface IPumpjackStructuralBlock extends IProxyHoveringInformation, IWr
 
     public static final EnumProperty<Component> COMPONENT = EnumProperty.create("component", Component.class);
 
-    public default VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public static VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		if (stillValid(level, pos, state)) {
 			return DestroyVoxelShapes
 				.getPumpJackShaper(state.getValue(COMPONENT)) // Get the appropriate shape
