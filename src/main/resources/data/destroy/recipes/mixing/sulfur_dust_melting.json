@@ -21,7 +21,7 @@
             "nbt": {
                 "Mixture": {
                     "TranslationKey": "fluid.destroy.molten_sulfur",
-                    "Temperature": "388",
+                    "Temperature": 388,
                     "Contents": [
                         {
                             "Molecule": "destroy:octasulfur",
