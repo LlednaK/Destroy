@@ -1107,7 +1107,7 @@
     "destroy.generic_reaction.nitrile_hydrolysis.description": "将[destroy:nitrile]{水解, destroy:hydrolysis}为[destroy:amide]",
     "destroy.generic_reaction.nitro_hydrogenation": "[destroy:nitro]氢化",
     "destroy.generic_reaction.nitro_hydrogenation.description": "化合物中的[destroy:nitro]在{氢化, destroy:hydrogenation}后变为[destroy:amine].",
-    "destroy.generic_reaction.thionyl_chloride_substitution": "二氯亚砜取代",
+    "destroy.generic_reaction.thionyl_chloride_substitution": "氯化亚砜取代",
     "destroy.generic_reaction.thionyl_chloride_substitution.description": "[destroy:alcohol]发生{亲核, destroy:nucleophile}{取代反应, destroy:substitution}，转化为{烷烃, destroy:alkane}的氯化物",
     "destroy.generic_reaction.wolff_kishner_reduction": "沃尔夫-基希纳反应",
     "destroy.generic_reaction.wolff_kishner_reduction.description": "[destroy:carbonyl]在反应中被{还原, destroy:reduction}为{烷烃, destroy:alkane}",
