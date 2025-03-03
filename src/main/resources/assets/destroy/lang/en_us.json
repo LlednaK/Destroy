@@ -5,7 +5,7 @@
     "advancement.destroy.addition_polymer": "Additional Polymers",
     "advancement.destroy.addition_polymer.description": "Synthesize an addition polymer, the largest family of plastics",
     "advancement.destroy.aging_barrel": "The Devil's Mushroom Stew",
-    "advancement.destroy.aging_barrel.description": "Use an Aging Barrel to produce a fermented drink",
+    "advancement.destroy.aging_barrel.description": "Use an Ageing Barrel to produce a fermented drink",
     "advancement.destroy.aibn": "You're Lucky The Name's Abbreviated",
     "advancement.destroy.aibn.description": "Synthesize AIBN, a catalyst for many plastics",
     "advancement.destroy.andrussow_process": "This Cyanide Tastes Like Almonds",
@@ -127,7 +127,7 @@
     "advancement.destroy.very_drunk": "Twenty-One Plus Percent B.A.C.",
     "advancement.destroy.very_drunk.description": "Reach 10 levels of Inebriation",
 
-    "block.destroy.aging_barrel": "Aging Barrel",
+    "block.destroy.aging_barrel": "Ageing Barrel",
     "block.destroy.anfo_block": "ANFO Block",
     "block.destroy.anfo_block.tooltip": "ANFO_BLOCK",
     "block.destroy.anfo_block.tooltip.summary": "An explosive _perfect_ for mining for _ore_.",
