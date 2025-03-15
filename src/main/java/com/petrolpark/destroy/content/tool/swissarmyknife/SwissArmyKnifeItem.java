@@ -1,6 +1,9 @@
 package com.petrolpark.destroy.content.tool.swissarmyknife;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -20,8 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -38,7 +39,6 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.PumpkinBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -158,10 +158,10 @@ public class SwissArmyKnifeItem extends DiggerItem {
     };
 
     @Override
-	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(SimpleCustomRenderer.create(this, new SwissArmyKnifeItemRenderer()));
-	};
+    @OnlyIn(Dist.CLIENT)
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(SimpleCustomRenderer.create(this, new SwissArmyKnifeItemRenderer()));
+    };
 
     @OnlyIn(Dist.CLIENT)
     public static void clientPlayerTick() {
@@ -214,7 +214,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
             if (shiftDown || tool == null) {
                 if (state.getBlock() instanceof PumpkinBlock) tool = Tool.SHEARS;
                 if (AxeItem.getAxeStrippingState(state) != null) tool = Tool.AXE;
-                if (ShovelItem.FLATTENABLES.containsKey(state.getBlock()) || (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT))) tool = Tool.SHOVEL;
+                if (ShovelItem.FLATTENABLES.containsKey(state.getBlock())) tool = Tool.SHOVEL;
                 if (HoeItem.TILLABLES.containsKey(state.getBlock())) tool = Tool.HOE;
             };
         } else if (ray instanceof EntityHitResult ehr) {
@@ -262,5 +262,5 @@ public class SwissArmyKnifeItem extends DiggerItem {
             this.exampleTool = exampleTool;
         };
     };
-    
+
 };
