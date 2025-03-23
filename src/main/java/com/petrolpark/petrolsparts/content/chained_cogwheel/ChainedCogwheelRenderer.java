@@ -3,7 +3,6 @@ package com.petrolpark.petrolsparts.content.chained_cogwheel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.petrolpark.petrolsparts.PetrolsPartsPartials;
@@ -12,11 +11,12 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import com.simibubi.create.foundation.utility.Pair;
 
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -41,9 +41,8 @@ public class ChainedCogwheelRenderer extends KineticBlockEntityRenderer<ChainedC
      * Largely copied from the {@link com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer Create source code}.
      */
     @Override
-    @SuppressWarnings("null") // It thinks getLevel() might be null
     protected void renderSafe(ChainedCogwheelBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (Backend.canUseInstancing(be.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
         BlockState state = getRenderedBlockState(be);
         if (state == null) return;
 
@@ -57,22 +56,22 @@ public class ChainedCogwheelRenderer extends KineticBlockEntityRenderer<ChainedC
             BlockEntity otherBE = be.getLevel().getBlockEntity(new BlockPos(MathsHelper.add(be.getBlockPos(), be.partner)));
             if (!(otherBE instanceof ChainedCogwheelBlockEntity otherCBE)) return;
             ms.pushPose();
-            for (Pair<Vec3, Double> posAndRot : getLinkPositionsAndRotations(axis, state, be.partner, otherCBE.copiedState, targetAngle)) {
-                CachedBufferer.partial(PetrolsPartsPartials.CHAIN_LINK, state)
+            for (Pair<Vec3, Float> posAndRot : getLinkPositionsAndRotations(axis, state, be.partner, otherCBE.copiedState, targetAngle)) {
+                CachedBuffers.partial(PetrolsPartsPartials.CHAIN_LINK, state)
                     .translate(posAndRot.getFirst())
-                    .rotate(posAndRot.getSecond() + (axis == Axis.Z ? 90d : 0d), axis)
-                    .rotateX(axis == Axis.Z ? 90 : 0)
-                    .rotateZ(axis == Axis.X ? 90 : 0)
+                    .rotateDegrees(posAndRot.getSecond() + (axis == Axis.Z ? 90f : 0f), axis)
+                    .rotateXDegrees(axis == Axis.Z ? 90 : 0)
+                    .rotateZDegrees(axis == Axis.X ? 90 : 0)
                     .renderInto(ms, vc);
             };
             ms.popPose();
         };
 
         if (AllBlocks.LARGE_COGWHEEL.has(state)) {
-            renderRotatingBuffer(be, CachedBufferer.partialFacingVertical(AllPartialModels.SHAFTLESS_LARGE_COGWHEEL, be.getBlockState(), facing), ms, vc, light);
+            renderRotatingBuffer(be, CachedBuffers.partialFacingVertical(AllPartialModels.SHAFTLESS_LARGE_COGWHEEL, be.getBlockState(), facing), ms, vc, light);
 
             float angle = BracketedKineticBlockEntityRenderer.getAngleForLargeCogShaft(be, axis);
-            SuperByteBuffer shaft = CachedBufferer.partialFacingVertical(AllPartialModels.COGWHEEL_SHAFT, be.getBlockState(), facing);
+            SuperByteBuffer shaft = CachedBuffers.partialFacingVertical(AllPartialModels.COGWHEEL_SHAFT, be.getBlockState(), facing);
             kineticRotationTransform(shaft, be, axis, angle, light);
             shaft.renderInto(ms, vc);
         } else {
@@ -88,7 +87,7 @@ public class ChainedCogwheelRenderer extends KineticBlockEntityRenderer<ChainedC
      * @param otherCog
      * @return
      */
-    public static List<Pair<Vec3, Double>> getLinkPositionsAndRotations(Axis axis, BlockState thisCog, BlockPos otherPos, BlockState otherCog, float cogAngle) {
+    public static List<Pair<Vec3, Float>> getLinkPositionsAndRotations(Axis axis, BlockState thisCog, BlockPos otherPos, BlockState otherCog, float cogAngle) {
         Vec3 thisCenter = IChainableBlock.getRelativeCenterOfRotation(thisCog);
         Vec3 thatCenter = Vec3.atLowerCornerOf(otherPos).add(IChainableBlock.getRelativeCenterOfRotation(otherCog));
         Vec3 thisToThat = thatCenter.subtract(thisCenter);
@@ -102,7 +101,7 @@ public class ChainedCogwheelRenderer extends KineticBlockEntityRenderer<ChainedC
         double angle1 = Math.acos((r1 - r2) / d) * 180d / Mth.PI;
         double angle2 = 180d - angle1;
 
-        List<Pair<Vec3, Double>> pandrs = new ArrayList<>();
+        List<Pair<Vec3, Float>> pandrs = new ArrayList<>();
 
         // double linearAngle1 = (angleToThat + angle1 - 90d) % 360d;
         // Vec3 linearDirection1 = MathsHelper.rotate(forward, up, linearAngle1);

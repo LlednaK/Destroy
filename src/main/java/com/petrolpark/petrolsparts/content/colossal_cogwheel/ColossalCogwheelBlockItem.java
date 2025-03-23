@@ -8,19 +8,19 @@ import java.util.stream.Stream;
 
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Connection;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Position;
-import com.simibubi.create.CreateClient;
+import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
-import com.simibubi.create.foundation.placement.IPlacementHelper;
-import com.simibubi.create.foundation.placement.PlacementHelpers;
-import com.simibubi.create.foundation.placement.PlacementOffset;
-import com.simibubi.create.foundation.utility.Couple;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.Pair;
 
+import net.createmod.catnip.data.Couple;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.outliner.Outliner;
+import net.createmod.catnip.placement.IPlacementHelper;
+import net.createmod.catnip.placement.PlacementHelpers;
+import net.createmod.catnip.placement.PlacementOffset;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
@@ -101,9 +101,9 @@ public class ColossalCogwheelBlockItem extends BlockItem {
     @OnlyIn(Dist.CLIENT)
 	public void showBounds(BlockPos centerPos, Axis axis, Player player) {
 		if (!(player instanceof LocalPlayer localPlayer)) return;
-		CreateClient.OUTLINER.showCluster(Pair.of("colossal_cogwheel", centerPos), Stream.of(Position.Clock.values()).map(c -> Stream.of(Position.Type.values()).map(t -> centerPos.offset(t.relativeCenterPos.apply(axis, c.getDirection(axis)))).toList()).collect(ArrayList::new, List::addAll, List::addAll))
+		Outliner.getInstance().showCluster(Pair.of("colossal_cogwheel", centerPos), Stream.of(Position.Clock.values()).map(c -> Stream.of(Position.Type.values()).map(t -> centerPos.offset(t.relativeCenterPos.apply(axis, c.getDirection(axis)))).toList()).collect(ArrayList::new, List::addAll, List::addAll))
             .colored(0xFF_ff5d6c);
-		Lang.translate("large_water_wheel.not_enough_space")
+		Create.lang().translate("large_water_wheel.not_enough_space")
 			.color(0xFF_ff5d6c)
 			.sendStatus(localPlayer);
 	};

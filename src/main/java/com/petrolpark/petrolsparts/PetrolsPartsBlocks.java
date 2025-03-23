@@ -15,12 +15,12 @@ import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTrans
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlock;
 import com.petrolpark.tube.TubeBlockItem;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.ModelGen;
 import com.simibubi.create.foundation.data.TagGen;
+import com.simibubi.create.infrastructure.config.CStress;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
 import net.minecraft.world.level.block.SoundType;
@@ -34,7 +34,7 @@ public class PetrolsPartsBlocks {
             .sound(SoundType.WOOD)
             .mapColor(MapColor.DIRT)
             .noOcclusion()
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
         .transform(TagGen.axeOrPickaxe())
         .item(CoaxialGearBlockItem::new)
@@ -43,7 +43,7 @@ public class PetrolsPartsBlocks {
 
     public static final BlockEntry<CoaxialGearBlock> LARGE_COAXIAL_GEAR = REGISTRATE.block("large_coaxial_gear", CoaxialGearBlock::large)
         .initialProperties(COAXIAL_GEAR)
-        .transform(BlockStressDefaults.setNoImpact())
+        .transform(CStress.setNoImpact())
         .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
         .transform(TagGen.axeOrPickaxe())
         .item(CoaxialGearBlockItem::new)
@@ -54,21 +54,21 @@ public class PetrolsPartsBlocks {
         .initialProperties(AllBlocks.COGWHEEL)
         .properties(p -> p
             .noOcclusion()
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .register();
 
     public static final BlockEntry<ChainedCogwheelBlock> CHAINED_LARGE_COGWHEEL = REGISTRATE.block("chained_large_cogwheel", ChainedCogwheelBlock::large)
         .initialProperties(CHAINED_COGWHEEL)
         .properties(p -> p
             .noOcclusion()
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .register();
 
     public static final BlockEntry<ColossalCogwheelBlock> COLOSSAL_COGWHEEL = REGISTRATE.block("colossal_cogwheel", ColossalCogwheelBlock::new)
         .initialProperties(AllBlocks.LARGE_WATER_WHEEL)
         .properties(p -> p
             .noOcclusion()
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .item(ColossalCogwheelBlockItem::new)
         .transform(ModelGen.customItemModel())
         .register();
@@ -79,7 +79,7 @@ public class PetrolsPartsBlocks {
             .noOcclusion()
             .sound(SoundType.WOOD)
 		    .mapColor(MapColor.DIRT)
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .transform(TagGen.axeOrPickaxe())
         .item(CogwheelBlockItem::new)
         .transform(ModelGen.customItemModel())
@@ -87,7 +87,7 @@ public class PetrolsPartsBlocks {
 
     public static final BlockEntry<DummyDifferentialBlock> DUMMY_DIFFERENTIAL = REGISTRATE.block("dummy_differential", DummyDifferentialBlock::new)
         .initialProperties(DIFFERENTIAL)
-        .transform(BlockStressDefaults.setNoImpact())
+        .transform(CStress.setNoImpact())
         .register();
 
     public static final BlockEntry<DoubleCardanShaftBlock> DOUBLE_CARDAN_SHAFT = REGISTRATE.block("double_cardan_shaft", DoubleCardanShaftBlock::new)
@@ -95,7 +95,7 @@ public class PetrolsPartsBlocks {
         .properties(p -> p
             .mapColor(MapColor.METAL)
             .noOcclusion()
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .transform(TagGen.pickaxeOnly())
         .item()
         .transform(ModelGen.customItemModel())
@@ -105,7 +105,7 @@ public class PetrolsPartsBlocks {
         .initialProperties(AllBlocks.MECHANICAL_CRAFTER)
         .properties(p -> p
             .noOcclusion()
-        ).transform(BlockStressDefaults.setImpact(2.0))
+        ).transform(CStress.setImpact(2.0))
         .transform(TagGen.axeOrPickaxe())
         .item(TubeBlockItem::new)
         .build()
@@ -113,7 +113,7 @@ public class PetrolsPartsBlocks {
 
     public static final BlockEntry<LongShaftBlock> LONG_SHAFT = REGISTRATE.block("long_shaft", LongShaftBlock::new)
         .initialProperties(AllBlocks.SHAFT)
-        .transform(BlockStressDefaults.setNoImpact())
+        .transform(CStress.setNoImpact())
         .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
         .register();
 
@@ -123,7 +123,7 @@ public class PetrolsPartsBlocks {
             .noOcclusion()
             .sound(SoundType.WOOD)
 		    .mapColor(MapColor.DIRT)
-        ).transform(BlockStressDefaults.setNoImpact())
+        ).transform(CStress.setNoImpact())
         .transform(TagGen.axeOrPickaxe())
         .item(CogwheelBlockItem::new)
         .transform(ModelGen.customItemModel())

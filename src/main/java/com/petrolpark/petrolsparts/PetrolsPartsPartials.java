@@ -1,6 +1,6 @@
 package com.petrolpark.petrolsparts;
 
-import com.jozufozu.flywheel.core.PartialModel;
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 
 public class PetrolsPartsPartials {
 
@@ -34,7 +34,7 @@ public class PetrolsPartsPartials {
     HYDRAULIC_TRANSMISSION_SEGMENT = block("hydraulic_transmission/segment");
 
     private static PartialModel block(String path) {
-        return new PartialModel(PetrolsParts.asResource("block/"+path));
+        return PartialModel.of(PetrolsParts.asResource("block/"+path));
     };
 
     public static final void init() {};

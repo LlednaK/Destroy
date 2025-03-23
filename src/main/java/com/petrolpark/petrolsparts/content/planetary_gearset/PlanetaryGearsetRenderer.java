@@ -1,6 +1,5 @@
 package com.petrolpark.petrolsparts.content.planetary_gearset;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.petrolpark.petrolsparts.PetrolsPartsPartials;
@@ -8,10 +7,11 @@ import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -29,7 +29,7 @@ public class PlanetaryGearsetRenderer extends KineticBlockEntityRenderer<Planeta
 
     @Override
     protected void renderSafe(PlanetaryGearsetBlockEntity planetaryGearsetBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (Backend.canUseInstancing(planetaryGearsetBlockEntity.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(planetaryGearsetBlockEntity.getLevel())) return;
 
 		BlockState state = getRenderedBlockState(planetaryGearsetBlockEntity);
         Axis axis = state.getValue(RotatedPillarKineticBlock.AXIS);
@@ -40,17 +40,17 @@ public class PlanetaryGearsetRenderer extends KineticBlockEntityRenderer<Planeta
         float offset2 = Mth.PI * BracketedKineticBlockEntityRenderer.getShaftAngleOffset(axis, planetaryGearsetBlockEntity.getBlockPos()) / 180f;
 		float angle = ((time * planetaryGearsetBlockEntity.getSpeed() * 3f / 10 + offset1) % 360) / 180 * Mth.PI;
 
-        SuperByteBuffer ringGear = CachedBufferer.partialDirectional(PetrolsPartsPartials.PG_RING_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
+        SuperByteBuffer ringGear = CachedBuffers.partialDirectional(PetrolsPartsPartials.PG_RING_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
         kineticRotationTransform(ringGear, planetaryGearsetBlockEntity, axis, angle + offset1, light);
         ringGear.renderInto(ms, vbSolid);
         
-        SuperByteBuffer sunGear = CachedBufferer.partialDirectional(PetrolsPartsPartials.PG_SUN_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
+        SuperByteBuffer sunGear = CachedBuffers.partialDirectional(PetrolsPartsPartials.PG_SUN_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
         kineticRotationTransform(sunGear, planetaryGearsetBlockEntity, axis, (-2 * angle) + offset2, light);
         sunGear.renderInto(ms, vbSolid);
         
         for (Direction direction : Direction.values()) {
             if (direction.getAxis() == axis) continue;
-            SuperByteBuffer planetGear = CachedBufferer.partialDirectional(PetrolsPartsPartials.PG_PLANET_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
+            SuperByteBuffer planetGear = CachedBuffers.partialDirectional(PetrolsPartsPartials.PG_PLANET_GEAR, state, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
             planetGear.translate(direction.step().mul(6.25f / 16f));
             kineticRotationTransform(planetGear, planetaryGearsetBlockEntity, axis, (2 * angle) + offset2, light);
             planetGear.renderInto(ms, vbSolid);

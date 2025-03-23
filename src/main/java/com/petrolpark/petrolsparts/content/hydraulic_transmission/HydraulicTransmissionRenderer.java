@@ -1,17 +1,17 @@
 package com.petrolpark.petrolsparts.content.hydraulic_transmission;
 
-import com.jozufozu.flywheel.core.PartialModel;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.petrolpark.petrolsparts.PetrolsPartsPartials;
 import com.petrolpark.tube.ITubeRenderer;
 import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
 
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -35,21 +35,21 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
         renderTube(be, ms, buffer, light);
 
         ms.pushPose();
-        TransformStack.cast(ms)
-            .centre()
+        TransformStack.of(ms)
+            .center()
             .rotateToFace(facing.getOpposite())
             .multiply(com.mojang.math.Axis.XN.rotationDegrees(-90))
-            .unCentre();
+            .uncenter();
 
-        CachedBufferer.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
-            .translateZ(Mth.sin(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32d)
+        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
+            .translateZ(Mth.sin(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32f)
             .light(light)
             .renderInto(ms, vc);
-        CachedBufferer.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
-            .centre()
-            .rotateY(90d)
-            .unCentre()
-            .translateZ(Mth.cos(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32d)
+        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
+            .center()
+            .rotateYDegrees(90f)
+            .uncenter()
+            .translateZ(Mth.cos(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32f)
             .light(light)
             .renderInto(ms, vc);
         
@@ -64,7 +64,7 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
     @Override
     protected SuperByteBuffer getRotatedModel(HydraulicTransmissionBlockEntity be, BlockState state) {
         Direction face = state.getValue(HydraulicTransmissionBlock.FACING);
-        return CachedBufferer.partialDirectional(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_INNER, state, face, () -> KineticsHelper.rotateToFace(face.getOpposite()));
+        return CachedBuffers.partialDirectional(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_INNER, state, face, () -> KineticsHelper.rotateToFace(face.getOpposite()));
     };
 
     @Override

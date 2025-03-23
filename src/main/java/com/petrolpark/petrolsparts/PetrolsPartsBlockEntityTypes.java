@@ -14,14 +14,14 @@ import com.petrolpark.petrolsparts.content.differential.DummyDifferentialBlockEn
 import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftBlockEntity;
 import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftRenderer;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionBlockEntity;
-import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionInstance;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionRenderer;
+import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionVisual;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlockEntity;
-import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetInstance;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetRenderer;
-import com.simibubi.create.content.kinetics.base.SingleRotatingInstance;
-import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityInstance;
+import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetVisual;
+import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
+import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityVisual;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class PetrolsPartsBlockEntityTypes {
@@ -34,7 +34,7 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<CoaxialGearBlockEntity> COAXIAL_GEAR = REGISTRATE
         .blockEntity("coaxial_gear", CoaxialGearBlockEntity::new)
-        .instance(() -> SingleRotatingInstance::new, false)
+        .visual(() -> SingleAxisRotatingVisual::create, false)
         .validBlocks(PetrolsPartsBlocks.COAXIAL_GEAR, PetrolsPartsBlocks.LARGE_COAXIAL_GEAR)
         .renderer(() -> BracketedKineticBlockEntityRenderer::new)
         .register();
@@ -47,14 +47,14 @@ public class PetrolsPartsBlockEntityTypes {
 
         public static final BlockEntityEntry<DoubleCardanShaftBlockEntity> DOUBLE_CARDAN_SHAFT = REGISTRATE
         .blockEntity("double_cardan_shaft", DoubleCardanShaftBlockEntity::new)
-        //.instance(() -> DoubleCardanShaftInstance::new) //TODO fix
+        //.visual(() -> DoubleCardanShaftvisual::new) //TODO fix
         .validBlock(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT)
         .renderer(() -> DoubleCardanShaftRenderer::new)
         .register();
 
     public static final BlockEntityEntry<DifferentialBlockEntity> DIFFERENTIAL = REGISTRATE
         .blockEntity("differential", DifferentialBlockEntity::new)
-        //TODO instance
+        //TODO visual
         .validBlock(PetrolsPartsBlocks.DIFFERENTIAL)
         .renderer(() -> DifferentialRenderer::new)
         .register();
@@ -66,21 +66,21 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<HydraulicTransmissionBlockEntity> HYDRAULIC_TRANSMISSION = REGISTRATE
         .blockEntity("hydraulic_transmission", HydraulicTransmissionBlockEntity::new)
-        .instance(() -> HydraulicTransmissionInstance::new)
+        .visual(() -> HydraulicTransmissionVisual::new)
         .validBlock(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION)
         .renderer(() -> HydraulicTransmissionRenderer::new)
         .register();
 
     public static final BlockEntityEntry<LongShaftBlockEntity> LONG_SHAFT = REGISTRATE
         .blockEntity("long_shaft", LongShaftBlockEntity::new)
-        .instance(() -> BracketedKineticBlockEntityInstance::new, false)
+        .visual(() -> BracketedKineticBlockEntityVisual::create, false)
         .validBlocks(PetrolsPartsBlocks.LONG_SHAFT)
         .renderer(() -> BracketedKineticBlockEntityRenderer::new)
         .register();
 
     public static final BlockEntityEntry<PlanetaryGearsetBlockEntity> PLANETARY_GEARSET = REGISTRATE
         .blockEntity("planetary_gearset", PlanetaryGearsetBlockEntity::new)
-        .instance(() -> PlanetaryGearsetInstance::new, false)
+        .visual(() -> PlanetaryGearsetVisual::new, false)
         .validBlocks(PetrolsPartsBlocks.PLANETARY_GEARSET)
         .renderer(() -> PlanetaryGearsetRenderer::new)
         .register();

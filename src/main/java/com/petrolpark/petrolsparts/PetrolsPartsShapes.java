@@ -1,8 +1,8 @@
 package com.petrolpark.petrolsparts;
 
 import com.simibubi.create.AllShapes;
-import com.simibubi.create.foundation.utility.VoxelShaper;
 
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.world.level.block.Block;
 
 public class PetrolsPartsShapes {

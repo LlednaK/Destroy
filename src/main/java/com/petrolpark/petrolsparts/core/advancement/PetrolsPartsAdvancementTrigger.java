@@ -2,7 +2,7 @@ package com.petrolpark.petrolsparts.core.advancement;
 
 import com.petrolpark.data.advancement.SimpleAdvancementTrigger;
 import com.petrolpark.petrolsparts.PetrolsParts;
-import com.simibubi.create.foundation.utility.Lang;
+import com.petrolpark.util.Lang;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;

@@ -4,42 +4,42 @@ import java.util.EnumMap;
 
 import org.joml.Vector3f;
 
-import com.jozufozu.flywheel.api.InstanceData;
-import com.jozufozu.flywheel.api.Instancer;
-import com.jozufozu.flywheel.api.MaterialManager;
 import com.petrolpark.petrolsparts.PetrolsPartsPartials;
 import com.petrolpark.util.KineticsHelper;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
+import com.simibubi.create.content.kinetics.base.RotatingInstance;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 
+import dev.engine_room.flywheel.api.instance.Instancer;
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PlanetaryGearsetInstance extends KineticBlockEntityInstance<PlanetaryGearsetBlockEntity> {
+public class PlanetaryGearsetVisual extends KineticBlockEntityVisual<PlanetaryGearsetBlockEntity> {
 
-    protected final RotatingData ringGear;
-    protected final RotatingData sunGear;
-    protected final EnumMap<Direction, RotatingData> keys;
+    protected final RotatingInstance ringGear;
+    protected final RotatingInstance sunGear;
+    protected final EnumMap<Direction, RotatingInstance> keys;
 
-    public PlanetaryGearsetInstance(MaterialManager materialManager, PlanetaryGearsetBlockEntity blockEntity) {
-        super(materialManager, blockEntity);
+    public PlanetaryGearsetVisual(VisualizationContext visualizationContext, PlanetaryGearsetBlockEntity blockEntity, float partialTick) {
+        super(visualizationContext, blockEntity, partialTick);
         BlockState blockState = blockEntity.getBlockState();
         Axis axis = KineticBlockEntityRenderer.getRotationAxisOf(blockEntity);
-        int blockLight = world.getBrightness(LightLayer.BLOCK, pos);
-        int skyLight = world.getBrightness(LightLayer.SKY, pos);
+        int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
+        int skyLight = level.getBrightness(LightLayer.SKY, pos);
 
-        ringGear = getRotatingMaterial().getModel(PetrolsPartsPartials.PG_RING_GEAR, blockState, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis))
+        ringGear = instancerProvider().getModel(PetrolsPartsPartials.PG_RING_GEAR, blockState, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis))
             .createInstance();
         ringGear
             .setRotationAxis(axis)
             .setRotationOffset(getRotationOffset(axis)).setColor(blockEntity)
-            .setRotationalSpeed(getBlockEntitySpeed())
-            .setPosition(getInstancePosition())
+            .setRotationalSpeed(blockEntity.getSpeed())
+            .setPosition(getVisualPosition())
 			.setBlockLight(blockLight)
 			.setSkyLight(skyLight);
 
@@ -49,7 +49,7 @@ public class PlanetaryGearsetInstance extends KineticBlockEntityInstance<Planeta
             .setRotationAxis(axis)
             .setRotationOffset(BracketedKineticBlockEntityRenderer.getShaftAngleOffset(axis, pos)).setColor(blockEntity)
             .setRotationalSpeed(-2 * getBlockEntitySpeed())
-            .setPosition(getInstancePosition())
+            .setPosition(getVisualPosition())
 			.setBlockLight(blockLight)
 			.setSkyLight(skyLight);
 
@@ -58,11 +58,11 @@ public class PlanetaryGearsetInstance extends KineticBlockEntityInstance<Planeta
         for (Direction direction : Direction.values()) {
             if (direction.getAxis() == axis) continue;
 
-            Instancer<RotatingData> planetGear = getRotatingMaterial().getModel(PetrolsPartsPartials.PG_PLANET_GEAR, blockState, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
+            Instancer<RotatingInstance> planetGear = getRotatingMaterial().getModel(PetrolsPartsPartials.PG_PLANET_GEAR, blockState, Direction.get(AxisDirection.POSITIVE, axis), () -> KineticsHelper.rotateToAxis(axis));
 
-			RotatingData key = planetGear.createInstance();
+			RotatingInstance key = planetGear.createInstance();
 
-            Vector3f position = new Vector3f(getInstancePosition().getX(), getInstancePosition().getY(), getInstancePosition().getZ());
+            Vector3f position = new Vector3f(getVisualPosition().getX(), getVisualPosition().getY(), getVisualPosition().getZ());
             position.add(direction.step().mul(6.25f / 16f));
 
 			key
@@ -78,9 +78,9 @@ public class PlanetaryGearsetInstance extends KineticBlockEntityInstance<Planeta
     };
 
     @Override
-    public void update() {
+    public void update(float partialTick) {
         Axis axis = KineticBlockEntityRenderer.getRotationAxisOf(blockEntity);
-        updateRotation(ringGear, axis, getBlockEntitySpeed());
+        updateRotation(ringGear, axis, blockEntity.getSpeed());
         updateRotation(sunGear, axis, -2 * getBlockEntitySpeed());
         sunGear.setRotationOffset(BracketedKineticBlockEntityRenderer.getShaftAngleOffset(axis, pos));
         keys.values().forEach(gear -> {
@@ -90,16 +90,16 @@ public class PlanetaryGearsetInstance extends KineticBlockEntityInstance<Planeta
     };
 
     @Override
-    public void updateLight() {
+    public void updateLight(float partialTick) {
         relight(pos, ringGear, sunGear);
         relight(pos, keys.values().stream());
     };
 
     @Override
-    protected void remove() {
+    protected void _delete() {
         ringGear.delete();
         sunGear.delete();
-        keys.values().forEach(InstanceData::delete);
+        keys.values().forEach(RotatingInstance::delete);
         keys.clear();
     };
     

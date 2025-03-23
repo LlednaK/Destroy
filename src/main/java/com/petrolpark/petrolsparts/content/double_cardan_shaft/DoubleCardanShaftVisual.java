@@ -3,16 +3,12 @@ package com.petrolpark.petrolsparts.content.double_cardan_shaft;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jozufozu.flywheel.api.Material;
-import com.jozufozu.flywheel.api.MaterialManager;
-import com.jozufozu.flywheel.api.instance.DynamicInstance;
-import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.petrolpark.petrolsparts.PetrolsPartsPartials;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
-import com.simibubi.create.content.kinetics.base.flwdata.KineticData;
-import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
+import com.simibubi.create.content.kinetics.base.RotatingInstance;
 
+import dev.engine_room.flywheel.api.material.Material;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -20,15 +16,16 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.model.data.ModelData;
 
-public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<DoubleCardanShaftBlockEntity> implements DynamicInstance {
+public class DoubleCardanShaftVisual extends KineticBlockEntityVisual<DoubleCardanShaftBlockEntity> implements DynamicInstance {
 
-    protected final RotatingData shaft1;
-    protected final RotatingData grip1;
+    protected final RotatingInstance shaft1;
+    protected final RotatingInstance grip1;
     protected final ModelData gimbal1;
 
-    protected final RotatingData shaft2;
-    protected final RotatingData grip2;
+    protected final RotatingInstance shaft2;
+    protected final RotatingInstance grip2;
     protected final ModelData gimbal2;
 
     protected final ModelData centerShaft;
@@ -39,18 +36,18 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
     protected Direction sourceFacing;
     protected boolean secondaryPositive;
 
-    public DoubleCardanShaftInstance(MaterialManager materialManager, DoubleCardanShaftBlockEntity blockEntity) {
+    public DoubleCardanShaftVisual(MaterialManager materialManager, DoubleCardanShaftBlockEntity blockEntity) {
         super(materialManager, blockEntity);
         Material<ModelData> modelMaterial = getTransformMaterial();
-        Material<RotatingData> rotatingMaterial = getRotatingMaterial();
+        Material<RotatingInstance> rotatingMaterial = getRotatingMaterial();
         Direction[] directions = DoubleCardanShaftBlock.getDirectionsConnectedByState(blockEntity.getBlockState());
         secondaryPositive = blockEntity.getBlockState().getValue(DoubleCardanShaftBlock.AXIS_ALONG_FIRST_COORDINATE);
         
         shaft1Direction = directions[0];
         shaft2Direction = directions[1];
 
-        int blockLight = world.getBrightness(LightLayer.BLOCK, pos);
-        int skyLight = world.getBrightness(LightLayer.SKY, pos);
+        int blockLight = level.getBrightness(LightLayer.BLOCK, pos);
+        int skyLight = level.getBrightness(LightLayer.SKY, pos);
 
         updateSourceFacing();
 
@@ -98,7 +95,7 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
     private void transformShaft(KineticData data, Direction face, int blockLight, int skyLight) {
         data
             .setRotationalSpeed(getSpeed(face))
-            .setPosition(getInstancePosition())
+            .setPosition(getVisualPosition())
 			.setBlockLight(blockLight)
 			.setSkyLight(skyLight);
     };
@@ -116,7 +113,7 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
         float gimbal2FluctuatingAngle = Mth.sin(fluctuatingAngle2 + (facesHaveSameSign() ^ (axis == Axis.X && shaft2Direction.getAxis() == Axis.Z) ? Mth.PI : 0) + (axis == Axis.Z && !facesHaveSameSign() ? Mth.PI / 2 : 0) + (axis == Axis.X ? Mth.PI / 2 : 0)) * Mth.PI / 4;
 
         centerShaft.loadIdentity()
-            .translate(getInstancePosition())
+            .translate(getVisualPosition())
             .translate(shaft1Direction.step().mul(2.5f / 16f))
             .translate(shaft2Direction.step().mul(2.5f / 16f))
             .centre()
@@ -129,7 +126,7 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
             .unCentre();
 
         gimbal1.loadIdentity()
-            .translate(getInstancePosition())
+            .translate(getVisualPosition())
             
             .centre()
             .rotate(Direction.get(AxisDirection.POSITIVE, shaft1Direction.getAxis()), gimbal1Angle)
@@ -146,7 +143,7 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
             ;
 
         gimbal2.loadIdentity()
-            .translate(getInstancePosition())
+            .translate(getVisualPosition())
             
             .centre()
 
@@ -185,20 +182,20 @@ public class DoubleCardanShaftInstance extends KineticBlockEntityInstance<Double
         }
     };
 
-    public static Direction gimbalRotation(Direction direction, boolean isZaxis) {
+    public static Axis gimbalRotation(Direction direction, boolean isZaxis) {
         switch (direction) {
             case NORTH:
-                return Direction.EAST;
+                return Axis.X;
             case EAST:
-                return isZaxis ? Direction.UP : Direction.SOUTH;
+                return isZaxis ? Axis.Y : Axis.Z;
             case SOUTH:
-                return Direction.EAST;
+                return Axis.X;
             case WEST:
-                return isZaxis ? Direction.UP : Direction.SOUTH;
+                return isZaxis ? Axis.Y : Axis.Z;
             case UP:
-                return isZaxis ? Direction.SOUTH : Direction.EAST;
+                return isZaxis ? Axis.Z : Axis.X;
             case DOWN:
-                return isZaxis ? Direction.SOUTH : Direction.EAST;
+                return isZaxis ? Axis.Z : Axis.X;
             default:
                 throw new IllegalStateException("Unknown direction");
         }
