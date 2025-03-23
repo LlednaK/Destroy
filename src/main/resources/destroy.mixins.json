@@ -1,5 +1,5 @@
 {
-    "required": "true",
+    "required": true,
     "package": "com.petrolpark.destroy.mixin",
     "compatibilityLevel": "JAVA_17",
     "refmap": "destroy.refmap.json",
@@ -48,6 +48,7 @@
         "ItemEntityMixin",
         "LevelSettingsMixin",
         "MechanicalMixerBlockEntityMixin",
+        "MultiPlayerGameModeMixin",
         "PipeConnectionMixin",
         "PlayerMixin",
         "PonderTagScreenMixin",
@@ -55,6 +56,7 @@
         "SequencedAssemblyRecipeMixin",
         "ServerGamePacketListenerImplMixin",
         "ServerLevelMixin",
+        "ServerPlayerGameModeMixin",
         "SoundEntryBuilderMixin",
         "SplashingTypeMixin",
         "SpoutBlockMixin",

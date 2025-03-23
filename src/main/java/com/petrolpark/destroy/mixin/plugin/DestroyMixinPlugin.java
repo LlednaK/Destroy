@@ -2,7 +2,6 @@ package com.petrolpark.destroy.mixin.plugin;
 
 import com.bawnorton.mixinsquared.canceller.MixinCancellerRegistrar;
 import com.petrolpark.compat.CompatMods;
-import com.petrolpark.destroy.Destroy;
 import com.petrolpark.mixin.plugin.PetrolparkMixinPlugin;
 
 public class DestroyMixinPlugin extends PetrolparkMixinPlugin {
