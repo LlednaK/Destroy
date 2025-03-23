@@ -3,6 +3,7 @@ package com.petrolpark.destroy.core.chemistry.vat.observation;
 import java.util.List;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.client.DestroyGuiTextures;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.simibubi.create.foundation.gui.AbstractSimiScreen;
@@ -38,7 +39,7 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
         return 16;
     };
 
-    protected abstract void onThresholdChange(boolean upper, float newValue);
+    protected abstract void updateThresholds(float lower, float upper);
 
     @Override
     protected void init() {
@@ -60,6 +61,7 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
 		lowerBound.mouseClicked(0, 0, 0);
 		lowerBound.active = false;
         lowerBound.setTooltip(Tooltip.create(DestroyLang.translate("tooltip.vat.menu.quantity_observed.minimum").component()));
+        lowerBound.setValue(""+quantityBehaviour.lowerThreshold);
 
         upperBound = new EditBox(minecraft.font, guiLeft + 171, guiTop + getEditBoxY(), 70, 10, Component.literal(""+quantityBehaviour.lowerThreshold));
         upperBound.setBordered(false);
@@ -68,6 +70,7 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
 		upperBound.mouseClicked(0, 0, 0);
 		upperBound.active = false;
         upperBound.setTooltip(Tooltip.create(DestroyLang.translate("tooltip.vat.menu.quantity_observed.maximum").component()));
+        upperBound.setValue(""+quantityBehaviour.upperThreshold);
 
         addRenderableWidgets(lowerBound, upperBound);
     };
@@ -80,15 +83,7 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
                 box.setCursorPosition(box.getValue().length());
                 box.setHighlightPos(box.getCursorPosition());
 
-                // Attempt to update the Vat Side with the given number
-                boolean upper = box == upperBound;
-                float oldValue = upper ? quantityBehaviour.upperThreshold : quantityBehaviour.lowerThreshold;
-                try {
-                    float value = Float.valueOf(box.getValue());
-                    if (value != oldValue) onThresholdChange(upper, value);
-                } catch (NumberFormatException e) {
-                    box.setValue(""+oldValue);
-                };
+                // TODO: validate values
             };
         };
     };
@@ -98,6 +93,11 @@ public abstract class AbstractQuantityObservingScreen extends AbstractSimiScreen
         lowerBound.setFocused(false);
         upperBound.setFocused(false);
         tick();
+
+        try {
+            updateThresholds(Float.valueOf(lowerBound.getValue()), Float.valueOf(upperBound.getValue()));
+        } catch (NumberFormatException e) {}
+
         super.onClose();
     }
 
