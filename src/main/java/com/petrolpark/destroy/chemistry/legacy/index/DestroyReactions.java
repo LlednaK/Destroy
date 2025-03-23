@@ -35,7 +35,7 @@ public class DestroyReactions {
     ACETYLENE_TRIMERIZATION = builder()
         .id("acetylene_trimerization")
         .addReactant(DestroyMolecules.ACETYLENE, 3)
-        .addSimpleItemTagCatalyst(AllTags.forgeItemTag("dusts/nickel"), 5f)
+        .addSimpleItemTagCatalyst(AllTags.forgeItemTag("dusts/nickel"), 1f)
         .addProduct(DestroyMolecules.BENZENE)
         .build(),
 
@@ -125,7 +125,7 @@ public class DestroyReactions {
     BORAX_DISSOLUTION = builder()
         .id("borax_dissolution")
         .addReactant(DestroyMolecules.PROTON, 2, 1)
-        .addSimpleItemTagCatalyst(AllTags.forgeItemTag("raw_materials/borax"), 16f)
+        .addSimpleItemTagReactant(AllTags.forgeItemTag("raw_materials/borax"), 15f)
         .addCatalyst(DestroyMolecules.CHLORIDE, 1)
         .addProduct(DestroyMolecules.SODIUM_ION, 2)
         .addProduct(DestroyMolecules.WATER, 5)

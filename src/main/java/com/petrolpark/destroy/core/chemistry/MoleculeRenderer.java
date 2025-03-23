@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.mojang.math.Axis;
+import net.minecraft.world.phys.AABB;
 import org.joml.Math;
 import org.joml.Quaternionf;
 
@@ -33,26 +35,7 @@ public class MoleculeRenderer {
 
     protected String moleculeID;
 
-    /**
-     * The distance from 0 to the highest X value of any rendered object.
-     */
-    protected int width;
-    /**
-     * The distance from 0 to the highest Y value of any rendered object.
-     */
-    protected int height;
-    /**
-     * How far below X = 0 this rendered Molecule extends.
-     */
-    protected int xOffset;
-    /**
-     * How far above Y = 0 this rendered Molecule extends (remember positive Y is down).
-     */
-    protected int yOffset;
-    /**
-     * How far behind Z = 0 this rendered Molecule extends
-     */
-    protected int zOffset;
+    protected AABB bb;
 
     protected static final double SCALE = 23d;
     protected static final double BOND_LENGTH = SCALE / 2;
@@ -65,11 +48,7 @@ public class MoleculeRenderer {
 
     public MoleculeRenderer(LegacySpecies molecule) {
         moleculeID = molecule.getFullID();
-        width = 0;
-        height = 0;
-        xOffset = 5;
-        yOffset = 0;
-        zOffset = 0;
+        bb = new AABB(Vec3.ZERO, Vec3.ZERO);
         RENDERED_OBJECTS = new ArrayList<>();
 
         // Monatomic Molecules
@@ -132,23 +111,16 @@ public class MoleculeRenderer {
 
         // Rescale the Renderer to fit every Atom
         for (Pair<Vec3, IRenderableMoleculePart> pair : RENDERED_OBJECTS) {
-            width = Math.max(width, (int)pair.getFirst().x);
-            height = Math.max(height, (int)pair.getFirst().y);
-            // Set the X and Y offsets to the positive of the most negative respective coordinate of any rendered object present
-            xOffset = -(int)Math.min(-xOffset, pair.getFirst().x);
-            yOffset = -(int)Math.min(-yOffset, pair.getFirst().y);
-            zOffset = -(int)Math.min(-zOffset, pair.getFirst().z);
+            bb = bb.minmax(new AABB(pair.getFirst(), pair.getFirst()));
         };
-        width += xOffset;
-        height += yOffset;
     };
 
     public int getWidth() {
-        return width;
+        return (int)bb.getXsize();
     };
 
     public int getHeight() {
-        return height;
+        return (int)bb.getYsize();
     };
 
     /**
@@ -157,10 +129,29 @@ public class MoleculeRenderer {
     public void render(int xPosition, int yPosition, GuiGraphics graphics) {
         PoseStack poseStack = graphics.pose();
         poseStack.pushPose();
-        poseStack.translate(xPosition + ((float)width / 2f), yPosition + yOffset, -200);
-        TransformStack.cast(poseStack)
-            .rotateY(AnimationTickHolder.getRenderTime()); // Rotation
-        poseStack.translate(-((float)width) / 2f + xOffset, 0f, 0f);
+        Vec3 center = bb.getCenter();
+        poseStack.translate(center.x - bb.minX + xPosition, center.y - bb.minY + yPosition, -200);
+        poseStack.mulPose(Axis.YP.rotationDegrees(AnimationTickHolder.getRenderTime()));
+        poseStack.translate(-center.x, -center.y, -center.z);
+
+        for (Pair<Vec3, IRenderableMoleculePart> pair : RENDERED_OBJECTS) {
+            pair.getSecond().render(graphics, pair.getFirst());
+        };
+        poseStack.popPose();
+    };
+
+    public void renderItem(int xPosition, int yPosition, int width, int height, GuiGraphics graphics) {
+        float scale = java.lang.Math.min(0.5f, java.lang.Math.min((width+2)/(getWidth()+1f), (height+2)/(getHeight()+1f)));
+
+        PoseStack poseStack = graphics.pose();
+        poseStack.pushPose();
+        Vec3 center = bb.getCenter();
+        poseStack.translate(xPosition + width/2, yPosition + height/2, 50);
+        poseStack.mulPose(Axis.XP.rotationDegrees(-10));
+        poseStack.mulPose(Axis.YP.rotationDegrees(AnimationTickHolder.getRenderTime()));
+        poseStack.scale(scale, scale, scale);
+        poseStack.translate(-center.x, -center.y, -center.z);
+
         for (Pair<Vec3, IRenderableMoleculePart> pair : RENDERED_OBJECTS) {
             pair.getSecond().render(graphics, pair.getFirst());
         };

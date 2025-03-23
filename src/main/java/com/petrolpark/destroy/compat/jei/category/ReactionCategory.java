@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.icu.text.DecimalFormat;
+import mezz.jei.api.gui.drawable.IDrawable;
+import net.minecraft.client.gui.Font;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector2i;
 
 import com.petrolpark.client.rendering.PetrolparkGuiTexture;
@@ -113,11 +118,21 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
         int numberOfReactants = getNumberOfReactants(reaction);
         if (numberOfReactants >= 6) tooManyMoleculesWarning(true, reaction);
 
+        float molesPerItem = reaction.getMolesPerItem();
+        if(molesPerItem == 0f) molesPerItem = 1f;
+
+        Collection<PrecipitateReactionResult> precipitates = reaction.hasResult() ? reaction.getResult().getAllPrecipitates() : Collections.emptyList();
+        for (PrecipitateReactionResult precipitate : precipitates) {
+            molesPerItem = precipitate.getRequiredMoles();
+        }
+
+
         for (LegacySpecies reactant : reaction.getReactants()) {
             if (i >= 6) continue;
             Vector2i pos = getReactantRenderPosition(i, numberOfReactants);
             builder.addSlot(RecipeIngredientRole.INPUT, pos.x, pos.y)
                 .addIngredient(MoleculeJEIIngredient.TYPE, reactant)
+                .setOverlay(createOverlay(reaction.getReactantMolarRatio(reactant) * molesPerItem), 0, 0)
                 .addRichTooltipCallback(ReactionTooltipHelper.reactantTooltip(reaction, reactant))
                 .setBackground(getRenderedSlot(), -1, -1);
             i++;
@@ -134,8 +149,6 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
                 i++;
             };
         };
-
-        Collection<PrecipitateReactionResult> precipitates = reaction.hasResult() ? reaction.getResult().getAllPrecipitates() : Collections.emptyList();
 
         int j = 0;
 
@@ -157,6 +170,7 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
             if (j >= 6) continue;
             builder.addSlot(RecipeIngredientRole.OUTPUT, productsXOffset + (19 * (j % l)), productYOffset + (j / l) * 19)
                 .addIngredient(MoleculeJEIIngredient.TYPE, product)
+                .setOverlay(createOverlay(reaction.getProductMolarRatio(product) * molesPerItem), 0, 0)
                 .addRichTooltipCallback(ReactionTooltipHelper.productTooltip(reaction, product))
                 .setBackground(getRenderedSlot(), -1, -1);
             j++;
@@ -253,5 +267,37 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
         PetrolparkGuiTexture.JEI_LINE.render(graphics, 2, 85);
         (recipe.getReaction().displayAsReversible() ? PetrolparkGuiTexture.JEI_EQUILIBRIUM_ARROW : AllGuiTextures.JEI_ARROW).render(graphics, yOffset + 37, 46);
     };
-    
+
+    private static DecimalFormat df = new DecimalFormat("#.#");
+
+    public IDrawable createOverlay(float molarRatio) {
+        String s = molarRatio == 1f ? "" : df.format(molarRatio);
+        float scale = s.length() > 2 ? 0.75f : 1f;
+
+        return new IDrawable() {
+
+            @Override
+            public int getWidth() {return 16;}
+
+            @Override
+            public int getHeight() {return 16;}
+
+            @Override
+            public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+                if(s.isEmpty()) return;
+
+                graphics.pose().pushPose();
+                graphics.pose().translate(0, 0, 0);
+                graphics.pose().scale(scale, scale, 1);
+
+                Font fontRenderer = Minecraft.getInstance().font;
+                graphics.drawString(fontRenderer, s,
+                    (xOffset + getWidth()) / scale - fontRenderer.width(s) + 1,
+                    (yOffset + getHeight()) / scale - 7,
+                    0xFFFFFF, true);
+
+                graphics.pose().popPose();
+            }
+        };
+    }
 };
