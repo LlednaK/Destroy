@@ -1,4 +1,4 @@
-package com.petrolpark.petrolsparts.ponder;
+package com.petrolpark.petrolsparts.core.ponder;
 
 import com.petrolpark.client.ponder.instruction.CameraShakeInstruction;
 import com.petrolpark.client.ponder.particle.PetrolparkEmitters;

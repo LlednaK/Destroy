@@ -8,7 +8,6 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 
-import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
@@ -29,7 +28,7 @@ public class PlanetaryGearsetRenderer extends KineticBlockEntityRenderer<Planeta
 
     @Override
     protected void renderSafe(PlanetaryGearsetBlockEntity planetaryGearsetBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if (VisualizationManager.supportsVisualization(planetaryGearsetBlockEntity.getLevel())) return;
+        //if (VisualizationManager.supportsVisualization(planetaryGearsetBlockEntity.getLevel())) return;
 
 		BlockState state = getRenderedBlockState(planetaryGearsetBlockEntity);
         Axis axis = state.getValue(RotatedPillarKineticBlock.AXIS);

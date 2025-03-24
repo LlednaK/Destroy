@@ -1,6 +1,6 @@
 package com.petrolpark.petrolsparts;
 
-import com.petrolpark.petrolsparts.ponder.PetrolsPartsPonderPlugin;
+import com.petrolpark.petrolsparts.core.ponder.PetrolsPartsPonderPlugin;
 
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraftforge.eventbus.api.IEventBus;

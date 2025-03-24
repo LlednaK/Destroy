@@ -15,11 +15,8 @@ import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaft
 import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftRenderer;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionBlockEntity;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionRenderer;
-import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionVisual;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlockEntity;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetRenderer;
-import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetVisual;
-import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityVisual;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -34,7 +31,7 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<CoaxialGearBlockEntity> COAXIAL_GEAR = REGISTRATE
         .blockEntity("coaxial_gear", CoaxialGearBlockEntity::new)
-        .visual(() -> SingleAxisRotatingVisual::create, false)
+        //.visual(() -> () -> SingleAxisRotatingVisual.of(null), false)
         .validBlocks(PetrolsPartsBlocks.COAXIAL_GEAR, PetrolsPartsBlocks.LARGE_COAXIAL_GEAR)
         .renderer(() -> BracketedKineticBlockEntityRenderer::new)
         .register();
@@ -66,7 +63,7 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<HydraulicTransmissionBlockEntity> HYDRAULIC_TRANSMISSION = REGISTRATE
         .blockEntity("hydraulic_transmission", HydraulicTransmissionBlockEntity::new)
-        .visual(() -> HydraulicTransmissionVisual::new)
+        //.visual(() -> HydraulicTransmissionVisual::new)
         .validBlock(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION)
         .renderer(() -> HydraulicTransmissionRenderer::new)
         .register();
@@ -80,7 +77,7 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<PlanetaryGearsetBlockEntity> PLANETARY_GEARSET = REGISTRATE
         .blockEntity("planetary_gearset", PlanetaryGearsetBlockEntity::new)
-        .visual(() -> PlanetaryGearsetVisual::new, false)
+        //.visual(() -> PlanetaryGearsetVisual::new, false)
         .validBlocks(PetrolsPartsBlocks.PLANETARY_GEARSET)
         .renderer(() -> PlanetaryGearsetRenderer::new)
         .register();

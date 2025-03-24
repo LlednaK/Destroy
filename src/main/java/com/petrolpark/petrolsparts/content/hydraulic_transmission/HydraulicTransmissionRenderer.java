@@ -27,8 +27,9 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
 
     @Override
     protected void renderSafe(HydraulicTransmissionBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
-        Direction facing = be.getBlockState().getValue(HydraulicTransmissionBlock.FACING);
+        //super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
+        BlockState state = be.getBlockState();
+        Direction facing = state.getValue(HydraulicTransmissionBlock.FACING);
         VertexConsumer vc = buffer.getBuffer(RenderType.solid());
         float time = AnimationTickHolder.getRenderTime();
 
@@ -38,14 +39,14 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
         TransformStack.of(ms)
             .center()
             .rotateToFace(facing.getOpposite())
-            .multiply(com.mojang.math.Axis.XN.rotationDegrees(-90))
+            .rotateXDegrees(90f)
             .uncenter();
 
-        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
+        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, state)
             .translateZ(Mth.sin(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32f)
             .light(light)
             .renderInto(ms, vc);
-        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, be.getBlockState())
+        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, state)
             .center()
             .rotateYDegrees(90f)
             .uncenter()
@@ -54,6 +55,9 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
             .renderInto(ms, vc);
         
         ms.popPose();
+
+        //if (VisualizationManager.supportsVisualization(be.getLevel())) return;
+		renderRotatingBuffer(be, getRotatedModel(be, state), ms, buffer.getBuffer(getRenderType(be, state)), light);
     };
 
     @Override

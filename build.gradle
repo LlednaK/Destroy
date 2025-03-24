@@ -58,7 +58,7 @@ minecraft {
             arg '-mixin.config=create.mixins.json'
             arg '-mixin.config=petrolpark.mixins.json'
             arg '-mixin.config=petrolsparts.mixins.json'
-            arg '-mixin.config=flywheel.mixins.json'
+            //arg '-mixin.config=flywheel.mixins.json'
             property 'forge.logging.console.level', 'info'
             mods {
                 petrolsparts {

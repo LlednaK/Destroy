@@ -100,16 +100,16 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
 
         CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_GIMBAL, state, shaft2Direction)
             
-            .centre()
-            .rotate(Direction.get(AxisDirection.POSITIVE, shaft2Direction.getAxis()), gimbal2Angle)
-            .centre()
+            .center()
+            .rotateDegrees(gimbal2Angle, Direction.get(AxisDirection.POSITIVE, shaft2Direction.getAxis()))
+            .center()
 
             .translateBack(DoubleCardanShaftVisual.gimbalTranslation(shaft2Direction))
             .rotate(DoubleCardanShaftVisual.gimbalRotation(shaft2Direction, false), gimbal2FluctuatingAngle)
             .translate(DoubleCardanShaftVisual.gimbalTranslation(shaft2Direction))
 
-            .unCentre()
-            .unCentre()
+            .uncenter()
+            .uncenter()
             .renderInto(ms, vbSolid);
     };
     

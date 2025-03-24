@@ -1,4 +1,4 @@
-package com.petrolpark.petrolsparts.ponder;
+package com.petrolpark.petrolsparts.core.ponder;
 
 import com.petrolpark.petrolsparts.PetrolsParts;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
