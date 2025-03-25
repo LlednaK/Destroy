@@ -1,6 +1,5 @@
 package com.petrolpark.petrolsparts.content.pneumatic_tube;
 
-import com.mojang.datafixers.util.Either;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsConfigs;
 import com.petrolpark.tube.ITubeBlock;
@@ -13,6 +12,7 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -27,7 +27,7 @@ public class PneumaticTubeBlock extends DirectionalKineticBlock implements IBE<P
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
-        withBlockEntityDo(level, neighborPos, be -> be.getHandler().<PneumaticTubeBlockEntity.Output>flatMap(Either::right).ifPresent(PneumaticTubeBlockEntity.Output::forgetBlocked));
+        withBlockEntityDo(level, neighborPos, be -> be.asOutput().ifPresent(PneumaticTubeBlockEntity.Output::forgetBlocked));
         return state;
     };
 
@@ -44,20 +44,17 @@ public class PneumaticTubeBlock extends DirectionalKineticBlock implements IBE<P
 
     @Override
     public double getTubeSegmentRadius() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTubeSegmentRadius'");
+        return 6 / 16d;
     };
 
     @Override
     public double getTubeSegmentLength() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTubeSegmentLength'");
+        return 3.5 / 16d;
     };
 
     @Override
     public double getTubeMaxAngle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTubeMaxAngle'");
+        return 30d * Mth.PI / 180d;
     };
 
     @Override

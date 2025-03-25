@@ -17,16 +17,16 @@ import net.minecraft.world.phys.AABB;
 
 public class HydraulicTransmissionBlockEntity extends KineticBlockEntity implements ITubeBlockEntity {
 
-    public final TubeBehaviour tube;
+    public TubeBehaviour tube;
 
     public HydraulicTransmissionBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
-        tube = new TubeBehaviour(this);
     };
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
+        tube = new TubeBehaviour(this);
         behaviours.add(tube);
     };
 

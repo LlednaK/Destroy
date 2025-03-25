@@ -33,7 +33,9 @@ public class PetrolsPartsPartialModels {
     HYDRAULIC_TRANSMISSION_PISTON = block("hydraulic_transmission/piston"),
     HYDRAULIC_TRANSMISSION_SEGMENT = block("hydraulic_transmission/segment"),
 
-    PNEUMATIC_TUBE_SEGMENT = block("pneumatic_tube/segment");
+    // Pneumatic Tube
+    PNEUMATIC_TUBE_SEGMENT = block("pneumatic_tube/segment"),
+    PNEUMATIC_TUBE_ARROWS = block("pneumatic_tube/arrows");
 
     private static PartialModel block(String path) {
         return PartialModel.of(PetrolsParts.asResource("block/"+path));

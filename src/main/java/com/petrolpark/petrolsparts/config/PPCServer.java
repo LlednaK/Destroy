@@ -9,6 +9,7 @@ public class PPCServer extends ConfigBase {
     public final ConfigGroup tubes = group(1, "tubes", Comments.tubes);
     public final ConfigFloat hydraulicTransmissionCost = f(2f, 0f, Float.MAX_VALUE, "hydraulicTransmissionCost", Comments.hydraulicTransmissionCost);
     public final ConfigFloat pneumaticTubeCost = f(0.5f, 0f, Float.MAX_VALUE, "pneumaticTubeCost", Comments.pneumaticTubeCost);
+    public final ConfigFloat pneumaticTubeSpacing = f(1f, 0f, Float.MAX_VALUE, "pneumaticTubeSpacing", Comments.pneumaticTubeSpacing, Comments.meters);
 
     @Override
     public String getName() {
@@ -21,6 +22,8 @@ public class PPCServer extends ConfigBase {
         tubes = "Tubes (Hydraulic Transmissions and Pneumatic Tubes)",
         hydraulicTransmissionCost = "Cost to build Hydraulic Transmissions per meter",
         pneumaticTubeCost = "Cost to build Pneumatic Tubes per meter",
+        pneumaticTubeSpacing = "Minimum space between Items transported by the Pneumatic Tube",
+        meters = "[in meters/block lengths]",
 		stress = "Fine tune the kinetic stats of individual components";
 	};
     
