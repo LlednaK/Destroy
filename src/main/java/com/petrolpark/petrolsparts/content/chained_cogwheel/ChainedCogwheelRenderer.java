@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.petrolpark.petrolsparts.PetrolsPartsPartials;
+import com.petrolpark.petrolsparts.PetrolsPartsPartialModels;
 import com.petrolpark.util.MathsHelper;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
@@ -57,7 +57,7 @@ public class ChainedCogwheelRenderer extends KineticBlockEntityRenderer<ChainedC
             if (!(otherBE instanceof ChainedCogwheelBlockEntity otherCBE)) return;
             ms.pushPose();
             for (Pair<Vec3, Float> posAndRot : getLinkPositionsAndRotations(axis, state, be.partner, otherCBE.copiedState, targetAngle)) {
-                CachedBuffers.partial(PetrolsPartsPartials.CHAIN_LINK, state)
+                CachedBuffers.partial(PetrolsPartsPartialModels.CHAIN_LINK, state)
                     .translate(posAndRot.getFirst())
                     .rotateDegrees(posAndRot.getSecond() + (axis == Axis.Z ? 90f : 0f), axis)
                     .rotateXDegrees(axis == Axis.Z ? 90 : 0)

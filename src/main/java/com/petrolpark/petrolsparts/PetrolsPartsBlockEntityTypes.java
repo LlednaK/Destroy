@@ -17,6 +17,8 @@ import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTrans
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionRenderer;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlockEntity;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetRenderer;
+import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeBlockEntity;
+import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityVisual;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -80,6 +82,12 @@ public class PetrolsPartsBlockEntityTypes {
         //.visual(() -> PlanetaryGearsetVisual::new, false)
         .validBlocks(PetrolsPartsBlocks.PLANETARY_GEARSET)
         .renderer(() -> PlanetaryGearsetRenderer::new)
+        .register();
+
+    public static final BlockEntityEntry<PneumaticTubeBlockEntity> PNEUMATIC_TUBE = REGISTRATE
+        .blockEntity("pneumatic_tube", PneumaticTubeBlockEntity::new)
+        .validBlocks(PetrolsPartsBlocks.PNEUMATIC_TUBE)
+        .renderer(() -> PneumaticTubeRenderer::new)
         .register();
 
     public static final void register() {};

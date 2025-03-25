@@ -14,6 +14,7 @@ import com.petrolpark.petrolsparts.content.differential.DummyDifferentialBlock;
 import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftBlock;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionBlock;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlock;
+import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeBlock;
 import com.petrolpark.tube.TubeBlockItem;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
@@ -127,6 +128,16 @@ public class PetrolsPartsBlocks {
         .transform(TagGen.axeOrPickaxe())
         .item(CogwheelBlockItem::new)
         .transform(ModelGen.customItemModel())
+        .register();
+
+    public static final BlockEntry<PneumaticTubeBlock> PNEUMATIC_TUBE = REGISTRATE.block("pneumatic_tube", PneumaticTubeBlock::new)
+        .initialProperties(HYDRAULIC_TRANSMISSION)
+        .properties(p -> p
+            .noOcclusion()
+        ).transform(PPCStress.setImpact(2.0))
+        .transform(TagGen.axeOrPickaxe())
+        .item(TubeBlockItem::new)
+        .build()
         .register();
 
     public static final void register() {};

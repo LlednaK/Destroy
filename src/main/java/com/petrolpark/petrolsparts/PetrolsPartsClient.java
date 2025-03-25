@@ -13,6 +13,6 @@ public class PetrolsPartsClient {
     };
 
     public static final void clientCtor(IEventBus forgeEventBus, IEventBus modEventBus) {
-        PetrolsPartsPartials.init();
+        PetrolsPartsPartialModels.init();
     };
 };

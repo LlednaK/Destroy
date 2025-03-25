@@ -1,0 +1,93 @@
+package com.petrolpark.petrolsparts.content.pneumatic_tube;
+
+import com.mojang.datafixers.util.Either;
+import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
+import com.petrolpark.petrolsparts.PetrolsPartsConfigs;
+import com.petrolpark.tube.ITubeBlock;
+import com.petrolpark.tube.TubeSpline;
+import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
+import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.item.ItemHelper;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class PneumaticTubeBlock extends DirectionalKineticBlock implements IBE<PneumaticTubeBlockEntity>, ICogWheel, ITubeBlock {
+
+    public PneumaticTubeBlock(Properties properties) {
+        super(properties);
+    };
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+        withBlockEntityDo(level, neighborPos, be -> be.getHandler().<PneumaticTubeBlockEntity.Output>flatMap(Either::right).ifPresent(PneumaticTubeBlockEntity.Output::forgetBlocked));
+        return state;
+    };
+
+    @Override
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        super.onRemove(state, world, pos, newState, isMoving);
+        getBlockEntityOptional(world, pos).ifPresent(be -> ItemHelper.dropContents(world, pos, be.itemBacklog));
+	};
+    
+    @Override
+    public Axis getRotationAxis(BlockState state) {
+        return state.getValue(FACING).getAxis();
+    };
+
+    @Override
+    public double getTubeSegmentRadius() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTubeSegmentRadius'");
+    };
+
+    @Override
+    public double getTubeSegmentLength() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTubeSegmentLength'");
+    };
+
+    @Override
+    public double getTubeMaxAngle() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTubeMaxAngle'");
+    };
+
+    @Override
+    public int getItemsForTubeLength(double length) {
+        return (int)Math.round(length * PetrolsPartsConfigs.server().pneumaticTubeCost.getF());
+    };
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(FACING, context.getClickedFace());
+    };
+
+    @Override
+    public Direction getTubeConnectingFace(Level level, BlockPos pos, BlockState state) {
+        return state.getValue(FACING);
+    };
+
+    @Override
+    public void connectTube(Level level, TubeSpline spline) {
+        withBlockEntityDo(level, spline.start.getPos(), be -> be.tube.connect(spline));
+    };
+
+    @Override
+    public Class<PneumaticTubeBlockEntity> getBlockEntityClass() {
+        return PneumaticTubeBlockEntity.class;
+    };
+
+    @Override
+    public BlockEntityType<? extends PneumaticTubeBlockEntity> getBlockEntityType() {
+        return PetrolsPartsBlockEntityTypes.PNEUMATIC_TUBE.get();
+    };
+    
+};

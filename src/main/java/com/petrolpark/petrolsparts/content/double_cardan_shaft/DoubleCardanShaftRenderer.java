@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.petrolpark.petrolsparts.PetrolsPartsPartials;
+import com.petrolpark.petrolsparts.PetrolsPartsPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
 import net.createmod.catnip.animation.AnimationTickHolder;
@@ -53,23 +53,23 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
         float offset1 = Mth.PI * getRotationOffsetForPosition(doubleCardanShaftBlockEntity, doubleCardanShaftBlockEntity.getBlockPos(), shaft1Direction.getAxis()) / 180f;
         float offset2 = Mth.PI * getRotationOffsetForPosition(doubleCardanShaftBlockEntity, doubleCardanShaftBlockEntity.getBlockPos(), shaft2Direction.getAxis()) / 180f;
 
-        SuperByteBuffer shaft1 = CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_SIDE_SHAFT, state, shaft1Direction);
+        SuperByteBuffer shaft1 = CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_SIDE_SHAFT, state, shaft1Direction);
         kineticRotationTransform(shaft1, doubleCardanShaftBlockEntity, shaft1Direction.getAxis(), gimbal1Angle + offset1, light);
         shaft1.renderInto(ms, vbSolid);
 
-        SuperByteBuffer shaft2 = CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_SIDE_SHAFT, state, shaft2Direction);
+        SuperByteBuffer shaft2 = CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_SIDE_SHAFT, state, shaft2Direction);
         kineticRotationTransform(shaft2, doubleCardanShaftBlockEntity, shaft2Direction.getAxis(), gimbal2Angle + offset2, light);
         shaft2.renderInto(ms, vbSolid);
 
-        SuperByteBuffer grip1 = CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_SIDE_GRIP, state, shaft1Direction);
+        SuperByteBuffer grip1 = CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_SIDE_GRIP, state, shaft1Direction);
         kineticRotationTransform(grip1, doubleCardanShaftBlockEntity, shaft1Direction.getAxis(), gimbal1Angle + (axis == Axis.Z ? Mth.PI / 2 : 0f), light);
         grip1.renderInto(ms, vbSolid);
 
-        SuperByteBuffer grip2 = CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_SIDE_GRIP, state, shaft2Direction);
+        SuperByteBuffer grip2 = CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_SIDE_GRIP, state, shaft2Direction);
         kineticRotationTransform(grip2, doubleCardanShaftBlockEntity, shaft2Direction.getAxis(), gimbal2Angle, light);
         grip2.renderInto(ms, vbSolid);
         
-        CachedBuffers.partial(PetrolsPartsPartials.DCS_CENTER_SHAFT, state)
+        CachedBuffers.partial(PetrolsPartsPartialModels.DCS_CENTER_SHAFT, state)
             .translate(shaft1Direction.step().mul(2.5f / 16f))
             .translate(shaft2Direction.step().mul(2.5f / 16f))
             .center()
@@ -82,7 +82,7 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
             .uncenter()
             .renderInto(ms, vbSolid);
 
-        CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_GIMBAL, state, shaft1Direction)
+        CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_GIMBAL, state, shaft1Direction)
             
             .center()
             .rotateDegrees(gimbal1Angle, shaft1Direction.getAxis())
@@ -98,7 +98,7 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
             .uncenter()
             .renderInto(ms, vbSolid);
 
-        CachedBuffers.partialFacing(PetrolsPartsPartials.DCS_GIMBAL, state, shaft2Direction)
+        CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_GIMBAL, state, shaft2Direction)
             
             .center()
             .rotateDegrees(gimbal2Angle, Direction.get(AxisDirection.POSITIVE, shaft2Direction.getAxis()))
