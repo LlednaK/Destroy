@@ -1,8 +1,8 @@
 package com.petrolpark.petrolsparts.content.pneumatic_tube;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.petrolpark.compat.create.core.tube.ITubeRenderer;
 import com.petrolpark.petrolsparts.PetrolsPartsPartialModels;
-import com.petrolpark.tube.ITubeRenderer;
 import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
@@ -17,8 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class PneumaticTubeRenderer extends KineticBlockEntityRenderer<PneumaticTubeBlockEntity> implements ITubeRenderer<PneumaticTubeBlockEntity> {
 
+    public final PartialModel[] segmentModels;
+
     public PneumaticTubeRenderer(Context context) {
         super(context);
+        segmentModels = new PartialModel[]{PetrolsPartsPartialModels.PNEUMATIC_TUBE_SEGMENT};
     };
 
     @Override
@@ -32,8 +35,8 @@ public class PneumaticTubeRenderer extends KineticBlockEntityRenderer<PneumaticT
     };
 
     @Override
-    public PartialModel getTubeSegmentModel(PneumaticTubeBlockEntity be) {
-        return PetrolsPartsPartialModels.PNEUMATIC_TUBE_SEGMENT;
+    public PartialModel[] getTubeSegmentModels(PneumaticTubeBlockEntity be) {
+        return segmentModels;
     };
 
     @Override

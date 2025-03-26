@@ -2,8 +2,8 @@ package com.petrolpark.petrolsparts.content.hydraulic_transmission;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.petrolpark.compat.create.core.tube.ITubeRenderer;
 import com.petrolpark.petrolsparts.PetrolsPartsPartialModels;
-import com.petrolpark.tube.ITubeRenderer;
 import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
@@ -21,8 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<HydraulicTransmissionBlockEntity> implements ITubeRenderer<HydraulicTransmissionBlockEntity> {
 
+    public final PartialModel[] segmentModels;
+
     public HydraulicTransmissionRenderer(Context context) {
         super(context);
+        segmentModels = new PartialModel[]{PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_SEGMENT};
     };
 
     @Override
@@ -61,8 +64,8 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
     };
 
     @Override
-    public PartialModel getTubeSegmentModel(HydraulicTransmissionBlockEntity be) {
-        return PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_SEGMENT;
+    public PartialModel[] getTubeSegmentModels(HydraulicTransmissionBlockEntity be) {
+        return segmentModels;
     };
 
     @Override

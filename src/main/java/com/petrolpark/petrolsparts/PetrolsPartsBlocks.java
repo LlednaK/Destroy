@@ -2,6 +2,7 @@ package com.petrolpark.petrolsparts;
 
 import static com.petrolpark.petrolsparts.PetrolsParts.REGISTRATE;
 
+import com.petrolpark.compat.create.core.tube.TubeBlockItem;
 import com.petrolpark.petrolsparts.config.PPCStress;
 import com.petrolpark.petrolsparts.content.chained_cogwheel.ChainedCogwheelBlock;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlock;
@@ -15,7 +16,6 @@ import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaft
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionBlock;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlock;
 import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeBlock;
-import com.petrolpark.tube.TubeBlockItem;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
