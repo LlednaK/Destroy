@@ -181,13 +181,11 @@ public class MoleculeRenderer {
         poseStack.mulPose(Axis.YP.rotationDegrees(AnimationTickHolder.getRenderTime()));
         poseStack.scale(scale, scale, scale);
         poseStack.translate(-center.x, -center.y, -center.z);
-
 /*
         for (Pair<Vec3, IRenderableMoleculePart> pair : RENDERED_OBJECTS) {
             pair.getSecond().render(graphics, pair.getFirst());
         };
 */
-
         Minecraft mc = Minecraft.getInstance();
         MultiBufferSource.BufferSource buffer = mc.renderBuffers()
             .bufferSource();
@@ -431,8 +429,7 @@ public class MoleculeRenderer {
             // piece appears in the correct position once the entire model is flipped again
             poseStack.translate(location.x, -location.y, location.z);
             TransformStack.cast(poseStack)
-                .rotateCentered(new Quaternionf(-rotation.x, rotation.y, -rotation.z, rotation.w)); // flip rotation around Y axis
-
+                .multiply(new Quaternionf(-rotation.x, rotation.y, -rotation.z, rotation.w)); // flip rotation around Y axis
             poseStack.scale((float)SCALE, (float)SCALE, (float)SCALE);
 
             Minecraft.getInstance().getBlockRenderer().getModelRenderer()
