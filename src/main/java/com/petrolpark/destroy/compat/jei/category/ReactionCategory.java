@@ -1,13 +1,9 @@
 package com.petrolpark.destroy.compat.jei.category;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.ibm.icu.text.DecimalFormat;
+import com.petrolpark.destroy.chemistry.legacy.*;
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.minecraft.client.gui.Font;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,9 +14,6 @@ import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.JEITextureDrawable;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.chemistry.legacy.IItemReactant;
-import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
-import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
 import com.petrolpark.destroy.chemistry.legacy.reactionresult.PrecipitateReactionResult;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.client.stackedtextbox.AbstractStackedTextBox;
@@ -108,6 +101,16 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
         Destroy.LOGGER.warn("Reaction '"+reaction.getFullId()+"' has too many " + (reactants ? "reactants" : "products") + " to fit on JEI.");
     };
 
+    public static float getSpeciesWeightForSorting(LegacySpecies s) {
+        LegacyAtom atom = Collections.max(s.getAtoms(), Comparator.comparing(a -> a.getElement() == LegacyElement.R_GROUP ? a.rGroupNumber : -1));
+        float weight = -s.getMass();
+
+        if(atom.getElement() == LegacyElement.R_GROUP)
+            weight -= 1000f - 100f * atom.rGroupNumber;
+
+        return weight;
+    }
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
         super.setRecipe(builder, recipe, focuses);
@@ -126,8 +129,7 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
             molesPerItem = precipitate.getRequiredMoles();
         }
 
-
-        for (LegacySpecies reactant : reaction.getReactants()) {
+        for (LegacySpecies reactant : reaction.getReactants().stream().sorted(Comparator.comparing(ReactionCategory::getSpeciesWeightForSorting)).toList()) {
             if (i >= 6) continue;
             Vector2i pos = getReactantRenderPosition(i, numberOfReactants);
             builder.addSlot(RecipeIngredientRole.INPUT, pos.x, pos.y)
@@ -166,7 +168,7 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
 
         int l = numberOfProducts == 4 ? 2 : 3;
 
-        for (LegacySpecies product : reaction.getProducts()) {
+        for (LegacySpecies product : reaction.getProducts().stream().sorted(Comparator.comparing(ReactionCategory::getSpeciesWeightForSorting)).toList()) {
             if (j >= 6) continue;
             builder.addSlot(RecipeIngredientRole.OUTPUT, productsXOffset + (19 * (j % l)), productYOffset + (j / l) * 19)
                 .addIngredient(MoleculeJEIIngredient.TYPE, product)
@@ -189,7 +191,7 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
         int m = 0;
         if (reaction.needsUV()) m++; // If there is UV catalyst, this is already drawn
 
-        for (LegacySpecies catalyst : reaction.getOrders().keySet()) {
+        for (LegacySpecies catalyst : reaction.getOrders().keySet().stream().sorted(Comparator.comparing(ReactionCategory::getSpeciesWeightForSorting)).toList()) {
             if (reaction.getReactants().contains(catalyst)) continue;
             Vector2i pos = getCatalystRenderPosition(m, numberOfCatalysts);
             builder.addSlot(RecipeIngredientRole.CATALYST, pos.x, pos.y)

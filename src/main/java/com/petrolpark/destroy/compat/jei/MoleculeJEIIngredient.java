@@ -28,7 +28,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -107,6 +109,9 @@ public class MoleculeJEIIngredient {
 
     public static final IIngredientRenderer<LegacySpecies> RENDERER = new IIngredientRenderer<LegacySpecies>() {
 
+        public static final ResourceLocation FONT_LOCATION = Destroy.asResource("charge");
+        public static final Style FONT = Style.EMPTY.withFont(FONT_LOCATION);
+
         @Override
         public void render(GuiGraphics graphics, LegacySpecies ingredient) {
             MoleculeRenderer renderer = ingredient.getRenderer();
@@ -125,9 +130,8 @@ public class MoleculeJEIIngredient {
 
                 poseStack.pushPose();
                 poseStack.translate(0, 0, 100);
-                poseStack.scale(0.5f, 0.5f, 0.5f);
                 Font fontRenderer = Minecraft.getInstance().font;
-                graphics.drawString(fontRenderer, s, -1, -1, col, true);
+                graphics.drawString(fontRenderer, FormattedCharSequence.forward(s, FONT), -1, -1, col, true);
                 poseStack.popPose();
             }
 
