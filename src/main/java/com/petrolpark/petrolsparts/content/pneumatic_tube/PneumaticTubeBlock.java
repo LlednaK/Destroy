@@ -13,7 +13,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,8 +23,30 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class PneumaticTubeBlock extends DirectionalKineticBlock implements IBE<PneumaticTubeBlockEntity>, ICogWheel, ITubeBlock {
 
-    public PneumaticTubeBlock(Properties properties) {
+    public final boolean filterable;
+
+    public static PneumaticTubeBlock filterable(Properties properties) {
+        return new PneumaticTubeBlock(properties, true);
+    };
+
+    public static PneumaticTubeBlock notFilterable(Properties properties) {
+        return new PneumaticTubeBlock(properties, false);
+    };
+
+    public PneumaticTubeBlock(Properties properties, boolean filterable) {
         super(properties);
+        this.filterable = filterable;
+    };
+
+    @Override
+    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+        return onBlockEntityUse(context.getLevel(), context.getClickedPos(), be -> be.flip(context.getPlayer()));
+    };
+
+    @Override
+    public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
+        if (tryReconnect(context)) return InteractionResult.SUCCESS;
+        return super.onSneakWrenched(state, context);
     };
 
     @Override

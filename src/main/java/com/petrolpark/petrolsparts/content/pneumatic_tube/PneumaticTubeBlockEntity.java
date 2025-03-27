@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import javax.annotation.Nullable;
+
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -18,6 +19,7 @@ import com.petrolpark.compat.create.core.tube.TubeSpline;
 import com.petrolpark.core.item.QueueItemHandler;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsConfigs;
+import com.petrolpark.petrolsparts.PetrolsPartsPackets;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
 import com.petrolpark.util.BlockFace;
@@ -26,28 +28,33 @@ import com.petrolpark.util.MathsHelper;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
+import com.simibubi.create.content.kinetics.deployer.DeployerFilterSlot;
 import com.simibubi.create.content.logistics.box.PackageEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.inventory.CapManipulationBehaviourBase;
 import com.simibubi.create.foundation.blockEntity.behaviour.inventory.InvManipulationBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.inventory.VersionedInventoryTrackerBehaviour;
 import com.simibubi.create.foundation.item.ItemHelper.ExtractionCountMode;
+import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.utility.CreateLang;
 
-import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.animation.LerpedFloat.Chaser;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.lang.FontHelper.Palette;
 import net.createmod.catnip.nbt.NBTHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -56,6 +63,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -75,6 +83,11 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     protected final QueueItemHandler itemBacklog = new QueueItemHandler();
 
     protected PetrolsPartsAdvancementBehaviour advancements;
+
+    /**
+     * Set to true to notify the client if the Tube has been disconnected, so the handler can be removed.
+     */
+    protected boolean removeHandler = false;
 
     public PneumaticTubeBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -103,8 +116,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         return handler;
     };
 
+    public PneumaticTubeBlockEntity removeHandler() {
+        handler = Optional.empty();
+        removeHandler = true;
+        return this;
+    };
+
     protected Optional<PneumaticTubeBlockEntity> getOther() {
-        if (tube.getSpline() == null) return Optional.empty();
+        if (tube.getOtherEndPos() == null) return Optional.empty();
         return getLevel().getBlockEntity(tube.getOtherEndPos(), PetrolsPartsBlockEntityTypes.PNEUMATIC_TUBE.get());
     };
 
@@ -125,11 +144,13 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     };
 
     /**
-     * Set this end as the Input. The other is {@link Input#getOrCreateOutput() lazily set as the Output}.
+     * Set this end as the Input (if it is not already). The other is {@link Input#getOrCreateOutput() lazily set as the Output}.
      */
     protected Optional<Input> setAsInput() {
-        handler = Optional.of(Either.left(new Input()));
-        return handler.get().left();
+        return asInput().or(() -> {
+            handler = Optional.of(Either.left(new Input()));
+            return handler.get().left();
+        });
     };
 
     public boolean isOutput() {
@@ -158,7 +179,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     };
 
     public boolean supportsAmountOnFilter() {
-        return true; //TODO check this works for Belts
+        return ((PneumaticTubeBlock)getBlockState().getBlock()).filterable; //TODO check this works for Belts
     };
 
     public void resetInvVersionTracker() {
@@ -166,31 +187,74 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     };
 
     protected int getItemTransportDistance() {
-        return DISTANCE_PER_BLOCK * (int)(double)Optional.ofNullable(tube.getSpline()).map(TubeSpline::getLength).orElse(0d);
+        return DISTANCE_PER_BLOCK * (int)(double)tube.getSplineOptional().map(TubeSpline::getLength).orElse(0d);
     };
 
     @Override
     public void tick() {
         super.tick();
         asInput().ifPresent(Input::tick);
+        asOutput().ifPresent(Output::tick);
     };
 
     @Override
     public void afterTubeConnect() {
         setAsInput(); // By default the controller is the Input and the other is the Output
-        notifyUpdate();
+        notifyUpdate(); // Let the client know we are now an Input
+        removeHandler = false; // Just in case this is still somehow set to true
     };
 
     @Override
     public void beforeTubeDisconnect() {
         asInput().ifPresent(Input::dropItems);
         handler = Optional.empty();
+        removeHandler = true;
+    };
+
+    /**
+     * Attempt to flip the input and output ends.
+     * @param player
+     */
+    public InteractionResult flip(@Nullable Player player) {
+        return getInput().map(input -> {
+            if (!input.getStacksTransporting().isEmpty()) {
+                if (player != null) player.displayClientMessage(Component.translatable("block.petrolsparts.pneumatic_tube.cant_flip").withStyle(ChatFormatting.RED), true);
+                return InteractionResult.FAIL;
+            };
+            if (!getOutput().isPresent()) return InteractionResult.FAIL;
+            getOutput().ifPresent(output -> {
+                output.enclosing().setAsInput();
+                output.enclosing().notifyUpdate();
+            });
+            input.enclosing().removeHandler().notifyUpdate(); // Wait to be lazily set as output
+            return InteractionResult.SUCCESS;
+        }).orElse(InteractionResult.PASS);
+    };
+
+    @Override
+    public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        return getOutput()
+            .map(Output::enclosing)
+            .map(PneumaticTubeBlockEntity::getItemBacklog)
+            .map(h -> {
+                if (h.isEmpty()) return false;
+                CreateLang.builder().add(Component.translatable("block.petrolsparts.pneumatic_tube.jammed")).style(ChatFormatting.GOLD).forGoggles(tooltip);
+                TooltipHelper.cutTextComponent(Component.translatable("block.petrolsparts.pneumatic_tube.jammed.hint"), Palette.GRAY_AND_WHITE).stream()
+                    .map(Component::copy)
+                    .map(CreateLang.builder()::add)
+                    .forEach(lb -> lb.forGoggles(tooltip));
+                return true;
+            }).orElse(false) | super.addToTooltip(tooltip, isPlayerSneaking);
     };
 
     public class Output {
 
         protected Boolean blocked = null;
         protected WeakReference<Entity> lastBlockingEntityRef = null;
+
+        public PneumaticTubeBlockEntity enclosing() {
+            return PneumaticTubeBlockEntity.this;
+        };
 
         public Optional<Input> getInput() {
             return getOtherHandler().flatMap(PneumaticTubeBlockEntity::input);
@@ -213,19 +277,24 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             if (blocked == null) {
                 final BlockPos outputPos = getBlockPos().relative(getOutputFace());
                 final BlockHitResult blockHit = level.clip(new ClipContext(getOutputLocation(), Vec3.atCenterOf(outputPos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
-                blocked = (blockHit.getBlockPos().equals(outputPos));
+                blocked = blockHit.getType() == HitResult.Type.BLOCK && blockHit.getBlockPos().equals(outputPos);
             };
             return blocked;
         };
 
+        public void tick() {
+            ItemStack stack = itemBacklog.pollStack();
+            if (!stack.isEmpty()) itemBacklog.add(output(stack, false)); // Cycle through the backlog
+        };
+        
         /**
          * Attempt to insert the Item Stack into the space in front of this output.
-         * If the Stack cannot be outputted and this is not simulated, stores the Stack in the {@link PneumaticTubeBlockEntity#itemBacklog backlog}.
          * @param stack
          * @param simulate Whether to not actually store/shoot out the Item, but just try
-         * @return The number of remaining Items after the Insertion is/would be complete
+         * @return The remaining Items after the Insertion is/would be complete
+         * @see Output#outputOrBacklog(ItemStack)
          */
-        protected int output(ItemStack stack, boolean simulate) {
+        protected ItemStack output(ItemStack stack, boolean simulate) {
             final Direction outputFace = getOutputFace();
             final BlockPos outputPos = getBlockPos().relative(outputFace);
 
@@ -237,13 +306,13 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             ItemStack remainder = targetInventory.insert(stack);
             if (!remainder.equals(stack, false)) {
                 advancements.awardAdvancement(PetrolsPartsAdvancementTrigger.PNEUMATIC_TUBE);
-                return backlog(remainder, simulate);
+                return remainder;
             };
-            if (targetInventory.hasInventory()) return backlog(stack, simulate); // Don't try shooting out the item if the Inventory exists but is just full
+            if (targetInventory.hasInventory()) return stack; // Don't try shooting out the item if the Inventory exists but is just full
 
             // Third: check to try shoot out Items
             final float speed = getCombinedAbsSpeed();
-            if (isBlocked() || speed == 0f) return backlog(stack, simulate);
+            if (isBlocked() || speed == 0f) return stack;
             boolean blockingEntityPresent = true;
             final AABB blockingArea = new AABB(outputPos);
             if (lastBlockingEntityRef == null) {
@@ -255,31 +324,35 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
 				    lastBlockingEntity = null;
 			    };
             };
-            if (blockingEntityPresent) return backlog(stack, simulate);
+            if (blockingEntityPresent) return stack;
             // Find a new Blocking Entity
             for (Entity entity : level.getEntities(null, blockingArea)) {
                 if (entity instanceof ItemEntity || entity instanceof PackageEntity) {
                     lastBlockingEntityRef = new WeakReference<>(entity);
-                    return backlog(stack, simulate);
+                    return stack;
                 };
             };
             if (!simulate) {
                 final Vec3 outputLoc = getOutputLocation();
                 final ItemEntity itemEntity = new ItemEntity(level, outputLoc.x(), outputLoc.y(), outputLoc.z(), stack);
                 itemEntity.setDefaultPickUpDelay();
-                itemEntity.setDeltaMovement(new Vec3(outputFace.step()).scale(Math.pow(speed, 0.25f)));
+                itemEntity.setDeltaMovement(new Vec3(outputFace.step()).scale(0.25f * Math.pow(speed, 0.25f)));
                 level.addFreshEntity(itemEntity);
                 lastBlockingEntityRef = new WeakReference<>(itemEntity);
 
                 advancements.awardAdvancement(PetrolsPartsAdvancementTrigger.PNEUMATIC_TUBE);
             };
-            return 0;
+            return ItemStack.EMPTY;
         };
 
-        public int backlog(ItemStack stack, boolean simulate) {
-            final int amount = stack.getCount();
-            if (!simulate) itemBacklog.add(stack);
-            return amount;
+        /**
+         * Attempt to insert the Item Stack into the space in front of this output.
+         * If the Stack cannot be outputted and this is not simulated, stores the Stack in the {@link PneumaticTubeBlockEntity#itemBacklog backlog}.
+         * @param stack
+         */
+        protected void outputOrBacklog(ItemStack stack) {
+            ItemStack remainder = output(stack, false);
+            if (!remainder.isEmpty()) itemBacklog.add(stack);
         };
     
         protected QueueItemHandler getItemBacklog() {
@@ -302,6 +375,10 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             stacksTransporting = new LinkedList<>();
         };
 
+        public PneumaticTubeBlockEntity enclosing() {
+            return PneumaticTubeBlockEntity.this;
+        };
+
         public Optional<Output> getOrCreateOutput() {
             return getOther().flatMap(other -> {
                 if (!other.handler.isPresent()) other.handler = Optional.of(Either.right(other.new Output()));
@@ -314,23 +391,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         };
 
         public void tick() {
-
-            if (getLevel().isClientSide()) return;
-
-            // If there are Items backlogged in the Input, immediately send them to be backlogged in the Output
-            ItemStack backloggedItem = itemBacklog.pollStack();
-            while (backloggedItem != null && !backloggedItem.isEmpty()) {
-                transport(backloggedItem);
-                resetInputCooldown();
-                backloggedItem = itemBacklog.pollStack();
-            };
+            getOrCreateOutput();
 
             if (distanceMovedPerTick == -1) updateFromSpeed(); // Set speed if its not known yet (because we have just loaded in)
 
             if (getCombinedAbsSpeed() == 0f) return; // Don't do any more without power
 
             // Tick stacks currently being transported
-            boolean notifyUpdate = !stacksTransporting.isEmpty();
+            boolean changed = !stacksTransporting.isEmpty();
             Iterator<StackTransporting> iterator = stacksTransporting.iterator();
             while (iterator.hasNext()) {
                 StackTransporting stackTransporting = iterator.next();
@@ -339,10 +407,21 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
                     iterator.remove();
                     ItemStack stack = stackTransporting.getStack();
                     getOrCreateOutput().ifPresentOrElse(
-                        output -> output.output(stack, false),
+                        output -> output.outputOrBacklog(stack),
                         () -> itemBacklog.add(stack)
                     );
                 };
+            };
+
+            if (getLevel().isClientSide()) return;
+
+            // If there are Items backlogged in the Input, immediately send them to be backlogged in the Output
+            ItemStack backloggedItem = itemBacklog.pollStack();
+            while (backloggedItem != null && !backloggedItem.isEmpty()) {
+                changed = true;
+                transport(backloggedItem);
+                resetInputCooldown();
+                backloggedItem = itemBacklog.pollStack();
             };
 
             // Try transporting new Stacks
@@ -351,7 +430,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
                 if (input()) resetInputCooldown(); // Try inputting an Item and reset the cooldown if we could
             };
 
-            if (notifyUpdate) notifyUpdate();
+            if (changed) setChanged();
         };
 
         /**
@@ -374,7 +453,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             //TODO also try extract from Belt
 
             if (toTryTransport.isEmpty()) return false;
-            final int remaining = getOrCreateOutput().map(output -> output.output(toTryTransport, true)).orElse(toTryTransport.getCount());
+            final int remaining = getOrCreateOutput().map(output -> output.output(toTryTransport, true)).map(ItemStack::getCount).orElse(toTryTransport.getCount());
             if (toTryTransport.getCount() <= remaining) return false; // Don't transport if it won't fit in the output
 
             final ItemStack toTransport = targetInventory.extract(ExtractionCountMode.EXACTLY, toTryTransport.getCount() - remaining, filtering::test);
@@ -385,7 +464,10 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         };
 
         protected void transport(ItemStack stack) {
-            stacksTransporting.add(new StackTransporting(stack, getItemTransportDistance()));
+            StackTransporting stackTransporting = new StackTransporting(stack, getItemTransportDistance());
+            stacksTransporting.add(stackTransporting);
+            stackTransporting.updateAnimation();
+            if (getLevel() instanceof ServerLevel serverLevel) PetrolsPartsPackets.sendToAllClientsInDimension(new PneumaticTubeItemTransportPacket(getBlockPos(), stack), serverLevel);
         };
 
         public ExtractionCountMode getModeToExtract() {
@@ -400,14 +482,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         };
 
         public void dropItems() {
-            TubeSpline spline = tube.getSpline();
+            TubeSpline spline = tube.getSplineOptional().orElse(null);
             if (spline == null) {
                 stacksTransporting.stream().map(StackTransporting::getStack).forEach(s -> Block.popResource(getLevel(), getBlockPos(), s));
             } else {
                 List<Vec3> points = spline.getPoints();
                 if (!points.isEmpty()) stacksTransporting.forEach(stackTransporting -> {
-                    ItemHelper.pop(getLevel(), spline.getPoints().get(
-                        points.size() - 1 - (points.size() * getItemTransportDistance() / stackTransporting.getDistanceRemaining())
+                    ItemHelper.pop(getLevel(), points.get(
+                        points.size() - 1 - (points.size() * stackTransporting.getDistanceRemaining() / getItemTransportDistance())
                     ), stackTransporting.getStack());
                 });
             };
@@ -427,11 +509,12 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
 
             protected final ItemStack stack;
             protected int distanceRemaining = 0;
-            public final LerpedFloat animation = LerpedFloat.linear().chase(1f, 0f, Chaser.LINEAR).startWithValue(0f);
+            public final LerpedFloat animation = LerpedFloat.linear().startWithValue(0f).chase(1f, 0f, Chaser.LINEAR);
     
             public StackTransporting(ItemStack stack, int distanceRemaining) {
                 this.stack = stack;
                 this.distanceRemaining = distanceRemaining;
+                if (getLevel() != null) updateAnimation(); // Level is null just after loading world for the first time
             };
     
             public ItemStack getStack() {
@@ -443,8 +526,9 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             };
     
             public void updateAnimation() {
-                if (distanceMovedPerTick == 0) animation.updateChaseSpeed(1f); 
-                animation.updateChaseSpeed((float)getItemTransportDistance() / (float)distanceMovedPerTick);
+                animation.setValue(1f - ((float)distanceRemaining / (float)getItemTransportDistance()));
+                if (getItemTransportDistance() == 0) animation.updateChaseSpeed(0f);
+                animation.updateChaseSpeed((float)distanceMovedPerTick / (float)getItemTransportDistance());
             };
     
             public void tick() {
@@ -463,6 +547,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
 
         @Override
         public void deserializeNBT(CompoundTag nbt) {
+            distanceMovedPerTick = -1; // Reset this
             inputCooldown = nbt.getInt("Cooldown");
             stacksTransporting.clear();
             stacksTransporting.addAll(NBTHelper.readCompoundList(nbt.getList("Items", Tag.TAG_COMPOUND), t -> STACK_TRANSPORTING_CODEC.parse(NbtOps.INSTANCE, t).result().orElse(null)));
@@ -473,6 +558,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
         getInput().ifPresent(Input::updateFromSpeed);
+        notifyUpdate();
     };
 
     @Override
@@ -482,6 +568,10 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         if (compound.contains("Input", Tag.TAG_COMPOUND)) {
             setAsInput().ifPresent(input -> input.deserializeNBT(compound.getCompound("Input")));
         };
+        if (compound.contains("RemoveHandler")) {
+            handler = Optional.empty();
+            removeHandler = false;
+        };
     };
 
     @Override
@@ -489,6 +579,10 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         super.write(compound, clientPacket);
         compound.put("Backlog", itemBacklog.serializeNBT());
         asInput().ifPresent(input -> compound.put("Input", input.serializeNBT()));
+        if (clientPacket && removeHandler) {
+            compound.putBoolean("RemoveHandler", true);
+            removeHandler = false;
+        };
     };
     
     @Override
@@ -510,28 +604,20 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         return handler.right();
     };
 
-    protected class PneumaticTubeValueBoxTransform extends ValueBoxTransform.Sided {
+    protected class PneumaticTubeValueBoxTransform extends DeployerFilterSlot {
+
+        @Override
+        public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
+            return super.getLocalOffset(level, pos, state)
+                .subtract(Vec3.atLowerCornerOf(state.getValue(PneumaticTubeBlock.FACING).getNormal())
+			        .scale(3 / 16f)
+                );
+        };
 
 		@Override
-		protected Vec3 getSouthLocation() {
-			return VecHelper.voxelSpace(8, 8, 12.5);
-		};
-
-		@Override
-		public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
-			return super.getLocalOffset(level, pos, state).add(Vec3.atLowerCornerOf(state.getValue(PneumaticTubeBlock.FACING).getNormal()).scale(-1 / 16f));
-		};
-
-		@Override
-		public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
-			super.rotate(level, pos, state, ms);
-			TransformStack.of(ms).rotateZDegrees(-AngleHelper.horizontalAngle(state.getValue(PneumaticTubeBlock.FACING)) + 180);
-		};
-
-		@Override
-		protected boolean isSideActive(BlockState state, Direction direction) {
-			return direction.getAxis() != state.getValue(PneumaticTubeBlock.FACING).getAxis();
-		};
+        protected boolean isSideActive(BlockState state, Direction direction) {
+            return state.getValue(PneumaticTubeBlock.FACING).getAxis() != direction.getAxis();
+        };
 
 	}; 
     

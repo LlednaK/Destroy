@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"1": "petrolsparts:block/pneumatic_tube_segment",
+		"particle": "petrolsparts:block/pneumatic_tube"
+	},
+	"elements": [
+		{
+			"from": [-4, -0.5, -4],
+			"to": [4, 2.5, 4],
+			"faces": {
+				"north": {"uv": [1, 0, 9, 3], "texture": "#1"},
+				"east": {"uv": [1, 0, 9, 3], "texture": "#1"},
+				"south": {"uv": [1, 0, 9, 3], "texture": "#1"},
+				"west": {"uv": [1, 0, 9, 3], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-5, -2.5, -5],
+			"to": [5, -0.5, 5],
+			"faces": {
+				"north": {"uv": [0, 3, 10, 5], "texture": "#1"},
+				"east": {"uv": [0, 3, 10, 5], "texture": "#1"},
+				"south": {"uv": [0, 3, 10, 5], "texture": "#1"},
+				"west": {"uv": [0, 3, 10, 5], "texture": "#1"},
+				"up": {"uv": [0, 5, 10, 15], "texture": "#1"},
+				"down": {"uv": [0, 5, 10, 15], "texture": "#1"}
+			}
+		}
+	]
+}

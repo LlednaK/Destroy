@@ -35,6 +35,7 @@ public class PetrolsPartsPartialModels {
 
     // Pneumatic Tube
     PNEUMATIC_TUBE_SEGMENT = block("pneumatic_tube/segment"),
+    PNEUMATIC_TUBE_SEGMENT_STICHED = block("pneumatic_tube/segment_stitched"),
     PNEUMATIC_TUBE_ARROWS = block("pneumatic_tube/arrows");
 
     private static PartialModel block(String path) {

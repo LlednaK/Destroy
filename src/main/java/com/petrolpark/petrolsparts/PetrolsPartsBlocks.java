@@ -130,7 +130,7 @@ public class PetrolsPartsBlocks {
         .transform(ModelGen.customItemModel())
         .register();
 
-    public static final BlockEntry<PneumaticTubeBlock> PNEUMATIC_TUBE = REGISTRATE.block("pneumatic_tube", PneumaticTubeBlock::new)
+    public static final BlockEntry<PneumaticTubeBlock> PNEUMATIC_TUBE = REGISTRATE.block("pneumatic_tube", PneumaticTubeBlock::filterable)
         .initialProperties(HYDRAULIC_TRANSMISSION)
         .properties(p -> p
             .noOcclusion()

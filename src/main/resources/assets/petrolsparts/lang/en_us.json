@@ -21,6 +21,8 @@
     "block.petrolsparts.planetary_gearset": "Planetary Gearset",
     "block.petrolsparts.pneumatic_tube": "Pneumatic Tube",
     "block.petrolsparts.pneumatic_tube.cant_flip": "The Pneumatic Tube must be empty to change its direction",
+    "block.petrolsparts.pneumatic_tube.jammed": "Jammed!",
+    "block.petrolsparts.pneumatic_tube.jammed.hint": "There are Items stuck in this Pneumatic Tube that _can't get out_.",
 
     "petrolsparts.ponder.coaxial_gear_shaftless.header": "Using Coaxial Cogwheels as shaftless Cogwheels",
     "petrolsparts.ponder.coaxial_gear_shaftless.text_1": "Coaxial Cogwheels connect similarly to their regular Cogwheel counterparts.",

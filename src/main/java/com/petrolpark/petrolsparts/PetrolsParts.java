@@ -72,6 +72,7 @@ public class PetrolsParts {
 
     private void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            PetrolsPartsPackets.register();
             PetrolsPartsAdvancementTrigger.register();
         });
     };

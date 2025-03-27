@@ -3,8 +3,7 @@
 	"parent": "create:block/large_wheels",
 	"textures": {
 		"0": "petrolsparts:block/pneumatic_tube",
-		"3": "create:block/gearbox",
-		"particle": "block/stripped_spruce_log_top"
+		"particle": "petrolsparts:block/pneumatic_tube"
 	},
 	"elements": [
 		{
@@ -15,7 +14,7 @@
 				"east": {"uv": [8.5, 0, 15.5, 3], "texture": "#0"},
 				"south": {"uv": [8.5, 0, 15.5, 3], "texture": "#0"},
 				"west": {"uv": [8.5, 0, 15.5, 3], "texture": "#0"},
-				"up": {"uv": [1, 1, 15, 15], "texture": "#3"},
+				"up": {"uv": [0.5, 8.5, 7.5, 15.5], "texture": "#0"},
 				"down": {"uv": [8.5, 8.5, 15.5, 15.5], "texture": "#0"}
 			}
 		},
@@ -40,7 +39,7 @@
 				"east": {"uv": [8, 5, 16, 8], "texture": "#0"},
 				"south": {"uv": [8, 5, 16, 8], "texture": "#0"},
 				"west": {"uv": [8, 5, 16, 8], "texture": "#0"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"up": {"uv": [8, 8, 16, 16], "texture": "#0"},
 				"down": {"uv": [0, 8, 8, 16], "texture": "#0"}
 			}
 		}
