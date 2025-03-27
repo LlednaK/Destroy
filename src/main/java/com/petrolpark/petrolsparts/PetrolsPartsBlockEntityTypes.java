@@ -5,6 +5,7 @@ import static com.petrolpark.petrolsparts.PetrolsParts.REGISTRATE;
 import com.petrolpark.petrolsparts.content.chained_cogwheel.ChainedCogwheelBlockEntity;
 import com.petrolpark.petrolsparts.content.chained_cogwheel.ChainedCogwheelRenderer;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlockEntity;
+import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearVisual;
 import com.petrolpark.petrolsparts.content.coaxial_gear.LongShaftBlockEntity;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlockEntity;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelRenderer;
@@ -33,7 +34,7 @@ public class PetrolsPartsBlockEntityTypes {
 
     public static final BlockEntityEntry<CoaxialGearBlockEntity> COAXIAL_GEAR = REGISTRATE
         .blockEntity("coaxial_gear", CoaxialGearBlockEntity::new)
-        //.visual(() -> () -> SingleAxisRotatingVisual.of(null), false)
+        .visual(() -> CoaxialGearVisual::create, false)
         .validBlocks(PetrolsPartsBlocks.COAXIAL_GEAR, PetrolsPartsBlocks.LARGE_COAXIAL_GEAR)
         .renderer(() -> BracketedKineticBlockEntityRenderer::new)
         .register();

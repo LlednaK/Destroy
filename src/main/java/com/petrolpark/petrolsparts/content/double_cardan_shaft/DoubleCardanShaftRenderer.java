@@ -75,17 +75,18 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
             .center()
             .rotateYDegrees(axis == Axis.Z ? 90f : 0f)
             .rotateXDegrees(axis == Axis.Z ? (facesHaveSameSign ? 45f : 135f) : 0f)
-            .rotate(facesHaveSameSign ^ axis != Axis.Y ? 135f : 45f, axis)
+            .rotateDegrees(facesHaveSameSign ^ axis != Axis.Y ? 135f : 45f, axis)
             .uncenter()
             .center()
             .rotateZ((axis == Axis.X ? fluctuatingAngle3 : fluctuatingAngle1) * (axis == Axis.X || (axis == Axis.Y ^ facesHaveSameSign) ? 1f : -1f) * (axis == Axis.X ? -1f : 1f))
             .uncenter()
+            .light(light)
             .renderInto(ms, vbSolid);
 
         CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_GIMBAL, state, shaft1Direction)
             
             .center()
-            .rotateDegrees(gimbal1Angle, shaft1Direction.getAxis())
+            .rotate(gimbal1Angle, shaft1Direction.getAxis())
             .center()
 
             .translateBack(DoubleCardanShaftVisual.gimbalTranslation(shaft1Direction))
@@ -96,12 +97,13 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
     
             .uncenter()
             .uncenter()
+            .light(light)
             .renderInto(ms, vbSolid);
 
         CachedBuffers.partialFacing(PetrolsPartsPartialModels.DCS_GIMBAL, state, shaft2Direction)
             
             .center()
-            .rotateDegrees(gimbal2Angle, Direction.get(AxisDirection.POSITIVE, shaft2Direction.getAxis()))
+            .rotate(gimbal2Angle, Direction.get(AxisDirection.POSITIVE, shaft2Direction.getAxis()))
             .center()
 
             .translateBack(DoubleCardanShaftVisual.gimbalTranslation(shaft2Direction))
@@ -110,6 +112,7 @@ public class DoubleCardanShaftRenderer extends KineticBlockEntityRenderer<Double
 
             .uncenter()
             .uncenter()
+            .light(light)
             .renderInto(ms, vbSolid);
     };
     

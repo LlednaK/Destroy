@@ -8,6 +8,10 @@ public class PetrolsPartsPartialModels {
 
     CHAIN_LINK = block("chain_link"),
 
+    // Coaxial Gears
+    COAXIAL_GEAR = block("coaxial_gear"),
+    LARGE_COAXIAL_GEAR = block("large_coaxial_gear"),
+
     // Double Cardan Shaft
     DCS_CENTER_SHAFT = block("double_cardan_shaft/center_shaft"),
     DCS_SIDE_SHAFT = block("double_cardan_shaft/side_shaft"),
