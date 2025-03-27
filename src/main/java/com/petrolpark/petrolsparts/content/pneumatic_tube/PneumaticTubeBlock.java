@@ -73,7 +73,7 @@ public class PneumaticTubeBlock extends DirectionalKineticBlock implements IBE<P
 
     @Override
     public double getTubeSegmentLength() {
-        return 3.5 / 16d;
+        return 2.5 / 16d;
     };
 
     @Override

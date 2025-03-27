@@ -406,7 +406,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
                 if (stackTransporting.distanceRemaining <= 0) {
                     iterator.remove();
                     ItemStack stack = stackTransporting.getStack();
-                    getOrCreateOutput().ifPresentOrElse(
+                    if (!stack.isEmpty()) getOrCreateOutput().ifPresentOrElse(
                         output -> output.outputOrBacklog(stack),
                         () -> itemBacklog.add(stack)
                     );
@@ -468,6 +468,16 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             stacksTransporting.add(stackTransporting);
             stackTransporting.updateAnimation();
             if (getLevel() instanceof ServerLevel serverLevel) PetrolsPartsPackets.sendToAllClientsInDimension(new PneumaticTubeItemTransportPacket(getBlockPos(), stack), serverLevel);
+        };
+
+        /**
+         * Animate this Pneumatic Tube as if it is transporting an Item, even if it is not.
+         * @return Callback to remove the animated Stack
+         */
+        public Runnable transportAnimationOnly() {
+            StackTransporting stackTransporting = new StackTransporting(ItemStack.EMPTY, getItemTransportDistance());
+            stacksTransporting.add(stackTransporting);
+            return () -> stacksTransporting.remove(stackTransporting);
         };
 
         public ExtractionCountMode getModeToExtract() {
