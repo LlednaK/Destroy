@@ -1,0 +1,25 @@
+{
+    "parent": "petrolsparts:root",
+    "criteria": {
+      "use": {
+        "trigger": "petrolsparts:pneumatic_tube"
+      }
+    },
+    "display": {
+      "description": {
+        "color": "#DBA213",
+        "translate": "advancement.petrolsparts.pneumatic_tube.description"
+      },
+      "icon": {
+        "item": "petrolsparts:pneumatic_tube"
+      },
+      "title": {
+        "translate": "advancement.petrolsparts.pneumatic_tube"
+      }
+    },
+    "requirements": [
+      [
+        "use"
+      ]
+    ]
+  }

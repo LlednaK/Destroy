@@ -2,8 +2,8 @@ package com.petrolpark.petrolsparts.content.hydraulic_transmission;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.petrolpark.petrolsparts.PetrolsPartsPartials;
-import com.petrolpark.tube.ITubeRenderer;
+import com.petrolpark.compat.create.core.tube.ITubeRenderer;
+import com.petrolpark.petrolsparts.PetrolsPartsPartialModels;
 import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
@@ -21,8 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<HydraulicTransmissionBlockEntity> implements ITubeRenderer<HydraulicTransmissionBlockEntity> {
 
+    public final PartialModel[] segmentModels;
+
     public HydraulicTransmissionRenderer(Context context) {
         super(context);
+        segmentModels = new PartialModel[]{PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_SEGMENT};
     };
 
     @Override
@@ -42,11 +45,11 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
             .rotateXDegrees(90f)
             .uncenter();
 
-        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, state)
+        CachedBuffers.partial(PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_PISTON, state)
             .translateZ(Mth.sin(((time * be.getSpeed() * 3f / 5) % 360) * Mth.PI / 180f) * 3 / 32f)
             .light(light)
             .renderInto(ms, vc);
-        CachedBuffers.partial(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_PISTON, state)
+        CachedBuffers.partial(PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_PISTON, state)
             .center()
             .rotateYDegrees(90f)
             .uncenter()
@@ -61,14 +64,14 @@ public class HydraulicTransmissionRenderer extends KineticBlockEntityRenderer<Hy
     };
 
     @Override
-    public PartialModel getTubeSegmentModel(HydraulicTransmissionBlockEntity be) {
-        return PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_SEGMENT;
+    public PartialModel[] getTubeSegmentModels(HydraulicTransmissionBlockEntity be) {
+        return segmentModels;
     };
 
     @Override
     protected SuperByteBuffer getRotatedModel(HydraulicTransmissionBlockEntity be, BlockState state) {
         Direction face = state.getValue(HydraulicTransmissionBlock.FACING);
-        return CachedBuffers.partialDirectional(PetrolsPartsPartials.HYDRAULIC_TRANSMISSION_INNER, state, face, () -> KineticsHelper.rotateToFace(face.getOpposite()));
+        return CachedBuffers.partialDirectional(PetrolsPartsPartialModels.HYDRAULIC_TRANSMISSION_INNER, state, face, () -> KineticsHelper.rotateToFace(face.getOpposite()));
     };
 
     @Override

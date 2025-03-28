@@ -57,6 +57,9 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
             .addStoryBoard(Create.asResource("cog/speedup"), com.simibubi.create.infrastructure.ponder.scenes.KineticsScenes::cogsSpeedUp)
             .addStoryBoard(Create.asResource("cog/large"), com.simibubi.create.infrastructure.ponder.scenes.KineticsScenes::largeCogAsRelay)
             .addStoryBoard("planetary_gearset", PetrolsPartsScenes::planetaryGearset);
+    
+        HELPER.forComponents(PetrolsPartsBlocks.PNEUMATIC_TUBE)
+            .addStoryBoard("pneumatic_tube", PetrolsPartsScenes::pneumaticTube);
     };
 
     @Override
@@ -72,5 +75,8 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
             .add(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION)
             .add(PetrolsPartsBlocks.PLANETARY_GEARSET)
         ;
+
+        HELPER.addToTag(AllCreatePonderTags.LOGISTICS)
+            .add(PetrolsPartsBlocks.PNEUMATIC_TUBE);
     };
 };

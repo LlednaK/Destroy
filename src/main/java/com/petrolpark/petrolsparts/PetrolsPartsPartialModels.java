@@ -2,11 +2,15 @@ package com.petrolpark.petrolsparts;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 
-public class PetrolsPartsPartials {
+public class PetrolsPartsPartialModels {
 
     public static final PartialModel
 
     CHAIN_LINK = block("chain_link"),
+
+    // Coaxial Gears
+    COAXIAL_GEAR = block("coaxial_gear"),
+    LARGE_COAXIAL_GEAR = block("large_coaxial_gear"),
 
     // Double Cardan Shaft
     DCS_CENTER_SHAFT = block("double_cardan_shaft/center_shaft"),
@@ -31,7 +35,12 @@ public class PetrolsPartsPartials {
     // Hydraulic Transmission
     HYDRAULIC_TRANSMISSION_INNER = block("hydraulic_transmission/inner"),
     HYDRAULIC_TRANSMISSION_PISTON = block("hydraulic_transmission/piston"),
-    HYDRAULIC_TRANSMISSION_SEGMENT = block("hydraulic_transmission/segment");
+    HYDRAULIC_TRANSMISSION_SEGMENT = block("hydraulic_transmission/segment"),
+
+    // Pneumatic Tube
+    PNEUMATIC_TUBE_SEGMENT = block("pneumatic_tube/segment"),
+    PNEUMATIC_TUBE_SEGMENT_STICHED = block("pneumatic_tube/segment_stitched"),
+    PNEUMATIC_TUBE_ARROWS = block("pneumatic_tube/arrows");
 
     private static PartialModel block(String path) {
         return PartialModel.of(PetrolsParts.asResource("block/"+path));

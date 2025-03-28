@@ -16,6 +16,7 @@ public enum PetrolsPartsAdvancementTrigger {
     COAXIAL_GEAR,
     COLOSSAL_COGWHEEL_POWER_MANY,
     DIFFERENTIAL,
+    PNEUMATIC_TUBE,
     ;
 
     private String triggerId;

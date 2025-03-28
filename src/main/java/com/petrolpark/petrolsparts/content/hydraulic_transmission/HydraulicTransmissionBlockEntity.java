@@ -2,9 +2,9 @@ package com.petrolpark.petrolsparts.content.hydraulic_transmission;
 
 import java.util.List;
 
+import com.petrolpark.compat.create.core.tube.ITubeBlockEntity;
+import com.petrolpark.compat.create.core.tube.TubeBehaviour;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
-import com.petrolpark.tube.ITubeBlockEntity;
-import com.petrolpark.tube.TubeBehaviour;
 import com.petrolpark.util.MathsHelper;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -61,7 +61,7 @@ public class HydraulicTransmissionBlockEntity extends KineticBlockEntity impleme
 
     @Override
     public void beforeTubeDisconnect() {
-        detachKinetics();;
+        detachKinetics();
     };
 
     public void updatePartnerSpeed() {

@@ -5,6 +5,8 @@ import com.petrolpark.client.ponder.particle.PetrolparkEmitters;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlock;
 import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftBlock;
+import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeBlockEntity;
+import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeTransportInstruction;
 import com.petrolpark.petrolsparts.core.block.DirectionalRotatedPillarKineticBlock;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
@@ -22,6 +24,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -545,6 +549,124 @@ public class PetrolsPartsScenes {
         scene.idle(100);
 
         scene.markAsFinished();
+    };
+
+    public static void pneumaticTube(SceneBuilder baseScene, SceneBuildingUtil util) {
+        CreateSceneBuilder scene = new CreateSceneBuilder(baseScene);
+        scene.title("pneumatic_tube", "This text is defined in a language file.");
+        scene.configureBasePlate(0, 0, 5);
+        scene.scaleSceneView(0.75f);
+        scene.showBasePlate();
+
+        ItemStack ingots = new ItemStack(Items.IRON_INGOT, 64);
+
+        Selection depotTower = util.select().fromTo(3, 1, 4, 3, 4, 4);
+        BlockPos bottomDepot = util.grid().at(0, 1, 1);
+        BlockPos topDepot = util.grid().at(3, 4, 4);
+        Selection shaft = util.select().fromTo(1, 1, 2, 5, 1, 2);
+        Selection tube = util.select().fromTo(1, 1, 1, 3, 4, 2).substract(shaft);
+        BlockPos bottomEnd = util.grid().at(1, 1, 1);
+        BlockPos topEnd = util.grid().at(3, 4, 3);
+
+        scene.world().setKineticSpeed(util.select().position(bottomEnd), 0f);
+
+        scene.idle(10);
+        scene.world().showSection(util.select().position(topEnd), Direction.SOUTH);
+        scene.idle(10);
+        scene.overlay().showText(80)
+            .text("This text is defined in a language file.")
+            .pointAt(util.vector().blockSurface(topEnd, Direction.UP))
+            .placeNearTarget();
+        scene.idle(40);
+        scene.world().showSection(tube, Direction.WEST);
+        scene.idle(60);
+
+        scene.world().showSection(util.select().position(bottomDepot), Direction.DOWN);
+        scene.idle(10);
+        scene.world().showSection(depotTower, Direction.DOWN);
+        scene.idle(20);
+        scene.world().createItemOnBeltLike(bottomDepot, Direction.WEST, ingots);
+        scene.idle(10);
+        scene.overlay().showControls(util.vector().topOf(bottomDepot), Pointing.DOWN, 40)
+            .withItem(ingots);
+        scene.idle(50);
+
+        scene.overlay().showText(100)
+            .text("This text is defined in a language file.")
+            .attachKeyFrame()
+            .pointAt(util.vector().blockSurface(bottomEnd, Direction.UP))
+            .placeNearTarget();
+        scene.idle(20);
+        scene.world().showSection(util.select().position(5, 0, 3), Direction.WEST);
+        scene.idle(10);
+        scene.world().showSection(shaft, Direction.EAST);
+        scene.idle(10);
+        scene.world().setKineticSpeed(util.select().position(bottomEnd), -32f);
+        scene.world().removeItemsFromBelt(bottomDepot);
+        scene.addInstruction(new PneumaticTubeTransportInstruction(bottomEnd, true));
+        scene.world().createItemOnBeltLike(topDepot, Direction.NORTH, ingots);
+        scene.idle(10);
+        scene.overlay().showControls(util.vector().topOf(topDepot), Pointing.DOWN, 40)
+            .withItem(ingots);
+        scene.idle(50);
+        scene.world().removeItemsFromBelt(topDepot);
+        scene.idle(20);
+
+        ItemStack goldIngots = new ItemStack(Items.GOLD_INGOT, 64);
+
+        Vec3 filter = util.vector().blockSurface(bottomEnd, Direction.UP).add(-5 / 16d, 0d, 0d);
+        scene.addKeyframe();
+        scene.idle(20);
+        scene.overlay().showFilterSlotInput(filter, Direction.UP, 60);
+        scene.overlay().showControls(filter, Pointing.DOWN, 40)
+            .rightClick()
+			.withItem(goldIngots);
+        scene.idle(10);
+        scene.world().setFilterData(util.select().position(bottomEnd), PneumaticTubeBlockEntity.class, goldIngots);
+        scene.idle(30);
+        scene.overlay().showText(120)
+            .text("This text is defined in a language file.")
+            .pointAt(util.vector().blockSurface(bottomEnd, Direction.NORTH));
+        scene.idle(30);
+        scene.world().createItemOnBeltLike(bottomDepot, Direction.WEST, ingots);
+        scene.idle(10);
+        scene.overlay().chaseBoundingBoxOutline(PonderPalette.RED, filter, new AABB(bottomDepot).deflate(3 / 16d).move(0d, 4 / 16d, 0d), 40);
+        scene.idle(50);
+        scene.world().removeItemsFromBelt(bottomDepot);
+        scene.idle(20);
+        scene.world().createItemOnBeltLike(bottomDepot, Direction.WEST, goldIngots);
+        scene.idle(10);
+        scene.world().removeItemsFromBelt(bottomDepot);
+        scene.addInstruction(new PneumaticTubeTransportInstruction(bottomEnd, true));
+        scene.world().createItemOnBeltLike(topDepot, Direction.NORTH, goldIngots);
+        scene.idle(50);
+
+        scene.world().hideSection(depotTower, Direction.UP);
+        scene.idle(10);
+        scene.overlay().showText(100)
+            .text("This text is defined in a language file.")
+            .attachKeyFrame()
+            .pointAt(util.vector().blockSurface(topEnd, Direction.WEST))
+            .placeNearTarget();
+        scene.idle(40);
+        scene.world().createItemOnBeltLike(bottomDepot, Direction.WEST, goldIngots);
+        scene.idle(10);
+        scene.world().removeItemsFromBelt(bottomDepot);
+        scene.addInstruction(new PneumaticTubeTransportInstruction(bottomEnd, true));
+        scene.world().createItemEntity(util.vector().blockSurface(topDepot, Direction.SOUTH), util.vector().of(0d, 0d, 1d), goldIngots);
+        scene.idle(50);
+
+        scene.overlay().showText(80)
+            .text("This text is defined in a language file.")
+            .attachKeyFrame()
+            .pointAt(util.vector().blockSurface(bottomEnd, Direction.WEST))
+            .placeNearTarget();
+        scene.idle(20);
+        scene.overlay().showControls(util.vector().topOf(bottomEnd), Pointing.DOWN, 40)
+            .withItem(AllItems.WRENCH.asStack());
+        scene.idle(10);
+        scene.world().modifyBlockEntity(bottomEnd, PneumaticTubeBlockEntity.class, be -> be.flip(null));
+        scene.idle(70);
     };
 
 };

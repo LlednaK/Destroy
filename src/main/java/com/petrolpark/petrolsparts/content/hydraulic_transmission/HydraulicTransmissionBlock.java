@@ -1,8 +1,9 @@
 package com.petrolpark.petrolsparts.content.hydraulic_transmission;
 
+import com.petrolpark.compat.create.core.tube.ITubeBlock;
+import com.petrolpark.compat.create.core.tube.TubeSpline;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
-import com.petrolpark.tube.ITubeBlock;
-import com.petrolpark.tube.TubeSpline;
+import com.petrolpark.petrolsparts.PetrolsPartsConfigs;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.foundation.block.IBE;
@@ -64,7 +65,7 @@ public class HydraulicTransmissionBlock extends DirectionalKineticBlock implemen
 
     @Override
     public int getItemsForTubeLength(double length) {
-        return (int)Math.round(length / 0.5d);
+        return (int)Math.round(length * PetrolsPartsConfigs.server().hydraulicTransmissionCost.getF());
     };
 
     @Override
