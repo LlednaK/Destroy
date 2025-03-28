@@ -117,7 +117,7 @@ public class VatFluidTankBehaviour extends GeniusFluidTankBehaviour {
         };
 
         for (Entry<LegacySpecies, Float> entry : moleculesAndMoles.entrySet()) {
-            mixture.addMolecule(entry.getKey(), entry.getValue() / totalVolume); //TODO use different volume as this makes things slow
+            mixture.addMolecule(entry.getKey(), entry.getValue());
         };
 
         return mixture;
