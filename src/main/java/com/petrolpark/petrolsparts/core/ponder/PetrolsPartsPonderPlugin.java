@@ -21,7 +21,7 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        final PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        final PonderSceneRegistrationHelper<ItemProviderEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         // Coaxial Gear
         HELPER.forComponents(PetrolsPartsBlocks.COAXIAL_GEAR)
@@ -64,7 +64,7 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerTags(PonderTagRegistrationHelper<ResourceLocation> helper) {
-        final PonderTagRegistrationHelper<RegistryEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        final PonderTagRegistrationHelper<RegistryEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
         
         HELPER.addToTag(AllCreatePonderTags.KINETIC_RELAYS)
             .add(PetrolsPartsBlocks.COAXIAL_GEAR)

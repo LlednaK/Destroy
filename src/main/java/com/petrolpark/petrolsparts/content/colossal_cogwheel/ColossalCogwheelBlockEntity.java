@@ -5,7 +5,7 @@ import java.util.List;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Connection;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Position;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
@@ -34,7 +34,7 @@ public class ColossalCogwheelBlockEntity extends KineticBlockEntity {
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
 
-        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTrigger.COLOSSAL_COGWHEEL_POWER_MANY);
+        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTriggers.COLOSSAL_COGWHEEL_POWER_MANY);
         behaviours.add(advancementBehaviour);
     };
 
@@ -86,12 +86,12 @@ public class ColossalCogwheelBlockEntity extends KineticBlockEntity {
 
     public void tryAwardCogsPoweringAdvancement() {
         BlockPos center = getBlockPos().offset(ColossalCogwheelBlock.getRelativeCenterPosition(getBlockState()));
-        advancementBehaviour.awardAdvancementIf(PetrolsPartsAdvancementTrigger.COLOSSAL_COGWHEEL_POWER_MANY, () -> Connection.getAll(center, getBlockState().getValue(RotatedPillarKineticBlock.AXIS)).stream()
+        advancementBehaviour.awardAdvancementIf(PetrolsPartsAdvancementTriggers.COLOSSAL_COGWHEEL_POWER_MANY, () -> Connection.getAll(center, getBlockState().getValue(RotatedPillarKineticBlock.AXIS)).stream()
             .filter(pair -> {
                 BlockPos pos = pair.getFirst();
-                BlockEntity be = getLevel().getBlockEntity(pos);
-                if (be instanceof KineticBlockEntity kbe && kbe.hasSource()) {
-                    BlockState sourceState = getLevel().getBlockState(kbe.source);
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be instanceof KineticBlockEntity kbe && kbe.source != null) {
+                    BlockState sourceState = level.getBlockState(kbe.source);
                     return (sourceState.getBlock() instanceof ColossalCogwheelBlock && kbe.source.offset(ColossalCogwheelBlock.getRelativeCenterPosition(sourceState)).equals(center));
                 };
                 return false;

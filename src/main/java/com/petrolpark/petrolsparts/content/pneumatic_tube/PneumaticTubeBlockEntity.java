@@ -19,9 +19,8 @@ import com.petrolpark.compat.create.core.tube.TubeSpline;
 import com.petrolpark.core.item.QueueItemHandler;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsConfigs;
-import com.petrolpark.petrolsparts.PetrolsPartsPackets;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.petrolpark.util.BlockFace;
 import com.petrolpark.util.ItemHelper;
 import com.petrolpark.util.MathsHelper;
@@ -43,9 +42,11 @@ import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.lang.FontHelper.Palette;
 import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
@@ -56,6 +57,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -65,7 +67,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITubeBlockEntity {
 
@@ -101,7 +103,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         behaviours.add(tube = new TubeBehaviour(this));
         behaviours.add(beltInput = new DirectBeltInputBehaviour(this)); //TODO
         behaviours.add(targetInventory = new InvManipulationBehaviour(this, CapManipulationBehaviourBase.InterfaceProvider.oppositeOfBlockFacing()));
-        behaviours.add(advancements = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTrigger.PNEUMATIC_TUBE));
+        behaviours.add(advancements = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTriggers.PNEUMATIC_TUBE));
 
         // Relevant to input end only
         behaviours.add(invVersionTracker = new VersionedInventoryTrackerBehaviour(this));
@@ -276,7 +278,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         public boolean isBlocked() {
             if (blocked == null) {
                 final BlockPos outputPos = getBlockPos().relative(getOutputFace());
-                final BlockHitResult blockHit = level.clip(new ClipContext(getOutputLocation(), Vec3.atCenterOf(outputPos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+                final BlockHitResult blockHit = level.clip(new ClipContext(getOutputLocation(), Vec3.atCenterOf(outputPos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity)null));
                 blocked = blockHit.getType() == HitResult.Type.BLOCK && blockHit.getBlockPos().equals(outputPos);
             };
             return blocked;
@@ -304,8 +306,8 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             // Second: check for Inventories
             if (simulate) targetInventory.simulate();
             ItemStack remainder = targetInventory.insert(stack);
-            if (!remainder.equals(stack, false)) {
-                advancements.awardAdvancement(PetrolsPartsAdvancementTrigger.PNEUMATIC_TUBE);
+            if (!ItemStack.isSameItemSameComponents(stack, remainder)) {
+                advancements.awardAdvancement(PetrolsPartsAdvancementTriggers.PNEUMATIC_TUBE);
                 return remainder;
             };
             if (targetInventory.hasInventory()) return stack; // Don't try shooting out the item if the Inventory exists but is just full
@@ -340,7 +342,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
                 level.addFreshEntity(itemEntity);
                 lastBlockingEntityRef = new WeakReference<>(itemEntity);
 
-                advancements.awardAdvancement(PetrolsPartsAdvancementTrigger.PNEUMATIC_TUBE);
+                advancements.awardAdvancement(PetrolsPartsAdvancementTriggers.PNEUMATIC_TUBE);
             };
             return ItemStack.EMPTY;
         };
@@ -467,7 +469,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
             StackTransporting stackTransporting = new StackTransporting(stack, getItemTransportDistance());
             stacksTransporting.add(stackTransporting);
             stackTransporting.updateAnimation();
-            if (getLevel() instanceof ServerLevel serverLevel) PetrolsPartsPackets.sendToAllClientsInDimension(new PneumaticTubeItemTransportPacket(getBlockPos(), stack), serverLevel);
+            if (getLevel() instanceof ServerLevel serverLevel) CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(getBlockPos()), new PneumaticTubeItemTransportPacket(getBlockPos(), stack));
         };
 
         /**
@@ -548,7 +550,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         };
 
         @Override
-        public CompoundTag serializeNBT() {
+        public CompoundTag serializeNBT(HolderLookup.Provider registries) {
             CompoundTag tag = new CompoundTag();
             tag.putInt("Cooldown", inputCooldown);
             tag.put("Items", NBTHelper.writeCompoundList(stacksTransporting, s -> (CompoundTag)STACK_TRANSPORTING_CODEC.encodeStart(NbtOps.INSTANCE, s).result().orElse(null)));
@@ -556,7 +558,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         };
 
         @Override
-        public void deserializeNBT(CompoundTag nbt) {
+        public void deserializeNBT(HolderLookup.Provider registries, CompoundTag nbt) {
             distanceMovedPerTick = -1; // Reset this
             inputCooldown = nbt.getInt("Cooldown");
             stacksTransporting.clear();
@@ -572,11 +574,11 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     };
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
-        itemBacklog.deserializeNBT(compound.getList("Backlog", Tag.TAG_COMPOUND));
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
+        itemBacklog.deserializeNBT(registries, compound.getList("Backlog", Tag.TAG_COMPOUND));
         if (compound.contains("Input", Tag.TAG_COMPOUND)) {
-            setAsInput().ifPresent(input -> input.deserializeNBT(compound.getCompound("Input")));
+            setAsInput().ifPresent(input -> input.deserializeNBT(registries, compound.getCompound("Input")));
         };
         if (compound.contains("RemoveHandler")) {
             handler = Optional.empty();
@@ -585,10 +587,10 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     };
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
-        compound.put("Backlog", itemBacklog.serializeNBT());
-        asInput().ifPresent(input -> compound.put("Input", input.serializeNBT()));
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
+        compound.put("Backlog", itemBacklog.serializeNBT(registries));
+        asInput().ifPresent(input -> compound.put("Input", input.serializeNBT(registries)));
         if (clientPacket && removeHandler) {
             compound.putBoolean("RemoveHandler", true);
             removeHandler = false;

@@ -3,16 +3,24 @@ package com.petrolpark.petrolsparts;
 import com.petrolpark.petrolsparts.core.ponder.PetrolsPartsPonderPlugin;
 
 import net.createmod.ponder.foundation.PonderIndex;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
+@Mod(value = PetrolsParts.MOD_ID, dist = Dist.CLIENT)
 public class PetrolsPartsClient {
+
+    public PetrolsPartsClient(IEventBus modEventBus) {
+        clientCtor(modEventBus);
+    };
 
     public static void clientInit(final FMLClientSetupEvent event) {
         PonderIndex.addPlugin(new PetrolsPartsPonderPlugin());
     };
 
-    public static final void clientCtor(IEventBus forgeEventBus, IEventBus modEventBus) {
+    public static final void clientCtor(IEventBus modEventBus) {
+        modEventBus.addListener(PetrolsPartsClient::clientInit);
         PetrolsPartsPartialModels.init();
     };
 };

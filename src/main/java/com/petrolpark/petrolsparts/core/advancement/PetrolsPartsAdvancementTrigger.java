@@ -1,55 +1,60 @@
 package com.petrolpark.petrolsparts.core.advancement;
 
-import com.petrolpark.data.advancement.SimpleAdvancementTrigger;
-import com.petrolpark.petrolsparts.PetrolsParts;
-import com.petrolpark.util.Lang;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.CriteriaTriggers;
+import javax.annotation.Nullable;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simibubi.create.foundation.advancement.CriterionTriggerBase;
+import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
+
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
-public enum PetrolsPartsAdvancementTrigger {
+public class PetrolsPartsAdvancementTrigger extends SimpleCriterionTrigger<PetrolsPartsAdvancementTrigger.Instance> {
 
-    COAXIAL_GEAR,
-    COLOSSAL_COGWHEEL_POWER_MANY,
-    DIFFERENTIAL,
-    PNEUMATIC_TUBE,
-    ;
-
-    private String triggerId;
-    private String[] advancementIds;
-    private SimpleAdvancementTrigger trigger;
-
-    PetrolsPartsAdvancementTrigger() {
-        triggerId = Lang.asId(name());
-        advancementIds = new String[]{Lang.asId(name())};
-        trigger = new SimpleAdvancementTrigger(PetrolsParts.asResource(triggerId));
-    };
-
-    public void award(Level level, Player player) {
-        if (level.isClientSide()) return;
-        if (player instanceof ServerPlayer serverPlayer) {
-            trigger.trigger(serverPlayer);
-        } else {
-            PetrolsParts.LOGGER.warn("Could not award Destroy Advancement "+triggerId+" to client-side Player.");
-        };
-    };
-
-    public boolean isAlreadyAwardedTo(LivingEntity player) {
-		if (!(player instanceof ServerPlayer sp)) return true;
-        for (String advancementId : advancementIds) {
-            Advancement advancement = sp.getServer().getAdvancements().getAdvancement(PetrolsParts.asResource(advancementId));
-            if (advancement == null || sp.getAdvancements().getOrStartProgress(advancement).isDone()) return true;
-        };
-        return false;
+	public void trigger(ServerPlayer player) {
+		super.trigger(player, null);
 	};
 
-    public static void register() {
-        for (PetrolsPartsAdvancementTrigger e : values()) {
-            CriteriaTriggers.register(e.trigger);
-        };
+	public SimpleCreateTrigger.Instance instance() {
+		return new SimpleCreateTrigger.Instance();
+	};
+    
+    @Override
+    public Codec<Instance> codec() {
+        return Instance.CODEC;
     };
-}
+    
+    public static class Instance extends CriterionTriggerBase.Instance {
+
+		private static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(Instance::player)
+		).apply(instance, Instance::new));
+
+		private final Optional<ContextAwarePredicate> player;
+
+		public Instance() {
+			player = Optional.empty();
+		};
+
+		public Instance(Optional<ContextAwarePredicate> player) {
+			this.player = player;
+		};
+
+		@Override
+		protected boolean test(@Nullable List<Supplier<Object>> suppliers) {
+			return true;
+		};
+
+		@Override
+		public Optional<ContextAwarePredicate> player() {
+			return player;
+		};
+	}
+};

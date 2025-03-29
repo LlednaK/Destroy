@@ -1,5 +1,7 @@
 package com.petrolpark.petrolsparts.content.chained_cogwheel;
 
+import javax.annotation.Nonnull;
+
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.simibubi.create.content.kinetics.base.IRotate;
@@ -48,7 +50,7 @@ public class ChainedCogwheelBlock extends AbstractSimpleShaftBlock implements IC
     };
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         if (getBlockEntity(level, pos) instanceof ChainedCogwheelBlockEntity cbe && cbe.copiedState != null) return cbe.copiedState.getShape(level, pos, context);
         return Shapes.block();
     };
@@ -80,7 +82,7 @@ public class ChainedCogwheelBlock extends AbstractSimpleShaftBlock implements IC
     };
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(@Nonnull BlockState state, @Nonnull HitResult target, @Nonnull LevelReader level, @Nonnull BlockPos pos, @Nonnull Player player) {
         KineticBlockEntity kbe = getBlockEntity(level, pos);
         if (kbe instanceof ChainedCogwheelBlockEntity cbe && cbe.copiedState != null) return cbe.copiedState.getCloneItemStack(target, level, pos, player);
         return ItemStack.EMPTY;

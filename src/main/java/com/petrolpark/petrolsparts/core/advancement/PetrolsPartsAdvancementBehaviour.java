@@ -3,7 +3,7 @@ package com.petrolpark.petrolsparts.core.advancement;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
+import com.petrolpark.compat.create.core.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 
@@ -14,14 +14,14 @@ public class PetrolsPartsAdvancementBehaviour extends AbstractRememberPlacerBeha
 
     public static final BehaviourType<PetrolsPartsAdvancementBehaviour> TYPE = new BehaviourType<>();
 
-    private final Set<PetrolsPartsAdvancementTrigger> advancements;
+    private final Set<PetrolsPartsAdvancementTriggers> advancements;
 
-    public PetrolsPartsAdvancementBehaviour(SmartBlockEntity be, PetrolsPartsAdvancementTrigger ...advancements) {
+    public PetrolsPartsAdvancementBehaviour(SmartBlockEntity be, PetrolsPartsAdvancementTriggers ...advancements) {
         super(be);
         this.advancements = Set.of(advancements);
     };
 
-    public void awardAdvancement(PetrolsPartsAdvancementTrigger advancement) {
+    public void awardAdvancement(PetrolsPartsAdvancementTriggers advancement) {
 		awardAdvancementIf(advancement, () -> true);
 	};
 
@@ -30,7 +30,7 @@ public class PetrolsPartsAdvancementBehaviour extends AbstractRememberPlacerBeha
      * @param advancement
      * @param condition Computation of this is saved until after we have checked whether the Player actually exists and doesn't already have the Advancement
      */
-    public void awardAdvancementIf(PetrolsPartsAdvancementTrigger advancement, Supplier<Boolean> condition) {
+    public void awardAdvancementIf(PetrolsPartsAdvancementTriggers advancement, Supplier<Boolean> condition) {
         Player placer = getPlayer();
         if (placer == null || !(placer instanceof ServerPlayer player) || advancement.isAlreadyAwardedTo(player)) return;
         if (condition.get()) advancement.award(getWorld(), player);

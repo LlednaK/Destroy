@@ -1,6 +1,6 @@
 {
 	"parent": "block/block",
-	"loader": "forge:obj",
+	"loader": "neoforge:obj",
 	"flip_v": true,
 	"model": "petrolsparts:models/block/colossal_cogwheel/colossal_cogwheel.obj",
 	"textures": {

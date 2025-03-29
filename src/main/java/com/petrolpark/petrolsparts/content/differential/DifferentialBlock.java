@@ -1,6 +1,6 @@
 package com.petrolpark.petrolsparts.content.differential;
 
-import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
+import com.petrolpark.compat.create.core.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;

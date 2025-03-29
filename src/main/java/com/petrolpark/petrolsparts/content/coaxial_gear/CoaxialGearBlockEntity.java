@@ -5,7 +5,7 @@ import java.util.List;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.petrolpark.petrolsparts.core.block.DirectionalRotatedPillarKineticBlock;
 import com.petrolpark.util.KineticsHelper;
 import com.simibubi.create.AllBlocks;
@@ -34,7 +34,7 @@ public class CoaxialGearBlockEntity extends BracketedKineticBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
-        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTrigger.COAXIAL_GEAR);
+        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTriggers.COAXIAL_GEAR);
         behaviours.add(advancementBehaviour);
     };
 
@@ -63,7 +63,7 @@ public class CoaxialGearBlockEntity extends BracketedKineticBlockEntity {
                     if (speed != 0f && advancementBehaviour.getPlayer() != null && getLevel().getBlockEntity(longShaftPos, PetrolsPartsBlockEntityTypes.LONG_SHAFT.get()).map(
                         be -> be.getSpeed() != 0f && be.getSpeed() != speed
                     ).orElse(false)) {
-                        advancementBehaviour.awardAdvancement(PetrolsPartsAdvancementTrigger.COAXIAL_GEAR);
+                        advancementBehaviour.awardAdvancement(PetrolsPartsAdvancementTriggers.COAXIAL_GEAR);
                     };
                     break;
                 };

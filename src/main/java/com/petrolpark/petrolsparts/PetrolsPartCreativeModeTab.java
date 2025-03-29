@@ -1,5 +1,7 @@
 package com.petrolpark.petrolsparts;
 
+import java.util.function.Supplier;
+
 import com.petrolpark.client.creativemodetab.CustomTab;
 import com.simibubi.create.AllCreativeModeTabs;
 
@@ -7,21 +9,19 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.function.Supplier;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class PetrolsPartCreativeModeTab {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PetrolsParts.MOD_ID);
 
-	public static final RegistryObject<CreativeModeTab> MAIN_TAB = TABS.register(
+	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = TABS.register(
 		"base",
 		() -> new CustomTab.Builder(CreativeModeTab.Row.TOP, 0)
 			.add(
 
-                i(PetrolsPartsBlocks.COAXIAL_GEAR::asStack), i(PetrolsPartsBlocks.LARGE_COAXIAL_GEAR::asStack), i(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT::asStack), i(PetrolsPartsBlocks.DIFFERENTIAL::asStack), i(PetrolsPartsBlocks.PLANETARY_GEARSET::asStack), i(PetrolsPartsBlocks.COLOSSAL_COGWHEEL::asStack), i(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION::asStack)
+                i(PetrolsPartsBlocks.COAXIAL_GEAR::asStack),  i(PetrolsPartsBlocks.LARGE_COAXIAL_GEAR::asStack), i(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT::asStack), i(PetrolsPartsBlocks.DIFFERENTIAL::asStack), i(PetrolsPartsBlocks.PLANETARY_GEARSET::asStack), i(PetrolsPartsBlocks.COLOSSAL_COGWHEEL::asStack), i(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION::asStack)
 			
 			).title(Component.translatable("itemGroup.petrolsparts.base"))
 			.withTabsBefore(AllCreativeModeTabs.PALETTES_CREATIVE_TAB.getId())

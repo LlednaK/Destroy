@@ -5,23 +5,21 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlockItem.GearOnShaftPlacementHelper;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlockItem.ShaftOnGearPlacementHelper;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.petrolpark.petrolsparts.core.PetrolsPartsRegistrate;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
 import net.createmod.catnip.lang.FontHelper.Palette;
 import net.createmod.catnip.placement.PlacementHelpers;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(PetrolsParts.MOD_ID)
 public class PetrolsParts {
@@ -30,7 +28,7 @@ public class PetrolsParts {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
+    public static final PetrolsPartsRegistrate REGISTRATE = new PetrolsPartsRegistrate(MOD_ID);
 
     static {
 		REGISTRATE.setTooltipModifierFactory(item -> {
@@ -39,7 +37,7 @@ public class PetrolsParts {
 	};
 
     public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     };
 
     static {
@@ -48,33 +46,26 @@ public class PetrolsParts {
         PlacementHelpers.register(new ShaftOnGearPlacementHelper());
     };
 
-    public PetrolsParts() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+    public PetrolsParts(IEventBus modEventBus, ModContainer modContainer) {
+        ModLoadingContext modLoadingContext = ModLoadingContext.get();
 
         REGISTRATE.registerEventListeners(modEventBus);
 
+        PetrolsPartsPackets.register();
         PetrolsPartCreativeModeTab.register(modEventBus);
         PetrolsPartsBlocks.register();
         PetrolsPartsBlockEntityTypes.register();
 
-        PetrolsPartsConfigs.register(ModLoadingContext.get());
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        PetrolsPartsConfigs.register(modLoadingContext, modContainer);
     
         // Register the commonSetup method for modloading
-        modEventBus.addListener(PetrolsPartsClient::clientInit);
-        modEventBus.addListener(this::init);
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PetrolsPartsClient.clientCtor(forgeEventBus, modEventBus));
+        modEventBus.addListener(this::onRegister);
     };
 
-    private void init(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            PetrolsPartsPackets.register();
-            PetrolsPartsAdvancementTrigger.register();
-        });
-    };
+    private void onRegister(final RegisterEvent event) {
+		if (event.getRegistry() == BuiltInRegistries.TRIGGER_TYPES) {
+			PetrolsPartsAdvancementTriggers.register();
+		};
+	};
 
 };

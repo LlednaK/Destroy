@@ -3,7 +3,7 @@ package com.petrolpark.petrolsparts.content.differential;
 import java.util.List;
 
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
@@ -21,7 +21,7 @@ public class DummyDifferentialBlockEntity extends SmartBlockEntity {
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
-        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTrigger.DIFFERENTIAL);
+        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTriggers.DIFFERENTIAL);
         behaviours.add(advancementBehaviour);
     };
     

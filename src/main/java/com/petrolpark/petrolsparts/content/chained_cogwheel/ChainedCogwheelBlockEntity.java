@@ -7,6 +7,7 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -47,16 +48,16 @@ public class ChainedCogwheelBlockEntity extends BracketedKineticBlockEntity {
     };
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
-        partner = NbtUtils.readBlockPos(compound.getCompound("PartnerPos"));
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
+        partner = NbtUtils.readBlockPos(compound, "PartnerPos").orElse(null);
         controller = compound.getBoolean("Controller");
         copiedState = NbtUtils.readBlockState(blockHolderGetter(), compound.getCompound("CopiedState"));
     };
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
         compound.put("PartnerPos", NbtUtils.writeBlockPos(partner));
         compound.putBoolean("Controller", controller);
         compound.put("CopiedState", NbtUtils.writeBlockState(copiedState));

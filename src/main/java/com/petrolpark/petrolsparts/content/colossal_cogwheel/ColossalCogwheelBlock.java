@@ -38,6 +38,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -60,9 +61,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientBlockExtensions;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 
 public class ColossalCogwheelBlock extends KineticBlock implements IBE<ColossalCogwheelBlockEntity>, IProxyHoveringInformation {
 
@@ -139,17 +140,16 @@ public class ColossalCogwheelBlock extends KineticBlock implements IBE<ColossalC
 	};
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (player.isShiftKeyDown() || !player.mayBuild()) return InteractionResult.PASS;
-        ItemStack stack = player.getItemInHand(hand);
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (player.isShiftKeyDown() || !player.mayBuild()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         if (ICogWheel.isSmallCogItem(stack) || ICogWheel.isLargeCogItem(stack)) {
             IPlacementHelper helper = PlacementHelpers.get(((ColossalCogwheelBlockItem)asItem()).onColossalPlacementHelpers.get(ICogWheel.isLargeCogItem(stack)));
             if (helper.matchesItem(stack) && helper.matchesState(state)) {
                 helper.getOffset(player, level, state, pos, hit, stack).placeInWorld(level, (BlockItem) stack.getItem(), player, hand, hit);
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                return ItemInteractionResult.sidedSuccess(level.isClientSide());
             };
         };
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     };
 
     @Override
@@ -170,7 +170,6 @@ public class ColossalCogwheelBlock extends KineticBlock implements IBE<ColossalC
 	};
 
     @Override
-    @SuppressWarnings("deprecation")
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         if (isController(state)) return super.getDrops(state, params); // Only the controller should drop anything
         return Collections.emptyList();
@@ -180,17 +179,16 @@ public class ColossalCogwheelBlock extends KineticBlock implements IBE<ColossalC
      * Copied from {@link com.simibubi.create.content.kinetics.waterwheel.WaterWheelStructuralBlock Create source code}.
      */
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		if (stillValid(level, pos, state)) {
 			BlockPos masterPos = getControllerPosition(pos, state);
 			level.destroyBlockProgress(masterPos.hashCode(), masterPos, -1);
 			if (!level.isClientSide() && player.isCreative()) level.destroyBlock(masterPos, false);
 		};
-		super.playerWillDestroy(level, pos, state, player);
+		return super.playerWillDestroy(level, pos, state, player);
 	};
 
     @Override
-    @SuppressWarnings("deprecation")
 	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor levelAccessor, BlockPos currentPos, BlockPos facingPos) {
         state = super.updateShape(state, facing, facingState, levelAccessor, currentPos, facingPos);
         if (stillValid(levelAccessor, currentPos, state)) {

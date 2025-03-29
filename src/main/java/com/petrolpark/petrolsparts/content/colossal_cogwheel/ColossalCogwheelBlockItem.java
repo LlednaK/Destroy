@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import com.petrolpark.Petrolpark;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Connection;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlock.Position;
 import com.simibubi.create.Create;
@@ -34,9 +35,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class ColossalCogwheelBlockItem extends BlockItem {
 
@@ -65,7 +65,7 @@ public class ColossalCogwheelBlockItem extends BlockItem {
             if (helper.matchesState(state) && player != null && !player.isShiftKeyDown()) {
                 PlacementOffset offset = helper.getOffset(player, world, state, pos, ray);
                 Axis axis = offset.getTransform().apply(getBlock().defaultBlockState()).getValue(RotatedPillarKineticBlock.AXIS);
-                return offset.at(offset.getPos().offset(Position.getRelativeControllerPosition(axis))).placeInWorld(world, this, player, context.getHand(), ray);
+                return offset.at(offset.getPos().offset(Position.getRelativeControllerPosition(axis))).placeInWorld(world, this, player, context.getHand(), ray).result();
             };
         };
 
@@ -83,7 +83,7 @@ public class ColossalCogwheelBlockItem extends BlockItem {
         } else {
             result = super.place(BlockPlaceContext.at(context, controllerPos, context.getNearestLookingDirection()));;
         };
-        if (result == InteractionResult.FAIL) DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ()-> showBounds(pos, axis, context.getPlayer()));
+        if (result == InteractionResult.FAIL) Petrolpark.unsafeRunClient(() -> ()-> showBounds(pos, axis, context.getPlayer()));
         return result;
     };
 

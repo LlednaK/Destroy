@@ -13,11 +13,11 @@ import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.createmod.catnip.config.ConfigBase;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 
 public class PPCStress extends ConfigBase {
     
@@ -28,7 +28,7 @@ public class PPCStress extends ConfigBase {
 	protected final Map<ResourceLocation, ConfigValue<Double>> impacts = new HashMap<>();
 
 	@Override
-	public void registerAll(Builder builder) {
+	public void registerAll(ModConfigSpec.Builder builder) {
 		builder.comment(".", Comments.su, Comments.impact)
 			.push("impact");
 		DEFAULT_IMPACTS.forEach((id, value) -> this.impacts.put(id, builder.define(id.getPath(), value)));
@@ -38,7 +38,7 @@ public class PPCStress extends ConfigBase {
 			.push("capacity");
 		DEFAULT_CAPACITIES.forEach((id, value) -> this.capacities.put(id, builder.define(id.getPath(), value)));
 		builder.pop();
-	}
+	};
 
     @Override
     public String getName() {
@@ -47,14 +47,14 @@ public class PPCStress extends ConfigBase {
 
     @Nullable
 	public DoubleSupplier getImpact(Block block) {
-		ResourceLocation id = CatnipServices.REGISTRIES.getKeyOrThrow(block);
+		ResourceLocation id = RegisteredObjectsHelper.getKeyOrThrow(block);
 		ConfigValue<Double> value = this.impacts.get(id);
 		return value == null ? null : value::get;
 	};
 
 	@Nullable
 	public DoubleSupplier getCapacity(Block block) {
-		ResourceLocation id = CatnipServices.REGISTRIES.getKeyOrThrow(block);
+		ResourceLocation id = RegisteredObjectsHelper.getKeyOrThrow(block);
 		ConfigValue<Double> value = this.capacities.get(id);
 		return value == null ? null : value::get;
 	};

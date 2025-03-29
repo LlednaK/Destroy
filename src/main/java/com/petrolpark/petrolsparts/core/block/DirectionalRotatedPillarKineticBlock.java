@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public abstract class DirectionalRotatedPillarKineticBlock extends RotatedPillarKineticBlock {
 
-    public static BooleanProperty POSITIVE_AXIS_DIRECTION = BooleanProperty.create("positive_axis_direction");
+    public static final BooleanProperty POSITIVE_AXIS_DIRECTION = BooleanProperty.create("positive_axis_direction");
 
     public DirectionalRotatedPillarKineticBlock(Properties properties) {
         super(properties);

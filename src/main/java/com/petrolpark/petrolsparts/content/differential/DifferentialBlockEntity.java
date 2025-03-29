@@ -2,11 +2,11 @@ package com.petrolpark.petrolsparts.content.differential;
 
 import java.util.List;
 
-import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
+import com.petrolpark.compat.create.core.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.content.coaxial_gear.LongShaftBlockEntity;
 import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementBehaviour;
-import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTrigger;
+import com.petrolpark.petrolsparts.core.advancement.PetrolsPartsAdvancementTriggers;
 import com.petrolpark.petrolsparts.core.block.DirectionalRotatedPillarKineticBlock;
 import com.petrolpark.petrolsparts.mixin.accessor.RotationPropagatorAccessor;
 import com.petrolpark.util.KineticsHelper;
@@ -36,7 +36,7 @@ public class DifferentialBlockEntity extends SplitShaftBlockEntity {
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
-        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTrigger.DIFFERENTIAL);
+        advancementBehaviour = new PetrolsPartsAdvancementBehaviour(this, PetrolsPartsAdvancementTriggers.DIFFERENTIAL);
         behaviours.add(advancementBehaviour);
     };
 
@@ -86,7 +86,7 @@ public class DifferentialBlockEntity extends SplitShaftBlockEntity {
         Direction direction = DirectionalRotatedPillarKineticBlock.getDirection(getBlockState());
         BlockPos otherAdjacentPos = getBlockPos().relative(direction.getOpposite());
         if (propagatesToMe(otherAdjacentPos, direction) && getLevel().getBlockEntity(otherAdjacentPos) instanceof KineticBlockEntity kbe) {
-            if (kbe.getSpeed() != 0f) advancementBehaviour.awardAdvancement(PetrolsPartsAdvancementTrigger.DIFFERENTIAL);
+            if (kbe.getSpeed() != 0f) advancementBehaviour.awardAdvancement(PetrolsPartsAdvancementTriggers.DIFFERENTIAL);
         };
     };
 

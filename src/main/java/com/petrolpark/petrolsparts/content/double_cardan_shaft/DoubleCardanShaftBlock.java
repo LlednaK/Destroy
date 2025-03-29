@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implements IBE<DoubleCardanShaftBlockEntity>{
+public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implements IBE<DoubleCardanShaftBlockEntity> {
 
     public DoubleCardanShaftBlock(Properties properties) {
         super(properties);
@@ -83,11 +83,10 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
 
     /**
      * XYZXYZ
-     * <p>
      * Considering the above list, with the Axis of {@code facing} excluded:<ul>
      * <li>If {@code axisAlongFirst} is true, the shaft connects {@code facing} and the Axis to the right in the same direction.</li>
      * <li>If {@code axisAlongFirst} is false, the shaft connects {@code facing} and the Axis to the left in the opposite direction.</li>
-     * </ul></p>
+     * </ul>
      */
     /*
      * Direction axisAlongFirst Other Direction

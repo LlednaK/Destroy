@@ -1,6 +1,6 @@
 package com.petrolpark.petrolsparts.content.coaxial_gear;
 
-import com.petrolpark.compat.create.block.entity.behaviour.AbstractRememberPlacerBehaviour;
+import com.petrolpark.compat.create.core.block.entity.behaviour.AbstractRememberPlacerBehaviour;
 import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.PetrolsPartsShapes;
@@ -20,6 +20,7 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -171,19 +172,18 @@ public class CoaxialGearBlock extends CogWheelBlock {
     };
 
     @Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
-		if (player.isShiftKeyDown() || !player.mayBuild()) return InteractionResult.PASS;
-        ItemStack stack = player.getItemInHand(hand);
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
+		if (player.isShiftKeyDown() || !player.mayBuild()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         if (AllBlocks.SHAFT.isIn(stack) && (!state.getValue(HAS_SHAFT))) {
             if (tryMakeLongShaft(state, state.getBlock(), world, pos, player, Direction.getFacingAxis(player, state.getValue(AXIS)))) {
                 if (!player.isCreative() && !world.isClientSide()) stack.shrink(1);
-                return InteractionResult.sidedSuccess(world.isClientSide());
+                return ItemInteractionResult.sidedSuccess(world.isClientSide());
             } else {
                 player.displayClientMessage(Component.translatable("petrolsparts.tooltip.coaxial_gear.shaft_too_short").withStyle(ChatFormatting.RED), true);
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         };
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	};
 
     @Override
