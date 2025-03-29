@@ -48,6 +48,7 @@
         "ItemEntityMixin",
         "LevelSettingsMixin",
         "MechanicalMixerBlockEntityMixin",
+        "MobEffectInstanceMixin",
         "PipeConnectionMixin",
         "PlayerMixin",
         "PonderTagScreenMixin",
@@ -71,12 +72,14 @@
         "client.CreativeModeInventoryScreenMixin",
         "client.EffectRenderingInventoryScreenMixin",
         "client.ForgeMod$2$1Mixin",
+        "client.GameRendererMixin",
         "client.GuiMixin",
         "client.HeartTypeMixin",
         "client.LevelRendererMixin",
         "client.MinecraftMixin",
         "client.MultiPlayerGameModeMixin",
         "client.PonderWorldMixin",
+        "client.PostPassMixin",
         "client.RecipeBookComponentMixin"
     ],
     "injectors": {

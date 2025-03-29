@@ -1,7 +1,5 @@
 package com.petrolpark.destroy;
 
-import java.util.function.Function;
-
 import com.petrolpark.destroy.content.confetti.ConfettiBurstS2CPacket;
 import com.petrolpark.destroy.content.oil.seismology.MarkSeismographC2SPacket;
 import com.petrolpark.destroy.content.oil.seismology.SeismometerSpikeS2CPacket;
@@ -25,11 +23,12 @@ import com.petrolpark.destroy.core.explosion.SmartExplosionS2CPacket;
 import com.petrolpark.destroy.core.extendedinventory.ExtraInventorySizeChangeS2CPacket;
 import com.petrolpark.destroy.core.extendedinventory.RequestInventoryFullStateC2SPacket;
 import com.petrolpark.destroy.core.fluid.gasparticle.EvaporatingFluidS2CPacket;
+import com.petrolpark.destroy.core.player.MobEffectInstanceShaderRemoveS2CPacket;
+import com.petrolpark.destroy.core.player.SyncInitialDurationS2CPacket;
 import com.petrolpark.destroy.core.pollution.LevelPollutionS2CPacket;
 import com.petrolpark.destroy.core.pollution.SyncChunkPollutionS2CPacket;
 import com.petrolpark.network.packet.C2SPacket;
 import com.petrolpark.network.packet.S2CPacket;
-
 import net.minecraft.core.BlockSource;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -41,6 +40,8 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.PacketDistributor.TargetPoint;
 import net.minecraftforge.network.simple.SimpleChannel;
+
+import java.util.function.Function;
 
 public class DestroyMessages {
 
@@ -76,6 +77,8 @@ public class DestroyMessages {
         addS2CPacket(net, ExtraInventorySizeChangeS2CPacket.class, ExtraInventorySizeChangeS2CPacket::new);
         addS2CPacket(net, SmartExplosionS2CPacket.class, SmartExplosionS2CPacket::read);
         addS2CPacket(net, ConfettiBurstS2CPacket.class, ConfettiBurstS2CPacket::new);
+        addS2CPacket(net, MobEffectInstanceShaderRemoveS2CPacket.class, MobEffectInstanceShaderRemoveS2CPacket::new);
+        addS2CPacket(net, SyncInitialDurationS2CPacket.class, SyncInitialDurationS2CPacket::new);
 
         addC2SPacket(net, SwissArmyKnifeToolC2SPacket.class, SwissArmyKnifeToolC2SPacket::new);
         addC2SPacket(net, RedstoneProgramSyncC2SPacket.class, RedstoneProgramSyncC2SPacket::new);

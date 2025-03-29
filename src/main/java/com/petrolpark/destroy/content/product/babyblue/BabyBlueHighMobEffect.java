@@ -5,8 +5,10 @@ import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
+import com.petrolpark.destroy.core.mobeffect.IShaderEffect;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = Destroy.MOD_ID)
-public class BabyBlueHighMobEffect extends UncurableMobEffect {
+public class BabyBlueHighMobEffect extends UncurableMobEffect implements IShaderEffect {
 
     public BabyBlueHighMobEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x8BDCEB);
@@ -77,4 +79,15 @@ public class BabyBlueHighMobEffect extends UncurableMobEffect {
             if (event.getNewSpeed() <= 0f) event.setNewSpeed(0f);
         };
     };
+
+    @Override
+    public void removeAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
+        IShaderEffect.super.cleanupShader(pLivingEntity, this);
+        super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+    }
+
+    @Override
+    public ResourceLocation getShader() {
+        return new ResourceLocation(Destroy.MOD_ID, "shaders/post/baby_blue_high.json");
+    }
 };

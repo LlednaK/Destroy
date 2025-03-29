@@ -6,8 +6,10 @@ import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.config.DestroySubstancesConfigs;
+import com.petrolpark.destroy.core.mobeffect.IShaderEffect;
 import com.petrolpark.destroy.core.mobeffect.UncurableMobEffect;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -18,7 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = Destroy.MOD_ID)
-public class BabyBlueWithdrawalMobEffect extends UncurableMobEffect {
+public class BabyBlueWithdrawalMobEffect extends UncurableMobEffect implements IShaderEffect {
 
     public BabyBlueWithdrawalMobEffect() {
         super(MobEffectCategory.HARMFUL, 0x91B1B7);
@@ -61,4 +63,15 @@ public class BabyBlueWithdrawalMobEffect extends UncurableMobEffect {
             event.setCanceled(true);
         };
     };
+
+    @Override
+    public void removeAttributeModifiers(LivingEntity pLivingEntity, AttributeMap pAttributeMap, int pAmplifier) {
+        IShaderEffect.super.cleanupShader(pLivingEntity, this);
+        super.removeAttributeModifiers(pLivingEntity, pAttributeMap, pAmplifier);
+    }
+
+    @Override
+    public ResourceLocation getShader() {
+        return new ResourceLocation(Destroy.MOD_ID, "shaders/post/baby_blue_withdrawal.json");
+    }
 };

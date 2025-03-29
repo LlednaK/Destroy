@@ -1,23 +1,8 @@
 package com.petrolpark.destroy.core.event;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.DestroyAdvancementTrigger;
-import com.petrolpark.destroy.DestroyAttributes;
-import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.DestroyMessages;
-import com.petrolpark.destroy.DestroyMobEffects;
-import com.petrolpark.destroy.DestroyTags;
+import com.petrolpark.destroy.*;
 import com.petrolpark.destroy.DestroyTags.MobEffects;
 import com.petrolpark.destroy.client.DestroyLang;
-import com.petrolpark.destroy.DestroyTrades;
-import com.petrolpark.destroy.DestroyVillagers;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
 import com.petrolpark.destroy.content.oil.CrudeOilCommand;
@@ -47,12 +32,8 @@ import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory;
 import com.petrolpark.destroy.core.player.PlayerCrouchingCapability;
 import com.petrolpark.destroy.core.player.PlayerPreviousPositionsCapability;
-import com.petrolpark.destroy.core.pollution.LevelPollutionS2CPacket;
-import com.petrolpark.destroy.core.pollution.Pollution;
+import com.petrolpark.destroy.core.pollution.*;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.core.pollution.PollutionCommand;
-import com.petrolpark.destroy.core.pollution.PollutionHelper;
-import com.petrolpark.destroy.core.pollution.SyncChunkPollutionS2CPacket;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
@@ -63,7 +44,6 @@ import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler.Freq
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.ponder.PonderWorld;
 import com.simibubi.create.foundation.utility.Couple;
-
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -123,6 +103,11 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @EventBusSubscriber(modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class DestroyCommonEvents {
