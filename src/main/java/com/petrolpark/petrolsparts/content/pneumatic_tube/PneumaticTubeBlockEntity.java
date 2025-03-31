@@ -89,7 +89,8 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     /**
      * Set to true to notify the client if the Tube has been disconnected, so the handler can be removed.
      */
-    protected boolean removeHandler = false;
+    protected boolean removeHandlerClient = false;
+    protected boolean updateFromSpeedClient = false;
 
     public PneumaticTubeBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
@@ -120,7 +121,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
 
     public PneumaticTubeBlockEntity removeHandler() {
         handler = Optional.empty();
-        removeHandler = true;
+        removeHandlerClient = true;
         return this;
     };
 
@@ -203,14 +204,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     public void afterTubeConnect() {
         setAsInput(); // By default the controller is the Input and the other is the Output
         notifyUpdate(); // Let the client know we are now an Input
-        removeHandler = false; // Just in case this is still somehow set to true
+        removeHandlerClient = false; // Just in case this is still somehow set to true
     };
 
     @Override
     public void beforeTubeDisconnect() {
         asInput().ifPresent(Input::dropItems);
         handler = Optional.empty();
-        removeHandler = true;
+        removeHandlerClient = true;
     };
 
     /**
@@ -570,6 +571,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
         getInput().ifPresent(Input::updateFromSpeed);
+        updateFromSpeedClient = true; // Notify client of speed change
         notifyUpdate();
     };
 
@@ -580,9 +582,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         if (compound.contains("Input", Tag.TAG_COMPOUND)) {
             setAsInput().ifPresent(input -> input.deserializeNBT(registries, compound.getCompound("Input")));
         };
+
         if (compound.contains("RemoveHandler")) {
             handler = Optional.empty();
-            removeHandler = false;
+            removeHandlerClient = false;
+        };
+        if (compound.contains("UpdateFromSpeed")) {
+            getInput().ifPresent(Input::updateFromSpeed);
+            updateFromSpeedClient = false;
         };
     };
 
@@ -591,9 +598,14 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         super.write(compound, registries, clientPacket);
         compound.put("Backlog", itemBacklog.serializeNBT(registries));
         asInput().ifPresent(input -> compound.put("Input", input.serializeNBT(registries)));
-        if (clientPacket && removeHandler) {
+
+        if (clientPacket && removeHandlerClient) {
             compound.putBoolean("RemoveHandler", true);
-            removeHandler = false;
+            removeHandlerClient = false; // Handler removal has been dealt with
+        };
+        if (clientPacket && updateFromSpeedClient) {
+            compound.putBoolean("UpdateFromSpeed", true);
+            updateFromSpeedClient = false; // Speed update has been dealt with
         };
     };
     
