@@ -2,6 +2,7 @@ package com.petrolpark.destroy.content.processing.cooler;
 
 import java.util.List;
 
+import com.petrolpark.destroy.chemistry.api.util.Constants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -99,7 +100,7 @@ public class CoolerBlockEntity extends SmartBlockEntity implements IHaveGoggleIn
                 totalMolesPerBucket += concentration;
                 if (molecule.hasTag(DestroyMolecules.Tags.REFRIGERANT)) {
                     totalRefrigerantMolesPerBucket += concentration;
-                    coolingPower += DestroyAllConfigs.SERVER.blocks.coolerEfficiency.getF() * concentration * amount * molecule.getMolarHeatCapacity() / 100;
+                    coolingPower += DestroyAllConfigs.SERVER.blocks.coolerEfficiency.getF() * concentration * amount * molecule.getMolarHeatCapacity() * 10 / Constants.MILLIBUCKETS_PER_LITER;
                 };
             };
 
