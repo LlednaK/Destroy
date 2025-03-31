@@ -10,7 +10,7 @@
     "acceptMirrored": true,
     "key": {
       "B": {
-        "tag": "forge:plates/brass"
+        "tag": "c:plates/brass"
       },
       "M":{
         "item": "create:precision_mechanism"
@@ -26,7 +26,7 @@
       }
     },
     "result": {
-      "item": "petrolsparts:hydraulic_transmission",
+      "id": "petrolsparts:hydraulic_transmission",
       "count": 4
     }
   }
