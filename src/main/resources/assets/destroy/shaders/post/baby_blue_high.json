@@ -5,11 +5,6 @@
   ],
   "passes": [
     {
-      "name": "blit",
-      "intarget": "minecraft:main",
-      "outtarget": "swap2"
-    },
-    {
       "name": "color_convolve",
       "intarget": "minecraft:main",
       "outtarget": "swap",
@@ -18,13 +13,21 @@
       ]
     },
     {
-      "name": "ef_mix",
-      "intarget": "swap",
+      "name": "color_convolve",
+      "intarget": "minecraft:main",
+      "outtarget": "swap2",
+      "uniforms": [
+        {"name":  "Saturation", "values":  [ 1.0 ]}
+      ]
+    },
+    {
+      "name": "bezier_mix",
+      "intarget": "swap2",
       "outtarget": "minecraft:main",
       "auxtargets": [
         {
           "name": "ToMix",
-          "id": "swap2"
+          "id": "swap"
         }
       ]
     }

@@ -60,6 +60,7 @@ public class GameRendererMixin implements IGameRendererMixin {
             loadedEffects.put((( IMobEffectInstanceMixin ) effect), postChain);
         } catch ( IOException e ) {
             System.out.println("Shader ["+ location +"] failed to load O-O");
+            e.printStackTrace();
         }
     }
 

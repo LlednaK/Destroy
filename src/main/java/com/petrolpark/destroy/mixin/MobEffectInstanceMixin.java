@@ -58,7 +58,6 @@ public abstract class MobEffectInstanceMixin implements IMobEffectInstanceMixin,
                     shaderInitialized = true;
                     shouldUpdateUniform = true;
                     gameRenderer.addMobEffectInstanceShader((( IShaderEffect ) effect).getShader(), ((MobEffectInstance) (Object) this));
-                    System.out.println("--------------------------------");
                 }
             }
         }
@@ -75,7 +74,6 @@ public abstract class MobEffectInstanceMixin implements IMobEffectInstanceMixin,
     private static void inLoadSpecifiedEffect(MobEffect pEffect, CompoundTag pNbt, CallbackInfoReturnable<MobEffectInstance> ci, int i, int j, boolean flag, boolean flag1, boolean flag2, MobEffectInstance mobeffectinstance, Optional<MobEffectInstance.FactorData> optional) {
         int initialDuration = pNbt.getInt("InitialDuration");
         MobEffectInstance inMobEffectinstance = readCurativeItems(new MobEffectInstance(pEffect, j, Math.max(0, i), flag, flag1, flag2, mobeffectinstance, optional), pNbt);
-        System.out.println("Got initial duration of " + initialDuration + " with duration of " + j );
         if (inMobEffectinstance.getEffect() instanceof  IShaderEffect) {
             if (initialDuration > 0) {
                 (( IMobEffectInstanceMixin ) inMobEffectinstance).setInitialDuration(initialDuration);
