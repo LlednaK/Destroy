@@ -7,7 +7,7 @@
       " P ",
       "MBC"
     ],
-    "acceptMirrored": true,
+    "accept_mirrored": true,
     "key": {
       "B": {
         "tag": "c:plates/brass"

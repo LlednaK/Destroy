@@ -7,10 +7,10 @@
     ],
     "results": [
       {
-        "item": "create:shaft"
+        "id": "create:shaft"
       },
       {
-        "item": "petrolsparts:coaxial_gear"
+        "id": "petrolsparts:coaxial_gear"
       }
     ],
     "processingTime": 50
