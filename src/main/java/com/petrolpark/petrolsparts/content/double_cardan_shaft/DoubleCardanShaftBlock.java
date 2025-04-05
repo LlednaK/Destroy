@@ -170,6 +170,11 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
 	};
 
     @Override
+    protected boolean areStatesKineticallyEquivalent(BlockState oldState, BlockState newState) {
+        return false;
+    };
+
+    @Override
     public Class<DoubleCardanShaftBlockEntity> getBlockEntityClass() {
         return DoubleCardanShaftBlockEntity.class;
     };
