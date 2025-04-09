@@ -44,7 +44,6 @@ import com.petrolpark.destroy.compat.jei.category.VatMaterialCategory.VatMateria
 import com.petrolpark.destroy.compat.jei.recipemanager.ChemicalSpeciesRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.jei.recipemanager.FireproofingRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.jei.recipemanager.ItemReverseReactionRecipeManagerPlugin;
-import com.petrolpark.destroy.compat.tfmg.SharedDistillationRecipes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.processing.ageing.AgeingRecipe;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
@@ -165,7 +164,6 @@ public class DestroyJEI implements IModPlugin {
 
         distillation = builder(DistillationRecipe.class)
             .addTypedRecipes(DestroyRecipeTypes.DISTILLATION)
-            .addRecipes(() -> SharedDistillationRecipes.getTFMGToDestroyRecipes(Minecraft.getInstance().level))
             .acceptsMixtures()
             .catalyst(DestroyBlocks.BUBBLE_CAP::get)
             .itemIcon(DestroyBlocks.BUBBLE_CAP.get())
