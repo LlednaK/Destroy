@@ -151,25 +151,7 @@ repositories {
         url = "https://maven.jaackson.me"
     }
 
-    maven { // Architectury
-        url = "https://maven.architectury.dev"
-        content {
-            includeGroup "dev.architectury"
-        }
-    }
-    maven { // KubeJS and Rhino
-        url = "https://maven.saps.dev/minecraft"
-        content {
-            includeGroup "dev.latvian.mods"
-        }
-    }
-
-    maven { // EMI
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-
-    maven { // MixinSquared (may god have mercy)
+    maven { // MixinSquared
         url = "https://maven.bawnorton.com/releases"
     }
 }
@@ -220,7 +202,7 @@ dependencies {
     // JEI
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     // Farmer's Delight
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
@@ -230,25 +212,14 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
     
     // TFMG
-    implementation fg.deobf("curse.maven:create-industry-693815:5558101")
+    compileOnly fg.deobf("curse.maven:create-industry-693815:5558101")
 
     // CBC
     implementation fg.deobf("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-forge")
     implementation fg.deobf("com.rbasamoyai:createbigcannons:${cbc_version}")
 
     // Embeddium
-    implementation fg.deobf("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}")
-
-    // Jade
-    runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}")
-
-    // KubeJS
-    runtimeOnly fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
-    runtimeOnly fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-    runtimeOnly fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
-
-    implementation fg.deobf("maven.modrinth:sophisticated-core:1.20.1-1.2.23.902")
-    runtimeOnly fg.deobf("maven.modrinth:sophisticated-backpacks:1.20.1-3.23.6.1211")
+    compileOnly fg.deobf("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}")
 
     // ANNOTATION PROCESSORS
 

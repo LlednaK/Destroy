@@ -54,7 +54,6 @@ public class MoleculeRenderer {
     protected static final double SCALE = 23d;
     protected static final double BOND_LENGTH = SCALE / 2;
 
-    //protected SuperByteBuffer model;
     protected BakedModel model;
 
     /**
@@ -170,6 +169,9 @@ public class MoleculeRenderer {
         poseStack.popPose();
     };
 
+    /**
+     * Draw all Atoms and Bonds in this Molecule into the provided buffer. This is intended to be used when batch rendering molecules in JEI.
+     */
     public void renderItem(int xPosition, int yPosition, int width, int height, PoseStack poseStack, MultiBufferSource.BufferSource buffer) {
         float scale = java.lang.Math.min(0.5f, java.lang.Math.min((width+2)/(getWidth()+1f), (height+2)/(getHeight()+1f)));
 

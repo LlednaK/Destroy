@@ -9,12 +9,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.block.IBlockWithPreferredSwissArmyKnifeTool;
-import com.petrolpark.destroy.entity.IEntityWithPreferredSwissArmyKnifeTool;
-import com.petrolpark.destroy.item.renderer.SwissArmyKnifeRenderer;
-import com.petrolpark.destroy.network.DestroyMessages;
-import com.petrolpark.destroy.network.packet.SwissArmyKnifeToolC2SPacket;
+import com.petrolpark.destroy.DestroyMessages;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;

@@ -8,9 +8,7 @@ import javax.annotation.Nullable;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.item.SwissArmyKnifeItem;
-import com.petrolpark.destroy.item.SwissArmyKnifeItem.Tool;
+import com.petrolpark.destroy.content.tool.swissarmyknife.SwissArmyKnifeItem.Tool;
 
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
