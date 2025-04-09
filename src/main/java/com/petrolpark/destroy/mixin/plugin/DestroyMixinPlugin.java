@@ -13,8 +13,8 @@ public class DestroyMixinPlugin extends PetrolparkMixinPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
-        // TFMG mixins
-        requireMultipleMods("AdvancedDistillationCategoryMixin", CompatMods.TFMG, CompatMods.JEI);
+        // JEI mixins
+        requireMultipleMods("client.JeiProcessingRecipeMixin", CompatMods.JEI);
 
         // Fixes a compatibility issue with TFMG caused by the way it registers its own custom pumps
         // Not a permanent solution (hopefully)
