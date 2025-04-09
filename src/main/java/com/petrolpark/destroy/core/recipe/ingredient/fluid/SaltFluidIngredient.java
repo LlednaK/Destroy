@@ -42,12 +42,8 @@ public class SaltFluidIngredient extends ConcentrationRangeFluidIngredient<SaltF
 
     @Override
     protected boolean testMixture(LegacyMixture mixture) {
-        int gcd = gcd(cation.getCharge(), anion.getCharge());
-        return mixture.hasUsableMolecule(cation, minConcentration * cation.getCharge() / gcd, maxConcentration * cation.getCharge() / gcd, (molecule) -> molecule == anion) && mixture.hasUsableMolecule(anion, minConcentration * -anion.getCharge() / gcd, maxConcentration * -anion.getCharge() / gcd, (molecule) -> molecule == cation);
-    };
-
-    private int gcd(int a, int b) { 
-        return b == 0 ? a : gcd(b, a % b); 
+        int gcd = IntMath.gcd(cation.getCharge(), -anion.getCharge());
+        return mixture.hasUsableMolecule(cation, minConcentration * -anion.getCharge() / gcd, maxConcentration * -anion.getCharge() / gcd, (molecule) -> molecule == anion) && mixture.hasUsableMolecule(anion, minConcentration * cation.getCharge() / gcd, maxConcentration * cation.getCharge() / gcd, (molecule) -> molecule == cation);
     };
 
     @Override
