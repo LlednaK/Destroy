@@ -44,7 +44,6 @@ import com.petrolpark.destroy.compat.jei.category.VatMaterialCategory.VatMateria
 import com.petrolpark.destroy.compat.jei.recipemanager.ChemicalSpeciesRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.jei.recipemanager.FireproofingRecipeManagerPlugin;
 import com.petrolpark.destroy.compat.jei.recipemanager.ItemReverseReactionRecipeManagerPlugin;
-import com.petrolpark.destroy.compat.tfmg.SharedDistillationRecipes;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.processing.ageing.AgeingRecipe;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
@@ -88,7 +87,6 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.library.plugins.vanilla.anvil.AnvilRecipe;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -165,7 +163,6 @@ public class DestroyJEI implements IModPlugin {
 
         distillation = builder(DistillationRecipe.class)
             .addTypedRecipes(DestroyRecipeTypes.DISTILLATION)
-            .addRecipes(() -> SharedDistillationRecipes.getTFMGToDestroyRecipes(Minecraft.getInstance().level))
             .acceptsMixtures()
             .catalyst(DestroyBlocks.BUBBLE_CAP::get)
             .itemIcon(DestroyBlocks.BUBBLE_CAP.get())
