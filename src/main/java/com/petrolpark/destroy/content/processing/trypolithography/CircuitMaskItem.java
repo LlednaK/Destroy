@@ -95,6 +95,7 @@ public class CircuitMaskItem extends CircuitPatternItem {
     };
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
         if (stack.getOrCreateTag().contains("HideContaminants")) return;
