@@ -120,21 +120,31 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
 
         int numberOfReactants = getNumberOfReactants(reaction);
         if (numberOfReactants >= 6) tooManyMoleculesWarning(true, reaction);
-
-        float molesPerItem = reaction.getMolesPerItem();
-        if(molesPerItem == 0f) molesPerItem = 1f;
-
         Collection<PrecipitateReactionResult> precipitates = reaction.hasResult() ? reaction.getResult().getAllPrecipitates() : Collections.emptyList();
-        for (PrecipitateReactionResult precipitate : precipitates) {
-            molesPerItem = precipitate.getRequiredMoles();
-        }
+
+        boolean focusIsNonCatalystInputItem = focuses.getItemStackFocuses(RecipeIngredientRole.INPUT).anyMatch(focus ->
+            reaction.getItemReactants().stream().anyMatch(reactant -> !reactant.isCatalyst() && reactant.isItemValid(focus.getTypedValue().getIngredient()))
+        );
+        boolean focusIsOutputItem = focuses.getItemStackFocuses(RecipeIngredientRole.OUTPUT).anyMatch(focus ->
+            reaction.getResult().getAllPrecipitates().stream().anyMatch(result -> result.getPrecipitate().is(focus.getTypedValue().getIngredient().getItem()))
+        );
+
+        float displayedMolesPerItem = 1f;
+        if(focusIsNonCatalystInputItem) {
+            displayedMolesPerItem = reaction.getMolesPerItem();
+        };
+        if(focusIsOutputItem) {
+            for (PrecipitateReactionResult precipitate : precipitates) {
+                displayedMolesPerItem = precipitate.getRequiredMoles();
+            };
+        };
 
         for (LegacySpecies reactant : reaction.getReactants().stream().sorted(Comparator.comparing(ReactionCategory::getSpeciesWeightForSorting)).toList()) {
             if (i >= 6) continue;
             Vector2i pos = getReactantRenderPosition(i, numberOfReactants);
             builder.addSlot(RecipeIngredientRole.INPUT, pos.x, pos.y)
                 .addIngredient(MoleculeJEIIngredient.TYPE, reactant)
-                .setOverlay(createOverlay(reaction.getReactantMolarRatio(reactant) * molesPerItem), 0, 0)
+                .setOverlay(createOverlay(reaction.getReactantMolarRatio(reactant) * displayedMolesPerItem), 0, 0)
                 .addRichTooltipCallback(ReactionTooltipHelper.reactantTooltip(reaction, reactant))
                 .setBackground(getRenderedSlot(), -1, -1);
             i++;
@@ -172,7 +182,7 @@ public class ReactionCategory<T extends ReactionRecipe> extends HoverableTextCat
             if (j >= 6) continue;
             builder.addSlot(RecipeIngredientRole.OUTPUT, productsXOffset + (19 * (j % l)), productYOffset + (j / l) * 19)
                 .addIngredient(MoleculeJEIIngredient.TYPE, product)
-                .setOverlay(createOverlay(reaction.getProductMolarRatio(product) * molesPerItem), 0, 0)
+                .setOverlay(createOverlay(reaction.getProductMolarRatio(product) * displayedMolesPerItem), 0, 0)
                 .addRichTooltipCallback(ReactionTooltipHelper.productTooltip(reaction, product))
                 .setBackground(getRenderedSlot(), -1, -1);
             j++;

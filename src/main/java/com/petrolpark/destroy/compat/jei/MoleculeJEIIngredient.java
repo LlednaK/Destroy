@@ -138,7 +138,8 @@ public class MoleculeJEIIngredient {
                     poseStack.pushPose();
                     poseStack.translate(0, 0, 100);
                     Font fontRenderer = Minecraft.getInstance().font;
-                    graphics.drawString(fontRenderer, FormattedCharSequence.forward(s, FONT), -1, -1, col, true);
+                    FormattedCharSequence chargeText = FormattedCharSequence.forward(s, FONT);
+                    graphics.drawString(fontRenderer, chargeText, 17-fontRenderer.width(chargeText), -1, col, true);
                     poseStack.popPose();
                 }
                 poseStack.popPose();

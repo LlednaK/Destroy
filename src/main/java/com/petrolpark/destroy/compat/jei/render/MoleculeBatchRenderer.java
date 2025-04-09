@@ -63,7 +63,7 @@ public class MoleculeBatchRenderer {
             poseStack.pushPose();
             poseStack.translate(mol.x, mol.y, 100);
             Font fontRenderer = Minecraft.getInstance().font;
-            graphics.drawString(fontRenderer, mol.charge, -1, -1, 0xFFFFFF, true);
+            graphics.drawString(fontRenderer, mol.charge, 17-fontRenderer.width(mol.charge), -1, 0xFFFFFF, true);
             poseStack.popPose();
         }
 
