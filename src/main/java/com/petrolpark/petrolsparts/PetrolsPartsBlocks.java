@@ -70,6 +70,7 @@ public class PetrolsPartsBlocks {
         .properties(p -> p
             .noOcclusion()
         ).transform(PPCStress.setNoImpact())
+        .transform(TagGen.axeOrPickaxe())
         .item(ColossalCogwheelBlockItem::new)
         .transform(ModelGen.customItemModel())
         .register();

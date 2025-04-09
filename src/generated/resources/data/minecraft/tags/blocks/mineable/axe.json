@@ -1,8 +1,10 @@
 {
   "values": [
     "petrolsparts:coaxial_gear",
+    "petrolsparts:colossal_cogwheel",
     "petrolsparts:large_coaxial_gear",
     "petrolsparts:differential",
+    "petrolsparts:double_cardan_shaft",
     "petrolsparts:hydraulic_transmission",
     "petrolsparts:planetary_gearset"
   ]
