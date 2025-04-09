@@ -12,6 +12,7 @@ import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,19 +20,29 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implements IBE<DoubleCardanShaftBlockEntity> {
+public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implements IBE<DoubleCardanShaftBlockEntity>, ProperWaterloggedBlock {
 
     public DoubleCardanShaftBlock(Properties properties) {
         super(properties);
+        registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
+    };
+
+    @Override
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+        builder.add(WATERLOGGED);
+        super.createBlockStateDefinition(builder);
     };
 
     @Override
@@ -43,8 +54,14 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
         } else {
             direction2 = context.getNearestLookingVerticalDirection();
         };
-        return getBlockstateConnectingDirections(direction1, direction2);
+        return withWater(getBlockstateConnectingDirections(direction1, direction2), context);
 	};
+
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        updateWater(level, state, pos);
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    };
 
     @Override
 	public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
@@ -172,6 +189,11 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
     @Override
     protected boolean areStatesKineticallyEquivalent(BlockState oldState, BlockState newState) {
         return false;
+    };
+
+    @Override
+    protected FluidState getFluidState(BlockState state) {
+        return fluidState(state);
     };
 
     @Override
