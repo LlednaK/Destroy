@@ -172,7 +172,7 @@ public class VatScreen extends AbstractSimiScreen {
         switch (selectedView) {
             case BOTH: {
                 mixture = blockEntity.getCombinedReadOnlyMixture();
-                amount = (int)Constants.MILLIBUCKETS_PER_LITER;
+                amount = blockEntity.getVatOptional().map(Vat::getCapacity).orElse(0);
                 break;
             } case GAS: {
                 fluid = blockEntity.getGasTankContents();
