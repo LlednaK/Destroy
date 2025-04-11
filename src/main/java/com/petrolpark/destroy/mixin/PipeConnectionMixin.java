@@ -8,6 +8,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.chemistry.legacy.LegacyMixture;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -28,7 +29,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 @Mixin(PipeConnection.class)
 public class PipeConnectionMixin {
-    private Optional<FluidNetwork> retainedNetwork = Optional.empty();
+    static private ThreadLocal<Optional<FluidNetwork>> retainedNetwork = new ThreadLocal<>();
 
     @Inject(
         method="Lcom/simibubi/create/content/fluids/PipeConnection;manageFlows(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraftforge/fluids/FluidStack;Ljava/util/function/Predicate;)Z",
@@ -36,7 +37,7 @@ public class PipeConnectionMixin {
         remap=false
     )
     private void onStartManageFlows(Level world, BlockPos pos, FluidStack internalFluid, Predicate<FluidStack> extractionPredicate, CallbackInfoReturnable<Boolean> cir) {
-        retainedNetwork = ((PipeConnectionAccessor)this).getNetwork();
+        retainedNetwork.set(((PipeConnectionAccessor)this).getNetwork());
     }
 
     /**
@@ -57,8 +58,8 @@ public class PipeConnectionMixin {
             return true;
         else if(DestroyFluids.isMixture(fluid) && DestroyFluids.isMixture(other)) {
             ((PipeConnectionAccessor)this).getFlow().get().fluid = fluid;
-            if(retainedNetwork.isPresent())
-                ((FluidNetworkAccessor)retainedNetwork.get()).setFluid(fluid);
+            if(retainedNetwork.get().isPresent())
+                ((FluidNetworkAccessor)(retainedNetwork.get()).get()).setFluid(fluid);
             return true;
         }
 

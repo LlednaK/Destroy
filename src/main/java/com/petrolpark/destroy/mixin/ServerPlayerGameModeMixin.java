@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
-    private static boolean currentItemStackIgnoresCreative = false;
+    private static ThreadLocal<Boolean> currentItemStackIgnoresCreative = new ThreadLocal<>();
 
     @Inject(
         method = "Lnet/minecraft/server/level/ServerPlayerGameMode;useItemOn(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;",
@@ -29,7 +29,7 @@ public class ServerPlayerGameModeMixin {
         )
     )
     private void checkCurrentItemStack(ServerPlayer pPlayer, Level pLevel, ItemStack pStack, InteractionHand pHand, BlockHitResult pHitResult, CallbackInfoReturnable<InteractionResult> cir) {
-        currentItemStackIgnoresCreative = pStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof IPickUpPutDownBlock;
+        currentItemStackIgnoresCreative.set(pStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof IPickUpPutDownBlock);
     }
 
     @WrapOperation(
@@ -40,8 +40,8 @@ public class ServerPlayerGameModeMixin {
         )
     )
     private void dontRevertItemStack(ItemStack instance, int pCount, Operation<Void> original) {
-        if(currentItemStackIgnoresCreative)
-            currentItemStackIgnoresCreative = false;
+        if(currentItemStackIgnoresCreative.get())
+            currentItemStackIgnoresCreative.set(false);
         else
             original.call(instance, pCount);
     }
