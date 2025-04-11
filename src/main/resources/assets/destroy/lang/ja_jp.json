@@ -1174,7 +1174,7 @@
     "destroy.reaction.hypochlorite_formation": "[destroy:hypochlorite]の形成",
     "destroy.reaction.hypochlorite_formation.description": "[destroy:chlorine]を水酸化ナトリウムで{不均化, destroy:disproportionation}する。",
     "destroy.reaction.hypochlorous_acid_dissociation": "[destroy:hypochlorous_acid] 解離",
-    "destroy.reaction.hypochlorous_acid_dissociation.description": "次亜塩素酸は水中で容易に解離しない弱酸です。{塩基, destroy:base}と反応させることで解離を促進できます。",
+    "destroy.reaction.hypochlorous_acid_dissociation.description": "[destroy:hypochlorous_acid]は水中で容易に解離しない弱酸です。{塩基, destroy:base}と反応させることで解離を促進できます。",
     "destroy.reaction.iodide_displacement": "[destroy:iodide]の変位",
     "destroy.reaction.iodide_displacement.description": "[destroy:iodide]の{酸化, destroy:oxidation}と[destroy:chlorine]の{還元, destroy:reduction}。",
     "destroy.reaction.iodine_dissolution": "[destroy:iodine]溶液",
