@@ -67,6 +67,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITubeBlockEntity {
@@ -279,7 +280,7 @@ public class PneumaticTubeBlockEntity extends KineticBlockEntity implements ITub
         public boolean isBlocked() {
             if (blocked == null) {
                 final BlockPos outputPos = getBlockPos().relative(getOutputFace());
-                final BlockHitResult blockHit = level.clip(new ClipContext(getOutputLocation(), Vec3.atCenterOf(outputPos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity)null));
+                final BlockHitResult blockHit = level.clip(new ClipContext(getOutputLocation(), Vec3.atCenterOf(outputPos), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
                 blocked = blockHit.getType() == HitResult.Type.BLOCK && blockHit.getBlockPos().equals(outputPos);
             };
             return blocked;
