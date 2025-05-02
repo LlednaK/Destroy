@@ -386,6 +386,7 @@ public class DestroyReactions {
     CREATINE_PRECIPITATION = builder()
         .id("creatine_precipitation")
         .addReactant(DestroyMolecules.CREATINE)
+        .addCatalyst(DestroyMolecules.WATER, 1)
         .withResult(10f, PrecipitateReactionResult.of(DestroyItems.CREATINE::asStack))
         .build(),
 
@@ -740,12 +741,12 @@ public class DestroyReactions {
     NITRONIUM_FORMATION = builder()
         .id("nitronium_formation")
         .addReactant(DestroyMolecules.NITRIC_ACID)
-        .addReactant(DestroyMolecules.SULFATE)
-        .addReactant(DestroyMolecules.PROTON)
+        .addReactant(DestroyMolecules.SULFURIC_ACID)
         .addProduct(DestroyMolecules.NITRONIUM)
-        .addProduct(DestroyMolecules.HYDROXIDE)
+        .addProduct(DestroyMolecules.WATER)
         .addProduct(DestroyMolecules.HYDROGENSULFATE)
-        .build(), //TODO make reversible
+        .reversible()
+        .build(),
 
     NYLON_POLYMERISATION = builder()
         .id("nylon_polymerisation")
