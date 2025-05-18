@@ -25,6 +25,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 jarJar.enable()
 
+
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
     exclude '.cache/'
@@ -63,7 +64,7 @@ minecraft {
             arg '-mixin.config=petrolpark.mixins.json'
             arg '-mixin.config=destroy.mixins.json'
             arg '-mixin.config=flywheel.mixins.json'
-            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
+//            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
             property 'forge.logging.console.level', 'info'
             mods {
                 destroy {
@@ -77,7 +78,7 @@ minecraft {
             arg '-mixin.config=create.mixins.json'
             arg '-mixin.config=petrolpark.mixins.json'
             arg '-mixin.config=destroy.mixins.json'
-            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
+//            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
             property 'forge.logging.console.level', 'info'
             mods {
                 destroy {
@@ -128,7 +129,8 @@ repositories {
     }
 
     flatDir {
-        dirs "../petrolpark_local_maven/petrolpark/petrolpark-${minecraft_version}/${petrolpark_library_version}"
+//        dirs "../petrolpark_local_maven/petrolpark/petrolpark-${minecraft_version}/${petrolpark_library_version}"
+        dirs "libs"
     }
 
     maven {
@@ -146,9 +148,6 @@ repositories {
     }
     maven { // CBC
         url "https://maven.realrobotix.me/master"
-    }
-    maven { // Blueprint
-        url = "https://maven.jaackson.me"
     }
 }
 
@@ -174,7 +173,13 @@ dependencies {
 
     // Minecraft
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    
+
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.4.1")) {
+        jarJar.ranged(it, "[0.4.1,)")
+    }
+
     // Create
     implementation fg.deobf("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
 
@@ -184,11 +189,11 @@ dependencies {
     // Registrate
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-    // Petrolpark Library (temporary)
-    implementation "com.petrolpark:petrolpark:${minecraft_version}-${petrolpark_library_version}"
+//     Petrolpark Library (temporary)
+    implementation files("libs/petrolpark-1.20.1-1.4.2.jar")
 
     // JGraphT
-    jarJar(implementation("org.jgrapht:jgrapht-core:1.5.1"))
+    jarJar(implementation("org.jgrapht:jgrapht-core:[1.5.1]"))
 
     // CDK
     //implementation "org.openscience.cdk:cdk-bundle:2.9"
@@ -196,9 +201,9 @@ dependencies {
     // OPTIONAL DEPENDENCIES
 
     // JEI
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     // Farmer's Delight
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")
