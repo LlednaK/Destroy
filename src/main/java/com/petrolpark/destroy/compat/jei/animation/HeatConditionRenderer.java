@@ -10,6 +10,7 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
+import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.lang.Lang;
 
 import mezz.jei.api.forge.ForgeTypes;
@@ -33,7 +34,7 @@ public class HeatConditionRenderer {
         if ("COOLED".equals(requiredHeat.name())) { // Scuffed but okay keep your opinions to yourself
             name = DestroyLang.translate(requiredHeat.getTranslationKey()).component();
         } else {
-            name = DestroyLang.translate(requiredHeat.getTranslationKey()).component();
+            name = CreateLang.translate(requiredHeat.getTranslationKey()).component();
         };
         graphics.drawString(font, name, x, y, requiredHeat.getColor(), false); // This is equivalent of the line being overwritten
     };
