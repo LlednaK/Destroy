@@ -69,7 +69,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
         public ClientState() {
             chasers = new EnumMap<>(Tool.class);
             for (Tool tool : Tool.values()) {
-                chasers.put(tool, LerpedFloat.angular().chase(0d, 0.4d, Chaser.EXP));
+                chasers.put(tool, LerpedFloat.angular().chase(0d, 0.4d, LerpedFloat.Chaser.EXP));
             };
         };
 
@@ -81,7 +81,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
                 if(animTimer >= 8) {
                     animTimer = 0;
                     lastSelectedTool = selectedTool;
-                    chasers.forEach((entry, value) -> value.chase(entry == selectedTool ? 1d : 0d, 0.4d, Chaser.EXP));
+                    chasers.forEach((entry, value) -> value.chase(entry == selectedTool ? 1d : 0d, 0.4d, LerpedFloat.Chaser.EXP));
                 };
             };
         };

@@ -1,11 +1,13 @@
 package com.petrolpark.destroy.content.processing.trypolithography.keypunch;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.client.DestroyPartials;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
+import dev.engine_room.flywheel.api.backend.Backend;
+import dev.engine_room.flywheel.api.backend.BackendManager;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,7 +29,7 @@ public class KeypunchRenderer extends KineticBlockEntityRenderer<KeypunchBlockEn
     @Override
     protected void renderSafe(KeypunchBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
-        if (Backend.canUseInstancing(be.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
         BlockState blockState = be.getBlockState();
         CircuitPunchingBehaviour behaviour = be.punchingBehaviour;

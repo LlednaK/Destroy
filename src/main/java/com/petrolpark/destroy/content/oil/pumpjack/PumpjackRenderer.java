@@ -1,6 +1,6 @@
 package com.petrolpark.destroy.content.oil.pumpjack;
 
-import com.jozufozu.flywheel.backend.Backend;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,7 +27,7 @@ public class PumpjackRenderer extends SafeBlockEntityRenderer<PumpjackBlockEntit
 
     @Override
     protected void renderSafe(PumpjackBlockEntity pumpjack, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
-        if (Backend.canUseInstancing(pumpjack.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(pumpjack.getLevel())) return;
 
         float angle = pumpjack.getRenderAngle();
 

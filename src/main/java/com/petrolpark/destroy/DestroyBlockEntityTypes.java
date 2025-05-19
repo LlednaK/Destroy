@@ -25,13 +25,13 @@ import com.petrolpark.destroy.content.processing.extrusion.ExtrusionDieBlockEnti
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntity;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntityRenderer;
 import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveBlockEntity;
-import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveInstance;
+import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveVisual;
 import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveRenderer;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapBlockEntity;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapInstance;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapRenderer;
 import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlockEntity;
-import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchInstance;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchVisual;
 import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchRenderer;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockEntity;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockEntityRenderer;
@@ -141,7 +141,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<KeypunchBlockEntity> KEYPUNCH = REGISTRATE
         .blockEntity("keypunch", KeypunchBlockEntity::new)
-        .visual(() -> KeypunchInstance::new)
+        .visual(() -> KeypunchVisual::new)
         .validBlocks(DestroyBlocks.KEYPUNCH)
         .renderer(() -> KeypunchRenderer::new)
         .register();
@@ -154,7 +154,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<MechanicalSieveBlockEntity> MECHANICAL_SIEVE = REGISTRATE
         .blockEntity("mechanical_sieve", MechanicalSieveBlockEntity::new)
-        .visual(() -> MechanicalSieveInstance::new)
+        .visual(() -> MechanicalSieveVisual::new)
         .validBlock(DestroyBlocks.MECHANICAL_SIEVE)
         .renderer(() -> MechanicalSieveRenderer::new)
         .register();

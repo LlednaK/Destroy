@@ -3,11 +3,11 @@ package com.petrolpark.destroy.core.chemistry;
 import java.util.*;
 import java.util.Map.Entry;
 
-import com.jozufozu.flywheel.core.model.ModelUtil;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-import com.simibubi.create.foundation.gui.UIRenderHelper;
+import net.createmod.catnip.gui.UIRenderHelper;
+import net.createmod.ponder.render.VirtualRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -33,8 +33,6 @@ import org.joml.Math;
 import org.joml.Quaternionf;
 
 import com.google.common.collect.ImmutableList;
-import com.jozufozu.flywheel.util.AnimationTickHolder;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.chemistry.legacy.LegacyAtom;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
@@ -429,13 +427,13 @@ public class MoleculeRenderer {
             // Now that molecules are baked into a single model, the Y coordinates need to be flipped so each
             // piece appears in the correct position once the entire model is flipped again
             poseStack.translate(location.x, -location.y, location.z);
-            TransformStack.cast(poseStack)
-                .multiply(new Quaternionf(-rotation.x, rotation.y, -rotation.z, rotation.w)); // flip rotation around Y axis
+            TransformStack.of(poseStack)
+                    .rotate(new Quaternionf(-rotation.x, rotation.y, -rotation.z, rotation.w)); // flip rotation around Y axis
             poseStack.scale((float)SCALE, (float)SCALE, (float)SCALE);
 
             Minecraft.getInstance().getBlockRenderer().getModelRenderer()
                 .renderModel(poseStack.last(), builder, Blocks.AIR.defaultBlockState(), type().getPartial().get(), 1, 1, 1,
-                    0, OverlayTexture.NO_OVERLAY, ModelUtil.VIRTUAL_DATA, RenderType.solid());
+                    0, OverlayTexture.NO_OVERLAY, VirtualRenderHelper.VIRTUAL_DATA, RenderType.solid());
         };
     };
 
@@ -462,7 +460,7 @@ public class MoleculeRenderer {
 
             Minecraft.getInstance().getBlockRenderer().getModelRenderer()
                 .renderModel(poseStack.last(), builder, Blocks.AIR.defaultBlockState(), atom.getPartial().get(), 1, 1, 1,
-                    0, OverlayTexture.NO_OVERLAY, ModelUtil.VIRTUAL_DATA, RenderType.solid());
+                    0, OverlayTexture.NO_OVERLAY, VirtualRenderHelper.VIRTUAL_DATA, RenderType.solid());
         };
     };
 };

@@ -24,9 +24,6 @@ import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStat
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
-import com.simibubi.create.foundation.utility.BlockFace;
-import com.simibubi.create.foundation.utility.Lang;
-import net.createmod.catnip.lang.Lang;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;

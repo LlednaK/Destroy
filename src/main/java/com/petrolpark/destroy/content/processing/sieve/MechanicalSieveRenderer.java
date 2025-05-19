@@ -1,12 +1,11 @@
 package com.petrolpark.destroy.content.processing.sieve;
 
-import com.jozufozu.flywheel.backend.Backend;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.petrolpark.destroy.client.DestroyPartials;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
@@ -27,7 +26,7 @@ public class MechanicalSieveRenderer extends KineticBlockEntityRenderer<Mechanic
     @Override
     protected void renderSafe(MechanicalSieveBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
-        if (Backend.canUseInstancing(be.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
         BlockState state = be.getBlockState();
         boolean x = state.getValue(MechanicalSieveBlock.X);

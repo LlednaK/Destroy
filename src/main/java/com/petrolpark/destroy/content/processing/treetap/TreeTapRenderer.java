@@ -1,10 +1,10 @@
 package com.petrolpark.destroy.content.processing.treetap;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.client.DestroyPartials;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,7 +22,7 @@ public class TreeTapRenderer extends KineticBlockEntityRenderer<TreeTapBlockEnti
 
     @Override
 	protected void renderSafe(TreeTapBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-		if (Backend.canUseInstancing(be.getLevel())) return;
+		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
         BlockState state = be.getBlockState();
         Direction facing = state.getValue(TreeTapBlock.HORIZONTAL_FACING);
