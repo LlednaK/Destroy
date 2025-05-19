@@ -6,9 +6,10 @@ import java.util.Collections;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.chemistry.recipe.MixtureConversionRecipe;
+import com.petrolpark.destroy.mixin.compat.jei.CreateRecipeCategoryAccessor;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.item.TooltipHelper.Palette;
+import net.createmod.catnip.lang.FontHelper.Palette;
 
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,6 +20,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.fluids.FluidStack;
+
 
 public class MixtureConversionCategory extends PetrolparkRecipeCategory<MixtureConversionRecipe> {
 
@@ -31,12 +33,12 @@ public class MixtureConversionCategory extends PetrolparkRecipeCategory<MixtureC
         builder.addSlot(RecipeIngredientRole.INPUT, 2, 2)
             .setBackground(getRenderedSlot(), -1, -1)
             .addIngredients(ForgeTypes.FLUID_STACK, withFullVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
-            .addTooltipCallback(addFluidTooltip(1));
+            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 2)
             .setBackground(getRenderedSlot(), -1, -1)
             .addIngredients(ForgeTypes.FLUID_STACK, withFullVisibility(recipe.getFluidResults()))
-            .addTooltipCallback(addFluidTooltip(1));
+            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
     };
     
     @Override

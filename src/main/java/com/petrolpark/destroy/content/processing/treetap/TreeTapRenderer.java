@@ -3,10 +3,10 @@ package com.petrolpark.destroy.content.processing.treetap;
 import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.client.DestroyPartials;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;    
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
+import net.createmod.catnip.render.CachedBuffers;
+import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -26,12 +26,12 @@ public class TreeTapRenderer extends KineticBlockEntityRenderer<TreeTapBlockEnti
 
         BlockState state = be.getBlockState();
         Direction facing = state.getValue(TreeTapBlock.HORIZONTAL_FACING);
-		SuperByteBuffer armRenderer = CachedBufferer.partial(DestroyPartials.TREE_TAP_ARM, state);
+		SuperByteBuffer armRenderer = CachedBuffers.partial(DestroyPartials.TREE_TAP_ARM, state);
         armRenderer
-            .centre()
-            .rotate(9f * Mth.sin(getAngleForTe(be, be.getBlockPos(), facing.getClockWise().getAxis())), facing.getClockWise().getAxis())
+            .center()
+            .rotate(9f * Mth.sin(getAngleForBe(be, be.getBlockPos(), facing.getClockWise().getAxis())), facing.getClockWise().getAxis())
             .rotateToFace(facing.getOpposite())
-            .unCentre()
+            .uncenter()
             .light(light)
             .renderInto(ms, buffer.getBuffer(RenderType.solid()));
 

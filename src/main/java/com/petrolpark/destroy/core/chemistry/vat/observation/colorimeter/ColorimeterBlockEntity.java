@@ -17,15 +17,16 @@ import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.material.VatMaterial;
 import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMonitorBehaviour;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
+import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.event.BlockEntityBehaviourEvent;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
-import com.simibubi.create.content.redstone.displayLink.source.DisplaySource;
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStats;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 import com.simibubi.create.foundation.utility.BlockFace;
 import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -71,7 +72,7 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
             .onStrengthChanged(strength -> getLevel().setBlockAndUpdate(getBlockPos(), getBlockState().setValue(ColorimeterBlock.POWERED, strength != 0)));
         behaviours.add(redstoneMonitor);
     };
-    
+
     @Override
     public void tick() {
         super.tick();
@@ -145,7 +146,7 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
         };
         redstoneMonitor.quantityObserved = Optional.empty();
     };
-    
+
     public static class ColorimeterDisplaySource extends DisplaySource {
 
         private static final DecimalFormat df = new DecimalFormat();
@@ -161,7 +162,7 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
             if (!vat.isPresent()) return Collections.emptyList();
             FluidStack fluid = cbe.observingGas ? vat.get().getGasTankContents() : vat.get().getGasTankContents();
             return Collections.singletonList(
-                Lang.builder()
+                DestroyLang.builder()
                     .add(context.sourceConfig().getBoolean("ShowSpeciesName") ? cbe.molecule.getName(!context.sourceConfig().getBoolean("MoleculeNameType")).copy().append(" ") : Component.literal(""))
                     .add(DestroyLang.quantity(ReadOnlyMixture.readNBT(ReadOnlyMixture::new, fluid.getOrCreateChildTag("Mixture")).getConcentrationOf(cbe.molecule), false, df))
                     .component() 

@@ -24,12 +24,18 @@ import net.minecraftforge.client.RenderTypeGroup;
 import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.pipeline.QuadBakingVertexConsumer;
 import net.minecraftforge.client.textures.UnitTextureAtlasSprite;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.gui.ILightingSettings;
+import net.createmod.catnip.gui.element.GuiGameElement;
 import org.joml.Math;
 import org.joml.Quaternionf;
 
 import com.google.common.collect.ImmutableList;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
 import com.jozufozu.flywheel.util.transform.TransformStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.petrolpark.destroy.chemistry.legacy.LegacyAtom;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.chemistry.legacy.LegacyBond.BondType;
@@ -38,9 +44,6 @@ import com.petrolpark.destroy.chemistry.serializer.Branch;
 import com.petrolpark.destroy.chemistry.serializer.Edge;
 import com.petrolpark.destroy.chemistry.serializer.Node;
 import com.petrolpark.util.MathsHelper;
-import com.simibubi.create.foundation.gui.ILightingSettings;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
-import com.simibubi.create.foundation.utility.Pair;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.phys.Vec3;
@@ -408,7 +411,7 @@ public class MoleculeRenderer {
             PoseStack poseStack = graphics.pose();
             poseStack.pushPose();
             poseStack.translate(location.x, location.y, location.z);
-            TransformStack.cast(poseStack)
+            TransformStack.of(poseStack)
                 .rotateCentered(rotation);
             GuiGameElement.of(type().getPartial())
                 .lighting(ILightingSettings.DEFAULT_FLAT)

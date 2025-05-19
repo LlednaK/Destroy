@@ -9,6 +9,8 @@ import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlock;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntityRenderer;
 import com.petrolpark.destroy.content.processing.glassblowing.GlassblowingRecipe;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.animation.AnimationTickHolder;
 import com.simibubi.create.foundation.gui.UIRenderHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 
@@ -18,6 +20,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Brightness;
 import net.minecraftforge.fluids.FluidStack;
+
+import static com.mojang.math.Constants.PI;
 
 public class AnimatedBlowpipe extends AnimatedKinetics {
 
@@ -37,8 +41,8 @@ public class AnimatedBlowpipe extends AnimatedKinetics {
 
         blockElement(DestroyBlocks.BLOWPIPE.getDefaultState().setValue(BlowpipeBlock.FACING, Direction.NORTH))
             .render(graphics);
-        TransformStack.cast(ms)
-            .rotateY(180d)
+        TransformStack.of(ms)
+            .rotateY(PI)
             .translate(-0.5d, -0.5d, 0d);
         ms.pushPose();
         UIRenderHelper.flipForGuiRender(ms);

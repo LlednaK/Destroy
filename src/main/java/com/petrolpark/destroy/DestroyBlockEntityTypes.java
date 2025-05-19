@@ -12,14 +12,14 @@ import com.petrolpark.destroy.content.oil.pumpjack.PumpjackRenderer;
 import com.petrolpark.destroy.content.processing.ageing.AgeingBarrelBlockEntity;
 import com.petrolpark.destroy.content.processing.ageing.AgeingBarrelRenderer;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeBlockEntity;
-import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeCogInstance;
+import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeCogVisual;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeRenderer;
 import com.petrolpark.destroy.content.processing.cooler.CoolerBlockEntity;
 import com.petrolpark.destroy.content.processing.cooler.CoolerRenderer;
 import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
 import com.petrolpark.destroy.content.processing.distillation.BubbleCapRenderer;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlockEntity;
-import com.petrolpark.destroy.content.processing.dynamo.DynamoCogInstance;
+import com.petrolpark.destroy.content.processing.dynamo.DynamoCogVisual;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoRenderer;
 import com.petrolpark.destroy.content.processing.extrusion.ExtrusionDieBlockEntity;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntity;
@@ -41,8 +41,8 @@ import com.petrolpark.destroy.core.chemistry.storage.ElementTankRenderer;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankBlockEntity.SimplePlaceableMixtureTankBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.measuringcylinder.MeasuringCylinderBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankRenderer;
-import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackRenderer;
+import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.VatRenderer;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
@@ -89,7 +89,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = REGISTRATE
         .blockEntity("centrifuge", CentrifugeBlockEntity::new)
-        .instance(() -> CentrifugeCogInstance::new)
+        .visual(() -> CentrifugeCogVisual::new)
         .validBlocks(DestroyBlocks.CENTRIFUGE)
         .renderer(() -> CentrifugeRenderer::new)
         .register();
@@ -123,7 +123,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<DynamoBlockEntity> DYNAMO = REGISTRATE
         .blockEntity("dynamo", DynamoBlockEntity::new)
-        .instance(() -> DynamoCogInstance::new)
+        .visual(() -> DynamoCogVisual::new)
         .validBlocks(DestroyBlocks.DYNAMO)
         .renderer(() -> DynamoRenderer::new)
         .register();
@@ -141,7 +141,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<KeypunchBlockEntity> KEYPUNCH = REGISTRATE
         .blockEntity("keypunch", KeypunchBlockEntity::new)
-        .instance(() -> KeypunchInstance::new)
+        .visual(() -> KeypunchInstance::new)
         .validBlocks(DestroyBlocks.KEYPUNCH)
         .renderer(() -> KeypunchRenderer::new)
         .register();
@@ -154,7 +154,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<MechanicalSieveBlockEntity> MECHANICAL_SIEVE = REGISTRATE
         .blockEntity("mechanical_sieve", MechanicalSieveBlockEntity::new)
-        .instance(() -> MechanicalSieveInstance::new)
+        .visual(() -> MechanicalSieveInstance::new)
         .validBlock(DestroyBlocks.MECHANICAL_SIEVE)
         .renderer(() -> MechanicalSieveRenderer::new)
         .register();
@@ -167,7 +167,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<PumpjackBlockEntity> PUMPJACK = REGISTRATE
         .blockEntity("pumpjack", PumpjackBlockEntity::new)
-		.instance(() -> PumpjackInstance::new)
+		.visual(() -> PumpjackInstance::new)
 		.validBlocks(DestroyBlocks.PUMPJACK)
 		.renderer(() -> PumpjackRenderer::new)
 		.register();
@@ -202,7 +202,7 @@ public class DestroyBlockEntityTypes {
 
     public static final BlockEntityEntry<TreeTapBlockEntity> TREE_TAP = REGISTRATE
         .blockEntity("tree_tap", TreeTapBlockEntity::new)
-        .instance(() -> TreeTapInstance::new)
+        .visual(() -> TreeTapInstance::new)
         .validBlock(DestroyBlocks.TREE_TAP)
         .renderer(() -> TreeTapRenderer::new)
         .register();
