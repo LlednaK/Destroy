@@ -32,15 +32,18 @@ public class MixtureConversionCategory extends PetrolparkRecipeCategory<MixtureC
     public void setRecipe(IRecipeLayoutBuilder builder, MixtureConversionRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 2, 2)
             .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredients(ForgeTypes.FLUID_STACK, withFullVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
+            .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluidIngredients().get(0).getMatchingFluidStacks())
+            .setFluidRenderer(recipe.getFluidIngredients().get(0).getRequiredAmount(), false, 16, 16)
             .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 107, 2)
             .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredients(ForgeTypes.FLUID_STACK, withFullVisibility(recipe.getFluidResults()))
+            .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluidResults())
+            .setFluidRenderer(recipe.getFluidResults().get(0).getAmount(), false, 16, 16) // make fluid take up the full slot
             .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
     };
     
+    @SuppressWarnings("removal")
     @Override
     public List<Component> getTooltipStrings(MixtureConversionRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX > 20 && mouseX < 105) {
@@ -54,12 +57,12 @@ public class MixtureConversionCategory extends PetrolparkRecipeCategory<MixtureC
         AllGuiTextures.JEI_LONG_ARROW.render(guiGraphics, 27, 6);
     };
 
-    public static List<FluidStack> withFullVisibility(List<FluidStack> stacks) {
+    /*public static List<FluidStack> withFullVisibility(List<FluidStack> stacks) {
         return stacks.stream().map(fs -> {
             FluidStack stack = fs.copy();
             stack.setAmount(1000);
             return stack;
         }).toList();
-    };
+    };*/
     
 };
