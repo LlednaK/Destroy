@@ -6,7 +6,7 @@ import java.util.Optional;
  * @since Destroy 0.1.2
  * @author petrolpark
  */
-public class Holder<V> {
+public final class Holder<V> {
     
     private V held;
 
