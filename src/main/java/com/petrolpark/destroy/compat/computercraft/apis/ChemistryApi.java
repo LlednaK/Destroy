@@ -13,10 +13,10 @@ public class ChemistryApi implements ILuaAPI {
         LegacySpecies molecule = LegacySpecies.getMolecule(id);
         CreateLuaTable infos = new CreateLuaTable();
 
-        infos.putDouble("Mass", molecule.getMass());
-        infos.putDouble("BoilingPoint", molecule.getBoilingPoint());
-        infos.putDouble("Density", molecule.getDensity());
-        infos.putDouble("Charge", molecule.getCharge());
+        infos.putDouble("mass", molecule.getMass());
+        infos.putDouble("boilingPoint", molecule.getBoilingPoint());
+        infos.putDouble("density", molecule.getDensity());
+        infos.putDouble("charge", molecule.getCharge());
         infos.putString("FROWNS", molecule.getFROWNSCode());
 
         return infos;
