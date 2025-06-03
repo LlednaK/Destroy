@@ -6,9 +6,9 @@ import java.util.Optional;
  * @since Destroy 0.1.2
  * @author petrolpark
  */
-public final class Holder<V> {
+public class Holder<V> {
     
-    protected V held;
+    private V held;
 
     public static <V> Holder<V> hold(V object) {
         return new Holder<>(object);
