@@ -40,6 +40,7 @@
         "FluidNetworkMixin",
         "FluidPropagatorMixin",
         "FluidTankBlockEntityMixin",
+        "FluidTankMountedStorageHandlerMixin",
         "GenericItemFillingMixin",
         "GhostItemMenuMixin",
         "HeatConditionMixin",
