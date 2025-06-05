@@ -253,7 +253,7 @@
     "block.destroy.round_bottomed_flask.tooltip.behaviour1": "将烧瓶中的流体_倒入_目标容器",
     "block.destroy.round_bottomed_flask.tooltip.condition2": "左击时",
     "block.destroy.round_bottomed_flask.tooltip.behaviour2": "将目标容器中的流体_装入_烧瓶",
-    "block.destroy.sandcastle": "沙堡",
+    "block.destroy.sand_castle": "沙堡",
     "block.destroy.siphon": "红石虹吸器",
     "block.destroy.siphon.drain_amount": "排放阈值",
     "block.destroy.siphon.drain_amount_remaining": "排放余量：%1$smB",
