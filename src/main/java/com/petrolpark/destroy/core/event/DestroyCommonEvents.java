@@ -19,8 +19,10 @@ import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.DestroyTrades;
 import com.petrolpark.destroy.DestroyVillagers;
 import com.petrolpark.destroy.compat.computercraft.DestroyPeripheralProvider;
+import com.petrolpark.destroy.compat.computercraft.peripherals.SiphonPeripheral;
 import com.petrolpark.destroy.compat.computercraft.peripherals.VatControllerPeripheral;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
+import com.petrolpark.destroy.content.logistics.siphon.SiphonBlockEntity;
 import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
 import com.petrolpark.destroy.content.oil.CrudeOilCommand;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeItem;
@@ -173,6 +175,9 @@ public class DestroyCommonEvents {
     public static final void onAttachCapabilitiesBlockEntity(AttachCapabilitiesEvent<BlockEntity> event) {
         if ( event.getObject() instanceof VatControllerBlockEntity vcbe ) {
             DestroyPeripheralProvider.attach(event, vcbe, VatControllerPeripheral::new);
+        }
+        if ( event.getObject() instanceof SiphonBlockEntity sbe ) {
+            DestroyPeripheralProvider.attach(event, sbe, SiphonPeripheral::new);
         }
     };
 
