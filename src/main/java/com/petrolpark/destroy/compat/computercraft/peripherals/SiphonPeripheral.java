@@ -33,6 +33,11 @@ public class SiphonPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
+    public final float getFluidLevel() {
+        return sbe.tank.getPrimaryTank().getRenderedFluid().getAmount();
+    }
+
+    @LuaFunction(mainThread = true)
     public final void drain(int amount) {
         sbe.leftToDrain += amount;
         sbe.notifyUpdate();
