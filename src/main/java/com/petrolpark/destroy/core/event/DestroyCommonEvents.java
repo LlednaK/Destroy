@@ -19,12 +19,14 @@ import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.DestroyTrades;
 import com.petrolpark.destroy.DestroyVillagers;
 import com.petrolpark.destroy.compat.computercraft.DestroyPeripheralProvider;
+import com.petrolpark.destroy.compat.computercraft.peripherals.BubbleCapPeripheral;
 import com.petrolpark.destroy.compat.computercraft.peripherals.SiphonPeripheral;
 import com.petrolpark.destroy.compat.computercraft.peripherals.VatControllerPeripheral;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.logistics.siphon.SiphonBlockEntity;
 import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
 import com.petrolpark.destroy.content.oil.CrudeOilCommand;
+import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeItem;
 import com.petrolpark.destroy.content.processing.trypolithography.CircuitPatternsS2CPacket;
 import com.petrolpark.destroy.content.processing.trypolithography.RegenerateCircuitPatternCommand;
@@ -178,6 +180,9 @@ public class DestroyCommonEvents {
         }
         if ( event.getObject() instanceof SiphonBlockEntity sbe ) {
             DestroyPeripheralProvider.attach(event, sbe, SiphonPeripheral::new);
+        }
+        if ( event.getObject() instanceof BubbleCapBlockEntity bcbe ) {
+            DestroyPeripheralProvider.attach(event, bcbe, BubbleCapPeripheral::new);
         }
     };
 
