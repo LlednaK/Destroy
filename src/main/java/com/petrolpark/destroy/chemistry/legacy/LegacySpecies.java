@@ -1,16 +1,15 @@
 package com.petrolpark.destroy.chemistry.legacy;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableSet;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.chemistry.api.error.ChemistryException;
 import com.petrolpark.destroy.chemistry.api.error.ChemistryException.FormulaException.FormulaModificationException;
@@ -22,11 +21,13 @@ import com.petrolpark.destroy.chemistry.naming.INameableProduct;
 import com.petrolpark.destroy.chemistry.serializer.Branch;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.core.chemistry.MoleculeRenderer;
+import com.petrolpark.destroy.util.DestroyReloadListener;
 import com.simibubi.create.foundation.utility.Pair;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A Molecule is any species - that could be an actual chemical molecule or an inorganic ion.
@@ -860,6 +861,105 @@ public class LegacySpecies implements INameableProduct {
     private void refreshFunctionalGroups() {
         structure.refreshFunctionalGroups();
     };
+
+    public static class Listener extends DestroyReloadListener {
+
+        HashSet<LegacySpecies> SPECIES = new HashSet();
+
+        @Override
+        public void beforeReload() {
+            SPECIES.clear();
+        }
+
+        @Override
+        public String getPath() {
+            return "destroy_compat/species";
+        }
+
+        @Override
+        public void forEachNameSpaceJsonFile(JsonObject jsonObject) {
+            jsonObject.entrySet().forEach(entry -> {
+                JsonObject molecule = entry.getValue().getAsJsonObject();
+
+                LegacyMolecularStructure structure = LegacyMolecularStructure.deserialize(
+                        safeGetString(molecule, "struct"));
+                float density = molecule.get("density").getAsFloat();
+                float boilingPoint = molecule.get("boiling_point").getAsFloat();
+                Integer dipoleMoment = safeGetInt(molecule, "dipole_moment");
+                float specificHeatCapacity = safeGetFloat(molecule, "specific_heat_capacity");
+                float molarHeatCapacity = safeGetFloat(molecule, "molar_heat_capacity");
+                float latentHeat = safeGetFloat(molecule, "latent_heat");
+                String translationKey = safeGetString(molecule, "translation_key");
+                Integer color = safeParseInt(safeGetString(molecule, "color"), 16);
+                boolean hypothetical = safeGetBool(molecule, "hypothetical");
+                List<JsonElement> tags = safeGetList(molecule, "tags");
+
+                MoleculeBuilder builder = new MoleculeBuilder(Destroy.MOD_ID)
+                        .id(entry.getKey());
+
+                if (structure != null) builder.structure(structure);
+                if (density != Float.NaN) builder.density(density);
+                if (boilingPoint != Float.NaN) builder.boilingPoint(boilingPoint);
+                if (dipoleMoment != null) builder.dipoleMoment(dipoleMoment);
+                if (specificHeatCapacity != Float.NaN) builder.specificHeatCapacity(specificHeatCapacity);
+                if (molarHeatCapacity != Float.NaN) builder.molarHeatCapacity(molarHeatCapacity);
+                if (latentHeat != Float.NaN) builder.latentHeat(latentHeat);
+                if (translationKey != null) builder.translationKey(translationKey);
+                if (color != null) builder.color(color);
+                if (hypothetical) builder.hypothetical();
+
+                for (JsonElement tag : tags){
+                    LegacySpeciesTag tag0 = LegacySpeciesTag.MOLECULE_TAGS.get(tag.getAsString());
+                    builder.tag(tag0);
+                }
+
+                builder.build();
+            });
+        }
+
+        private String safeGetString(JsonObject object, String target) {
+            JsonElement targetElement = object.get(target);
+            if (targetElement != null) {
+                return targetElement.getAsString();
+            }
+            return null;
+        }
+
+        private float safeGetFloat(JsonObject object, String target) {
+            JsonElement targetElement = object.get(target);
+            if (targetElement != null) {
+                return targetElement.getAsFloat();
+            }
+            return Float.NaN;
+        }
+
+        private Integer safeGetInt(JsonObject object, String target) {
+            JsonElement targetElement = object.get(target);
+            if (targetElement != null) {
+                return targetElement.getAsInt();
+            }
+            return null;
+        }
+
+        private boolean safeGetBool(JsonObject object, String target) {
+            JsonElement targetElement = object.get(target);
+            if (targetElement != null) {
+                return targetElement.getAsBoolean();
+            }
+            return false;
+        }
+
+        private List<JsonElement> safeGetList(JsonObject object, String target) {
+            JsonArray targetArray = object.getAsJsonArray(target);
+            if (targetArray != null) return targetArray.asList();
+            return new ArrayList<>();
+        }
+
+        private Integer safeParseInt(String string, int radix) {
+            if (string != null) return Integer.parseInt(string, radix);
+            return null;
+        }
+    }
 
     @Override
     public String toString() {

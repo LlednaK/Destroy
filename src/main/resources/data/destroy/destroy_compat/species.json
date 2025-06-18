@@ -1,0 +1,9 @@
+{
+  "waater": {
+    "struct": "destroy:linear:HOOH",
+    "color": "fffff",
+    "boiling_point": 60,
+    "density": 50,
+    "molar_heat_capacity": 15
+  }
+}
