@@ -1,23 +1,26 @@
 package com.petrolpark.destroy.chemistry.legacy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.chemistry.api.error.ChemistryException;
 import com.petrolpark.destroy.chemistry.legacy.genericreaction.GenericReaction;
 import com.petrolpark.destroy.chemistry.legacy.index.DestroyMolecules;
-
+import com.petrolpark.destroy.chemistry.legacy.reactionresult.PrecipitateReactionResult;
+import com.petrolpark.destroy.util.DestroyReloadListener;
+import com.simibubi.create.AllTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * A Reaction takes place between specific {@link LegacySpecies Molecules}, and produces specific Molecules.
@@ -899,4 +902,109 @@ public class LegacyReaction {
         // };
 
     };
+
+    public static class Listener extends DestroyReloadListener {
+
+        HashSet<LegacyReaction> REACTIONS = new HashSet();
+
+        @Override
+        public void beforeReload() {
+            REACTIONS.clear();
+        }
+
+        @Override
+        public String getPath() {
+            return "destroy_compat/reactions";
+        }
+
+        @Override
+        public void forEachNameSpaceJsonFile(JsonObject jsonObject) {
+            jsonObject.entrySet().forEach(entry -> {
+                System.out.println("Starting evaluation of " + entry.getKey());
+                JsonObject reaction = entry.getValue().getAsJsonObject();
+
+                JsonArray reactants = reaction.getAsJsonArray("reactants");
+                JsonArray catalysts = reaction.getAsJsonArray("catalysts");
+                JsonArray products = reaction.getAsJsonArray("products");
+
+                JsonElement requireUV = reaction.get("require_uv");
+                JsonElement excludeFromJEI = reaction.get("jei_exclude");
+                JsonElement preexponentialFactor = reaction.get("preexponential_factor");
+                JsonElement activationEnergy = reaction.get("activation_energy");
+                JsonElement enthalpyChange = reaction.get("enthalpy_change");
+                JsonElement reversible = reaction.get("reversible");
+
+                ReactionBuilder builder = new ReactionBuilder(Destroy.MOD_ID)
+                        .id(entry.getKey());
+
+                if (requireUV != null && requireUV.getAsBoolean()) builder.requireUV();
+                if (excludeFromJEI != null && excludeFromJEI.getAsBoolean()) builder.dontIncludeInJei();
+                if (preexponentialFactor != null) builder.preexponentialFactor(preexponentialFactor.getAsFloat());
+                if (activationEnergy != null) builder.activationEnergy(activationEnergy.getAsFloat());
+                if (enthalpyChange != null) builder.enthalpyChange(enthalpyChange.getAsFloat());
+                if (reversible != null && reversible.getAsBoolean()) builder.reversible();
+
+                for (JsonElement reactant : reactants) {
+                    JsonObject reactantObject = reactant.getAsJsonObject();
+
+                    JsonElement id = reactantObject.get("id");
+                    JsonElement type = reactantObject.get("type");
+                    JsonElement ratio = reactantObject.get("ratio");
+                    JsonElement order = reactantObject.get("order");
+                    JsonElement moles = reactantObject.get("moles");
+
+                    System.out.println("Starting evaluation of reactant "+ id);
+
+                    if (type != null && moles != null && type.getAsString().equals("item")) {
+                        builder.addSimpleItemReactant(() -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(id.getAsString())), moles.getAsFloat());
+                    } else if ( type != null && moles != null && type.getAsString().equals("tag") ) {
+                        builder.addSimpleItemTagReactant(AllTags.forgeItemTag(id.getAsString()), moles.getAsFloat());
+                    } else {
+                        if (order != null) builder.addReactant(LegacySpecies.getMolecule(id.getAsString()), ratio.getAsInt(), order.getAsInt());
+                        else builder.addReactant(LegacySpecies.getMolecule(id.getAsString()), ratio.getAsInt());
+                    }
+                }
+
+                for (JsonElement product : products) {
+                    JsonObject productObject = product.getAsJsonObject();
+
+                    JsonElement id = productObject.get("id");
+                    JsonElement type = productObject.get("type");
+                    JsonElement ratio = productObject.get("ratio");
+                    JsonElement moles = productObject.get("moles");
+
+                    System.out.println("Starting evaluation of product "+ id);
+
+                    if (type != null && moles != null && type.getAsString().equals("item")) {
+                        builder.withResult(moles.getAsFloat(), PrecipitateReactionResult.of(() -> new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(id.getAsString())))));
+                    } else {
+                        if (ratio != null) builder.addProduct(LegacySpecies.getMolecule(id.getAsString()), ratio.getAsInt());
+                        else builder.addProduct(LegacySpecies.getMolecule(id.getAsString()));
+                    }
+                }
+
+                for (JsonElement catalyst : catalysts) {
+                    JsonObject catalystObject = catalyst.getAsJsonObject();
+
+                    JsonElement id = catalystObject.get("id");
+                    JsonElement type = catalystObject.get("type");
+                    JsonElement ratio = catalystObject.get("ratio");
+                    JsonElement order = catalystObject.get("order");
+                    JsonElement moles = catalystObject.get("moles");
+
+                    System.out.println("Starting evaluation of catalyst "+ id);
+
+                    if (type != null && moles != null && type.getAsString().equals("item")) {
+                        builder.addSimpleItemCatalyst(() -> ForgeRegistries.ITEMS.getValue(new ResourceLocation(id.getAsString())), moles.getAsFloat());
+                    } else if ( type != null && moles != null && type.getAsString().equals("tag") ) {
+                        builder.addSimpleItemTagCatalyst(AllTags.forgeItemTag(id.getAsString()), moles.getAsFloat());
+                    } else {
+                        builder.addCatalyst(LegacySpecies.getMolecule(id.getAsString()), order.getAsInt());
+                    }
+                }
+
+                REACTIONS.add(builder.build());
+            });
+        }
+    }
 };

@@ -913,7 +913,7 @@ public class LegacySpecies implements INameableProduct {
                     builder.tag(tag0);
                 }
 
-                builder.build();
+                SPECIES.add(builder.build());
             });
         }
 

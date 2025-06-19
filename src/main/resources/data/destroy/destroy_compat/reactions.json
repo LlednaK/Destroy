@@ -1,0 +1,18 @@
+{
+  "aa": {
+    "reactants": [
+      {"id": "destroy:oxygen", "ratio":  1, "order":  2},
+      {"id": "destroy:waater", "ratio":  2}
+    ],
+    "catalysts": [
+      {"type": "molecule", "id": "destroy:aibn", "order": 0},
+      {"type":  "item", "id": "create:andesite_alloy", "moles": 1}
+    ],
+    "products": [
+      {"type":  "item", "id": "create:cogwheel", "moles":  4},
+      {"id": "destroy:nitrogen", "ratio": 2}
+    ],
+    "require_uv": true,
+    "reversible": false
+  }
+}

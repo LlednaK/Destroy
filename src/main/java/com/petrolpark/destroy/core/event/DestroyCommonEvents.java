@@ -15,6 +15,7 @@ import com.petrolpark.destroy.DestroyMessages;
 import com.petrolpark.destroy.DestroyMobEffects;
 import com.petrolpark.destroy.DestroyTags;
 import com.petrolpark.destroy.DestroyTags.MobEffects;
+import com.petrolpark.destroy.chemistry.legacy.LegacyReaction;
 import com.petrolpark.destroy.chemistry.legacy.LegacySpecies;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.DestroyTrades;
@@ -594,6 +595,7 @@ public class DestroyCommonEvents {
         event.addListener(Destroy.CIRCUIT_PATTERN_HANDLER.RELOAD_LISTENER);
         event.addListener(new ExplosiveProperties.Listener(event.getConditionContext()));
         event.addListener(new LegacySpecies.Listener());
+        event.addListener(new LegacyReaction.Listener());
         VatMaterialResourceListener vatMaterialListener = new VatMaterialResourceListener(event.getConditionContext());
         event.addListener(vatMaterialListener);
     };
