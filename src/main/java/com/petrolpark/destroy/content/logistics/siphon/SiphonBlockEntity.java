@@ -2,7 +2,7 @@ package com.petrolpark.destroy.content.logistics.siphon;
 
 import java.util.List;
 
-import com.ibm.icu.text.DecimalFormat;
+import java.text.DecimalFormat;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
