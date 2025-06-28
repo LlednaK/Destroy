@@ -7,6 +7,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
+import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.core.chemistry.vat.observation.colorimeter.ColorimeterBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -26,6 +28,7 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
     public float lowerThreshold;
     public float upperThreshold;
     protected int oldStrength;
+    protected boolean isFirstTick;
 
     protected IntConsumer strengthChangeCallback = i -> {};
 
@@ -33,6 +36,11 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
         super(be);
         quantityObserved = Optional.empty();
     };
+
+    @Override
+    public void initialize() {
+        isFirstTick = true;
+    }
 
     public RedstoneQuantityMonitorBehaviour withLabel(Function<Float, Component> label) {
         this.label = label;
@@ -45,8 +53,7 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
     };
 
     public int getStrength() {
-        if (quantityObserved.isPresent()) return oldStrength;
-        return 0;
+        return oldStrength;
     };
 
     public void update() {
@@ -60,6 +67,11 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
 
     @Override
     public void tick() {
+        if(isFirstTick) {
+            isFirstTick = false;
+            return;
+        }
+
         int strength = 0;
         if (quantityObserved.isPresent()) strength = (int)(Mth.clamp((quantityObserved.get().get() - lowerThreshold) / (upperThreshold - lowerThreshold), 0f, 1f) * 15f);
         if (strength != oldStrength) {
@@ -72,21 +84,17 @@ public class RedstoneQuantityMonitorBehaviour extends BlockEntityBehaviour {
     @Override
     public void read(CompoundTag nbt, boolean clientPacket) {
         super.read(nbt, clientPacket);
-        if (quantityObserved.isPresent()) {
-            oldStrength = nbt.getInt("OldRedstoneStrength");
-            lowerThreshold = nbt.getFloat("LowerObservedQuantityThreshold");
-            upperThreshold = nbt.getFloat("UpperObservedQuantityThreshold");
-        };
+        oldStrength = nbt.getInt("OldRedstoneStrength");
+        lowerThreshold = nbt.getFloat("LowerObservedQuantityThreshold");
+        upperThreshold = nbt.getFloat("UpperObservedQuantityThreshold");
     };
 
     @Override
     public void write(CompoundTag nbt, boolean clientPacket) {
         super.write(nbt, clientPacket);
-        if (quantityObserved.isPresent()) {
-            nbt.putInt("OldRedstoneStrength", oldStrength);
-            nbt.putFloat("LowerObservedQuantityThreshold", lowerThreshold);
-            nbt.putFloat("UpperObservedQuantityThreshold", upperThreshold);
-        };
+        nbt.putInt("OldRedstoneStrength", oldStrength);
+        nbt.putFloat("LowerObservedQuantityThreshold", lowerThreshold);
+        nbt.putFloat("UpperObservedQuantityThreshold", upperThreshold);
     };
 
     @Override

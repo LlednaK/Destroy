@@ -3,6 +3,9 @@ package com.petrolpark.destroy.compat.jei.category;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petrolpark.destroy.mixin.compat.jei.CreateRecipeCategoryAccessor;
+import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
+import net.createmod.catnip.data.Pair;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +19,6 @@ import com.petrolpark.destroy.content.processing.ageing.AgingBarrelBlock;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.item.ItemHelper;
-import com.simibubi.create.foundation.utility.Pair;
 
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -31,6 +33,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.fluids.FluidStack;
+
+import static com.simibubi.create.compat.jei.category.CreateRecipeCategory.getRenderedSlot;
+import static com.simibubi.create.content.fluids.potion.PotionFluidHandler.addPotionTooltip;
 
 public class AgingCategory extends PetrolparkRecipeCategory<AgeingRecipe> {
 
@@ -55,8 +60,8 @@ public class AgingCategory extends PetrolparkRecipeCategory<AgeingRecipe> {
         FluidIngredient fluidIngredient = recipe.getRequiredFluid();
         builder.addSlot(RecipeIngredientRole.INPUT, xOffset, 33)
             .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(fluidIngredient.getMatchingFluidStacks()))
-            .addTooltipCallback(addFluidTooltip(fluidIngredient.getRequiredAmount()));
+            .addIngredients(ForgeTypes.FLUID_STACK, fluidIngredient.getMatchingFluidStacks())
+                .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
 
         // Add the Item Ingredient(s)
         for (Pair<Ingredient, MutableInt> pair : condensedIngredients) {
@@ -79,8 +84,8 @@ public class AgingCategory extends PetrolparkRecipeCategory<AgeingRecipe> {
         FluidStack resultantFluid = recipe.getFluidResults().get(0);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 142, 35)
             .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredient(ForgeTypes.FLUID_STACK, withImprovedVisibility(resultantFluid))
-            .addTooltipCallback(addFluidTooltip(resultantFluid.getAmount()));
+            .addIngredient(ForgeTypes.FLUID_STACK, resultantFluid)
+            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
     };
 
     @Override
