@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyAdvancementTrigger;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.DestroyFluids;
@@ -16,20 +17,24 @@ import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.material.VatMaterial;
 import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMonitorBehaviour;
 import com.petrolpark.destroy.core.data.advancement.DestroyAdvancementBehaviour;
+import com.simibubi.create.api.event.BlockEntityBehaviourEvent;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.source.DisplaySource;
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStats;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
+import com.simibubi.create.foundation.utility.BlockFace;
 import com.simibubi.create.foundation.utility.Lang;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ColorimeterBlockEntity extends SmartBlockEntity {
@@ -45,33 +50,48 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
     public RedstoneQuantityMonitorBehaviour redstoneMonitor;
 
     protected DestroyAdvancementBehaviour advancementBehaviour;
+    protected boolean updateVatNextTick;
 
     public ColorimeterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     };
 
+    public void initialize() {
+        super.initialize();
+        updateVatNextTick = true;
+    }
+
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+        advancementBehaviour = new DestroyAdvancementBehaviour(this, DestroyAdvancementTrigger.COLORIMETER);
+        behaviours.add(advancementBehaviour);
+
         redstoneMonitor = new RedstoneQuantityMonitorBehaviour(this)
             .withLabel(f -> DestroyLang.translate("tooltip.colorimeter.menu.current_concentration", df.format(f)).component())
             .onStrengthChanged(strength -> getLevel().setBlockAndUpdate(getBlockPos(), getBlockState().setValue(ColorimeterBlock.POWERED, strength != 0)));
         behaviours.add(redstoneMonitor);
-
-        advancementBehaviour = new DestroyAdvancementBehaviour(this, DestroyAdvancementTrigger.COLORIMETER);
-        behaviours.add(advancementBehaviour);
     };
-
+    
     @Override
     public void tick() {
         super.tick();
         if (molecule != null && getVatOptional().isPresent()) advancementBehaviour.awardDestroyAdvancement(DestroyAdvancementTrigger.COLORIMETER);
+
+        if(updateVatNextTick)
+        {
+            updateVatNextTick = false;
+            updateVat();
+        }
     };
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
         super.read(tag, clientPacket);
-        setMolecule(LegacySpecies.getMolecule(tag.getString("Molecule")));
-        if (tag.contains("ObservingGas")) observingGas = true;
+
+        if(clientPacket && (Minecraft.getInstance().screen instanceof ColorimeterScreen cs) && cs.colorimeter == this)
+            return;
+
+        configure(LegacySpecies.getMolecule(tag.getString("Molecule")), tag.contains("ObservingGas"));
     };
 
     @Override
@@ -84,6 +104,7 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
     public void configure(LegacySpecies observedMolecule, boolean observingGas) {
         this.observingGas = observingGas;
         setMolecule(observedMolecule);
+        updateVatNextTick = true;
     };
 
     public LegacySpecies getMolecule() {
@@ -92,7 +113,6 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
 
     public void setMolecule(LegacySpecies molecule) {
         this.molecule = molecule;
-        updateVat();
         notifyUpdate();
     };
 
@@ -104,6 +124,11 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
             return vbe.getController();
         });
     };
+
+    public void onNeighborChanged(BlockPos neighborPos) {
+        if(neighborPos.equals(getBlockPos().relative(getBlockState().getValue(ColorimeterBlock.FACING))))
+            updateVatNextTick = true;
+    }
 
     public void updateVat() {
         Optional<VatControllerBlockEntity> vat = getVatOptional();
@@ -120,7 +145,7 @@ public class ColorimeterBlockEntity extends SmartBlockEntity {
         };
         redstoneMonitor.quantityObserved = Optional.empty();
     };
-
+    
     public static class ColorimeterDisplaySource extends DisplaySource {
 
         private static final DecimalFormat df = new DecimalFormat();

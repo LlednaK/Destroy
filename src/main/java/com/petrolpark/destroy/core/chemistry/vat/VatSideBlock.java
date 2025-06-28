@@ -19,6 +19,7 @@ import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntityTicker;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +73,7 @@ public class VatSideBlock extends CopycatBlock implements ISpecialBlockItemRequi
         return onBlockEntityUse(level, pos, be -> {
             if (!(be instanceof VatSideBlockEntity vbe)) return InteractionResult.PASS;
             if (vbe.getDisplayType().quantityObserved.isPresent()) {
-                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> openScreen(vbe));
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> openScreen(vbe, player));
                 return InteractionResult.SUCCESS;
             };
             return InteractionResult.PASS;
@@ -80,8 +81,9 @@ public class VatSideBlock extends CopycatBlock implements ISpecialBlockItemRequi
     };
 
     @OnlyIn(Dist.CLIENT)
-    public void openScreen(VatSideBlockEntity vbe) {
-        ScreenOpener.open(new RedstoneMonitorVatSideScreen(vbe));
+    public void openScreen(VatSideBlockEntity vbe, Player player) {
+        if (player instanceof LocalPlayer)
+            ScreenOpener.open(new RedstoneMonitorVatSideScreen(vbe));
     };
 
     @Override

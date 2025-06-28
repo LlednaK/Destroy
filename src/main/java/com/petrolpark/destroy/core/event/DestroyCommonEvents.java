@@ -480,15 +480,6 @@ public class DestroyCommonEvents {
             };
         };
 
-        // Consuming certain Items, even if in Creative
-        if (!AllBlocks.DEPLOYER.has(state) && event.getItemStack().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof IPickUpPutDownBlock) {
-            InteractionResult result = stack.useOn(new UseOnContext(player, event.getHand(), event.getHitVec()));
-            if (result.consumesAction() && player instanceof ServerPlayer serverPlayer) CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, stack);
-            event.setCancellationResult(result);
-            if (result != InteractionResult.PASS) event.setCanceled(true);
-            return;
-        };
-
         // Fireproof Flint and Steel
         if (stack.getItem() == Items.FLINT_AND_STEEL && FireproofingHelper.isFireproof(player.level().registryAccess(), stack)) {
             DestroyAdvancementTrigger.FIREPROOF_FLINT_AND_STEEL.award(player.level(), player);

@@ -635,7 +635,7 @@ public class VatControllerBlockEntity extends SmartBlockEntity implements IHaveL
         if (getLevel().isClientSide()) return pressure.getChaseTarget(); // It thinks getLevel() might be null (it's not)
         if (!getVatOptional().isPresent()) return 0f;
         if (getGasTank().isEmpty()) {
-            return getLiquidTank().getFluidAmount() == getLiquidTank().getCapacity() ? 0f : AIR_PRESSURE; // Return 0 for a vacuum, and normal air pressure for a full Vat
+            return getLiquidTank().getFluidAmount() == getLiquidTank().getCapacity() ? 0f : -AIR_PRESSURE; // Return 0 for a vacuum, and normal air pressure for a full Vat
         };
         return LegacyReaction.GAS_CONSTANT * 1000f * getTemperature() * ReadOnlyMixture.readNBT(ReadOnlyMixture::new, getGasTank().getFluid().getOrCreateChildTag("Mixture")).getTotalConcentration() - AIR_PRESSURE;
     };
@@ -790,12 +790,18 @@ public class VatControllerBlockEntity extends SmartBlockEntity implements IHaveL
         protected FluidStack drainGasTankWithMolarDensity(int amount, double molarDensity, FluidAction action) {
             if (vatControllerGetter.get() == null || vatControllerGetter.get().getGasTankContents().isEmpty()) return FluidStack.EMPTY;
             LegacyMixture mixture = LegacyMixture.readNBT(vatControllerGetter.get().getGasTankContents().getOrCreateChildTag("Mixture"));
+
             double scaleFactor = mixture.getTotalConcentration() / molarDensity;
-            FluidStack lostFluid = drainGasTank((int)Math.ceil(scaleFactor * amount), action); // Round up
-            mixture.scale((float)scaleFactor);
-            double drainedAmount = (double)lostFluid.getAmount() / scaleFactor;
-            FluidStack stack = MixtureFluid.of((int)Math.ceil(drainedAmount), mixture);
-            return stack;
+            int amountToDrain = Math.min((int)Math.ceil(scaleFactor * amount), amount); // Round up
+            FluidStack lostFluid = drainGasTank(amountToDrain, action);
+
+            int drainedAmount = amount;
+
+            // Don't bother scaling the mixture when simulating because this messes with Create's fluid networks
+            if(action.execute())
+                mixture.scale((float)drainedAmount / lostFluid.getAmount());
+
+            return MixtureFluid.of(drainedAmount, mixture);
         };
 
         protected void updateVatGasVolume(FluidStack drained, FluidAction action) {

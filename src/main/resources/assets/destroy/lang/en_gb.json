@@ -1390,7 +1390,7 @@
   "destroy.reaction.sulfur_trioxide_hydration": "[destroy:sulfur_trioxide] Hydration",
   "destroy.reaction.sulfur_trioxide_hydration.description": "The {hydration, destroy:hydrolysis} of [destroy:sulfur_trioxide] to make [destroy:sulfuric_acid], which is the ultimate product from combining [destroy:sulfur], [destroy:oxygen] and [destroy:water].",
   "destroy.reaction.tatp": "Acetone Peroxide Synthesis",
-  "destroy.reaction.tatp.description": "A dangerous way of producing an explosive, which has injured many an amatuer chemist.",
+  "destroy.reaction.tatp.description": "A dangerous way of producing an explosive, which has injured many an amateur chemist.",
   "destroy.reaction.tetraborate_equilibrium": "[destroy:tetrahydroxy_tetraborate] Equilibrium",
   "destroy.reaction.tetraborate_equilibrium.description": "The interconversion of various boron oxides in solution.",
   "destroy.reaction.tetraethyllead_synthesis": "[destroy:tetraethyllead] Synthesis",

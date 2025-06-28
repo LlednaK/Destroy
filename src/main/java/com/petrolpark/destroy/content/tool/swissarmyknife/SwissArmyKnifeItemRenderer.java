@@ -7,14 +7,18 @@ import javax.annotation.Nullable;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import com.petrolpark.destroy.content.tool.swissarmyknife.SwissArmyKnifeItem.Tool;
+
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRenderer;
 import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;
+import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -28,11 +32,23 @@ public class SwissArmyKnifeItemRenderer extends CustomRenderedItemModelRenderer 
     protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();
-        if (transformType == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || transformType == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
+
+        // animation only works for the local player for now
+        LivingEntity owner = null;
+        if(transformType == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || transformType == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
+            /*if(mc.player.getMainHandItem() == stack || mc.player.getOffhandItem() == stack)
+                owner = mc.player;*/
+
+            // eh
+            owner = mc.player;
+        }
+
+        if (owner != null) {
 
             boolean firstPerson = (transformType == ItemDisplayContext.FIRST_PERSON_RIGHT_HAND || transformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND);
 
-            Map<Tool, LerpedFloat> chasers = SwissArmyKnifeItem.getChasers(stack);
+            Map<Tool, LerpedFloat> chasers = SwissArmyKnifeItem.getClientState(owner).chasers;
+            float pt = AnimationTickHolder.getPartialTicks();
 
             ms.pushPose();
             if (!firstPerson) {
@@ -60,7 +76,7 @@ public class SwissArmyKnifeItemRenderer extends CustomRenderedItemModelRenderer 
                 if (toolAngle != null) {
                     TransformStack.cast(ms)
                         .translate(5 / 16f, -5 / 16f, 0f)
-                        .rotateZ(179 * (1 - toolAngle.getValue()) * (tool == RenderedTool.LOWER_SHEARS ? 1f : -1f))
+                        .rotateZ(179 * (1 - toolAngle.getValue(pt)) * (tool == RenderedTool.LOWER_SHEARS ? 1f : -1f))
                         .translateBack(5 / 16f, -5 / 16f, 0f);
                 };
                 itemRenderer.renderStatic(renderedTool, ItemDisplayContext.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffer, mc.level, 0);
@@ -107,5 +123,5 @@ public class SwissArmyKnifeItemRenderer extends CustomRenderedItemModelRenderer 
     };
 
 
-    
+
 };

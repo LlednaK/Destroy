@@ -28,7 +28,7 @@ public class PollutometerBlockEntity extends SmartBlockEntity {
 
     public PollutometerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        pollutionType = PollutionType.RADIOACTIVITY;
+        pollutionType = PollutionType.GREENHOUSE;
     };
 
     @Override
