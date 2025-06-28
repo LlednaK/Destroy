@@ -77,6 +77,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -116,6 +117,7 @@ import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.event.level.SaplingGrowTreeEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -330,6 +332,19 @@ public class DestroyCommonEvents {
     };
 
     /**
+     * Allow the Player to collect their own tears.
+     */
+    @SubscribeEvent
+    public static final void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack itemStack = player.getItemInHand(event.getHand());
+
+        if (itemStack.is(Items.GLASS_BOTTLE) && player.hasEffect(DestroyMobEffects.CRYING.get())) {
+            collectTears(event, player, event.getHand(), itemStack, player);
+        };
+    };
+
+    /**
      * Allow Strays to be captured and tears to be collected from crying Mobs.
      */
     @SubscribeEvent
@@ -363,24 +378,26 @@ public class DestroyCommonEvents {
 
         // Collecting Tears
         if (itemStack.is(Items.GLASS_BOTTLE) && event.getTarget() instanceof LivingEntity livingEntity && livingEntity.hasEffect(DestroyMobEffects.CRYING.get())) {
-
-            livingEntity.removeEffect(DestroyMobEffects.CRYING.get()); // Stop the crying
-
-            // Give the Tear Bottle to the Player
-            ItemStack filled = DestroyItems.TEAR_BOTTLE.asStack();
-            if (!player.isCreative())
-                itemStack.shrink(1);
-            if (itemStack.isEmpty()) {
-                player.setItemInHand(event.getHand(), filled);
-            } else {
-                player.getInventory().placeItemBackInInventory(filled);
-            };
-
-            DestroyAdvancementTrigger.COLLECT_TEARS.award(event.getLevel(), player);
-
-            event.setResult(Result.DENY);
-            return;
+            collectTears(event, player, event.getHand(), itemStack, livingEntity);
         };
+    };
+
+    public static void collectTears(Event event, Player player, InteractionHand hand, ItemStack bottleStack, LivingEntity cryingEntity) {
+        cryingEntity.removeEffect(DestroyMobEffects.CRYING.get()); // Stop the crying
+
+        // Give the Tear Bottle to the Player
+        ItemStack filled = DestroyItems.TEAR_BOTTLE.asStack();
+        if (!player.isCreative())
+            bottleStack.shrink(1);
+        if (bottleStack.isEmpty()) {
+            player.setItemInHand(hand, filled);
+        } else {
+            player.getInventory().placeItemBackInInventory(filled);
+        };
+
+        DestroyAdvancementTrigger.COLLECT_TEARS.award(player.level(), player);
+
+        event.setResult(Result.DENY);
     };
 
     /**
