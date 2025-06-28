@@ -11,9 +11,8 @@ import javax.annotation.Nullable;
 
 import com.petrolpark.destroy.DestroyMessages;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;
 
+import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -70,7 +69,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
         public ClientState() {
             chasers = new EnumMap<>(Tool.class);
             for (Tool tool : Tool.values()) {
-                chasers.put(tool, LerpedFloat.angular().chase(0d, 0.4d, Chaser.EXP));
+                chasers.put(tool, LerpedFloat.angular().chase(0d, 0.4d, LerpedFloat.Chaser.EXP));
             };
         };
 
@@ -82,7 +81,7 @@ public class SwissArmyKnifeItem extends DiggerItem {
                 if(animTimer >= 8) {
                     animTimer = 0;
                     lastSelectedTool = selectedTool;
-                    chasers.forEach((entry, value) -> value.chase(entry == selectedTool ? 1d : 0d, 0.4d, Chaser.EXP));
+                    chasers.forEach((entry, value) -> value.chase(entry == selectedTool ? 1d : 0d, 0.4d, LerpedFloat.Chaser.EXP));
                 };
             };
         };
@@ -246,9 +245,9 @@ public class SwissArmyKnifeItem extends DiggerItem {
         HOE(ToolActions.DEFAULT_HOE_ACTIONS,() -> new ItemStack(Items.IRON_HOE)),
         SHEARS(ToolActions.DEFAULT_SHEARS_ACTIONS, () -> new ItemStack(Items.IRON_PICKAXE));
 
-        public static Map<Tool, LerpedFloat> ALL_RETRACTED = new EnumMap<>(Tool.class);
+        public static final Map<Tool, LerpedFloat> ALL_RETRACTED = new EnumMap<>(Tool.class);
         static {
-            for (Tool tool : values()) ALL_RETRACTED.put(tool, LerpedFloat.angular().chase(0d, 0.4d, Chaser.EXP));
+            for (Tool tool : values()) ALL_RETRACTED.put(tool, LerpedFloat.angular().chase(0d, 0.4d, LerpedFloat.Chaser.EXP));
         };
 
         public final Set<ToolAction> actions;

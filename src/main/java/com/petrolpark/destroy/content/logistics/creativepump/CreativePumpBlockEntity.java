@@ -9,11 +9,10 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBoard;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsFormatter;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.VecHelper;
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,11 +40,11 @@ public class CreativePumpBlockEntity extends PumpBlockEntity {
         pumpSpeedBehaviour = new ScrollValueBehaviour(Component.translatable("block.destroy.creative_pump.speed"), this, new CreativePumpValueSlot()) {
             @Override
             public ValueSettingsBoard createBoard(Player player, BlockHitResult hitResult) {
-                return new ValueSettingsBoard(label, max, 16, ImmutableList.of(Components.literal("\u2192").withStyle(ChatFormatting.BOLD)), new ValueSettingsFormatter(this::formatSettings));
+                return new ValueSettingsBoard(label, max, 16, ImmutableList.of(Component.literal("\u2192").withStyle(ChatFormatting.BOLD)), new ValueSettingsFormatter(this::formatSettings));
             };
 
             public MutableComponent formatSettings(ValueSettings settings) {
-                return Lang.number(Math.max(1, settings.value())).component();
+                return CreateLang.number(Math.max(1, settings.value())).component();
             };
         }
             .between(1, AllConfigs.server().kinetics.maxRotationSpeed.get())

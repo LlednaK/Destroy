@@ -5,11 +5,10 @@ import com.petrolpark.destroy.DestroyClient;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import com.simibubi.create.foundation.utility.Color;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat.Chaser;
 
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.theme.Color;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.material.FluidState;
@@ -46,7 +45,7 @@ public class FogHandler {
         }
         targetColor = color;
         colorMix.setValue(0d);
-        colorMix.chase(1d, 0.2d, Chaser.EXP);
+        colorMix.chase(1d, 0.2d, LerpedFloat.Chaser.EXP);
     };
 
     public Color getColor(float partialTicks) {
