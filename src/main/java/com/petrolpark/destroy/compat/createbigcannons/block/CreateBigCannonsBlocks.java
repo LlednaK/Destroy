@@ -6,9 +6,8 @@ import com.petrolpark.destroy.compat.createbigcannons.DestroyMunitionPropertiesH
 import com.petrolpark.destroy.compat.createbigcannons.item.CustomExplosiveMixChargeBlockItem;
 import com.petrolpark.destroy.compat.createbigcannons.item.CustomExplosiveMixShellBlockItem;
 import com.petrolpark.destroy.compat.jei.DestroyJEISetup;
-
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.resources.ResourceLocation;
+
 import net.minecraft.world.item.ItemStack;
 import rbasamoyai.createbigcannons.index.CBCBlocks;
 import rbasamoyai.createbigcannons.munitions.config.MunitionPropertiesHandler;

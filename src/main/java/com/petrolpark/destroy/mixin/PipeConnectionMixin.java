@@ -3,25 +3,18 @@ package com.petrolpark.destroy.mixin;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.chemistry.legacy.LegacyMixture;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.petrolpark.destroy.DestroyFluids;
 import com.petrolpark.destroy.mixin.accessor.FluidNetworkAccessor;
 import com.petrolpark.destroy.mixin.accessor.PipeConnectionAccessor;
-import com.simibubi.create.content.fluids.FlowSource;
 import com.simibubi.create.content.fluids.FluidNetwork;
 import com.simibubi.create.content.fluids.PipeConnection;
-import com.simibubi.create.content.fluids.PipeConnection.Flow;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

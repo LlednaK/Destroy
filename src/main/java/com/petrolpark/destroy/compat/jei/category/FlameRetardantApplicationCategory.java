@@ -1,18 +1,15 @@
 package com.petrolpark.destroy.compat.jei.category;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.content.product.fireretardant.FireproofingHelper;
 import com.petrolpark.destroy.content.product.fireretardant.FlameRetardantApplicationRecipe;
-import com.petrolpark.destroy.mixin.compat.jei.CreateRecipeCategoryAccessor;
 import com.simibubi.create.compat.jei.category.animations.AnimatedSpout;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
@@ -25,7 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-
 
 public class FlameRetardantApplicationCategory extends PetrolparkRecipeCategory<FlameRetardantApplicationRecipe> {
 
@@ -47,10 +43,7 @@ public class FlameRetardantApplicationCategory extends PetrolparkRecipeCategory<
 		    .setBackground(getRenderedSlot(), -1, -1)
 			.addItemStacks(items)
             .addRichTooltipCallback((v, t) -> { if (example) t.add(DestroyLang.translate("recipe.fireproofing.info").style(ChatFormatting.GOLD).component()); });
-		builder.addSlot(RecipeIngredientRole.INPUT, 27, 32)
-            .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredients(ForgeTypes.FLUID_STACK, recipe.getRequiredFluid().getMatchingFluidStacks())
-            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
+		addFluidSlot(builder, 27, 32, recipe.getRequiredFluid());
 		builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 132, 51)
             .setBackground(getRenderedSlot(), -1, -1)
             .addItemStacks(items.stream().map(i -> {

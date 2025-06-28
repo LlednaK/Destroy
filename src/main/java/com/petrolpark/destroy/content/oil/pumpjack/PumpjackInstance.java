@@ -1,28 +1,21 @@
 package com.petrolpark.destroy.content.oil.pumpjack;
 
+import java.util.function.Consumer;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.petrolpark.destroy.client.DestroyPartials;
 
 import dev.engine_room.flywheel.api.instance.Instance;
-import dev.engine_room.flywheel.api.visual.BlockEntityVisual;
-import dev.engine_room.flywheel.api.visual.DynamicVisual;
-import dev.engine_room.flywheel.api.visualization.VisualManager;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
-import dev.engine_room.flywheel.lib.material.Materials;
 import dev.engine_room.flywheel.lib.model.Models;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
 import net.createmod.catnip.math.AngleHelper;
-import net.minecraft.client.model.geom.builders.MaterialDefinition;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.levelgen.material.MaterialRuleList;
-import net.minecraftforge.client.model.data.ModelData;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 public class PumpjackInstance extends AbstractBlockEntityVisual<PumpjackBlockEntity> implements SimpleDynamicVisual {
 
@@ -48,13 +41,6 @@ public class PumpjackInstance extends AbstractBlockEntityVisual<PumpjackBlockEnt
     @Override
     public void beginFrame(Context ctx) {
         Float angle = blockEntity.getRenderAngle();
-		if (angle == null) {
-			cam.setZeroTransform();
-			linkage.setZeroTransform();
-			beam.setZeroTransform();
-            pump.setZeroTransform();
-			return;
-		};
 
         Direction facing = PumpjackBlock.getFacing(blockState);
 

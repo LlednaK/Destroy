@@ -8,7 +8,7 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.connectedText
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 import com.petrolpark.destroy.config.DestroyAllConfigs;
-import com.petrolpark.destroy.config.DestroyStress;
+import com.petrolpark.destroy.config.DestroyStressConfigs;
 import com.petrolpark.destroy.content.logistics.creativepump.CreativePumpBlock;
 import com.petrolpark.destroy.content.logistics.siphon.SiphonBlock;
 import com.petrolpark.destroy.content.oil.pumpjack.PumpjackBlock;
@@ -17,10 +17,8 @@ import com.petrolpark.destroy.content.oil.pumpjack.PumpjackCamBlock;
 import com.petrolpark.destroy.content.oil.pumpjack.PumpjackStructuralBlock;
 import com.petrolpark.destroy.content.processing.ageing.AgingBarrelBlock;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeBlock;
-import com.petrolpark.destroy.content.processing.centrifuge.CentrifugeBlockEntity;
 import com.petrolpark.destroy.content.processing.cooler.CoolerBlock;
 import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlock;
-import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlockEntity;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlock;
 import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
 import com.petrolpark.destroy.content.processing.extrusion.ExtrusionDieBlock;
@@ -53,10 +51,8 @@ import com.petrolpark.destroy.core.chemistry.storage.measuringcylinder.Measuring
 import com.petrolpark.destroy.core.chemistry.storage.measuringcylinder.MeasuringCylinderBlockItem;
 import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackBlock;
 import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlock;
-import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlock;
 import com.petrolpark.destroy.core.chemistry.vat.observation.colorimeter.ColorimeterBlock;
-import com.petrolpark.destroy.core.chemistry.vat.observation.colorimeter.ColorimeterBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.uv.BlacklightBlock;
 import com.petrolpark.destroy.core.explosion.DynamiteBlock;
 import com.petrolpark.destroy.core.explosion.PrimeableBombBlock;
@@ -66,7 +62,6 @@ import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockI
 import com.petrolpark.destroy.core.item.CombustibleBlockItem;
 import com.petrolpark.destroy.core.pollution.PollutometerBlock;
 import com.petrolpark.destroy.core.pollution.catalyticconverter.CatalyticConverterBlock;
-import com.petrolpark.destroy.core.pollution.pollutometer.PollutometerDisplaySource;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.AllTags.AllBlockTags;
@@ -163,7 +158,7 @@ public class DestroyBlocks {
         .transform(displaySource(DestroyDisplaySources.CENTRIFUGE_LIGHT_OUTPUT))
         .blockstate((c,p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c,p)))
         .transform(TagGen.pickaxeOnly())
-        .transform(DestroyStress.setImpact(5.0))
+        .transform(DestroyStressConfigs.setImpact(5.0))
         .item()
         .transform(customItemModel())
         .register();
@@ -214,7 +209,7 @@ public class DestroyBlocks {
             .mapColor(MapColor.GOLD)
             .noOcclusion()
         ).transform(TagGen.pickaxeOnly())
-        .transform(DestroyStress.setImpact(6.0))
+        .transform(DestroyStressConfigs.setImpact(6.0))
         .item(AssemblyOperatorBlockItem::new)
         .tag(DestroyTags.Items.LIABLE_TO_CHANGE.tag)
         .transform(customItemModel())
@@ -266,7 +261,7 @@ public class DestroyBlocks {
     public static final BlockEntry<MechanicalSieveBlock> MECHANICAL_SIEVE = REGISTRATE.block("mechanical_sieve", MechanicalSieveBlock::new)
         .initialProperties(SharedProperties::stone)
         .properties(BlockBehaviour.Properties::noOcclusion
-        ).transform(DestroyStress.setImpact(0.5d))
+        ).transform(DestroyStressConfigs.setImpact(0.5d))
         .transform(TagGen.axeOrPickaxe())
         .item()
         .transform(customItemModel())
@@ -290,7 +285,7 @@ public class DestroyBlocks {
             .noOcclusion()
             .isSuffocating((state, level, pos) -> false)
         ).transform(TagGen.pickaxeOnly())
-        .transform(DestroyStress.setImpact(8.0))
+        .transform(DestroyStressConfigs.setImpact(8.0))
         .item(PumpjackBlockItem::new)
         .transform(customItemModel())
         .register();

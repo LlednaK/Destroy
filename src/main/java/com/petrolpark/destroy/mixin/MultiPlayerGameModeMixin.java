@@ -2,6 +2,7 @@ package com.petrolpark.destroy.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.petrolpark.destroy.core.block.IPickUpPutDownBlock;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@MoveToPetrolparkLibrary
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
     private static ThreadLocal<Boolean> currentItemStackIgnoresCreative = new ThreadLocal<>();

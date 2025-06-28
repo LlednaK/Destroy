@@ -4,21 +4,15 @@ import com.petrolpark.client.rendering.PetrolparkGuiTexture;
 import com.petrolpark.compat.jei.category.PetrolparkRecipeCategory;
 import com.petrolpark.destroy.compat.jei.animation.AnimatedCentrifuge;
 import com.petrolpark.destroy.content.processing.centrifuge.CentrifugationRecipe;
-import com.petrolpark.destroy.mixin.compat.jei.CreateRecipeCategoryAccessor;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.fluids.FluidStack;
-
-import static com.simibubi.create.compat.jei.category.CreateRecipeCategory.getRenderedSlot;
-
 
 public class CentrifugationCategory extends PetrolparkRecipeCategory<CentrifugationRecipe> {
 
@@ -38,25 +32,11 @@ public class CentrifugationCategory extends PetrolparkRecipeCategory<Centrifugat
         FluidStack denseOutputFluid = recipe.getDenseOutputFluid();
         FluidStack lightOutputFluid = recipe.getLightOutputFluid();
 
-        builder
-            .addSlot(RecipeIngredientRole.INPUT, 3, 3)
-            .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredients(ForgeTypes.FLUID_STACK, inputFluid.getMatchingFluidStacks())
-            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
+        addFluidSlot(builder, 3, 3, inputFluid);
         addOptionalRequiredBiomeSlot(builder, recipe, 3, 19);
 
-        builder
-            .addSlot(RecipeIngredientRole.OUTPUT, 99, 38)
-            .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredient(ForgeTypes.FLUID_STACK, denseOutputFluid)
-            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
-
-        builder
-            .addSlot(RecipeIngredientRole.OUTPUT, 33, 96)
-            .setBackground(getRenderedSlot(), -1, -1)
-            .addIngredient(ForgeTypes.FLUID_STACK, lightOutputFluid)
-            .addTooltipCallback(CreateRecipeCategoryAccessor::invokeAddPotionTooltip);
-        
+        addFluidSlot(builder, 99, 38, denseOutputFluid);
+        addFluidSlot(builder, 33, 96, lightOutputFluid);
     };
 
     @Override
