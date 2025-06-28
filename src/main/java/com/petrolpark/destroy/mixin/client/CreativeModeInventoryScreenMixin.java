@@ -2,6 +2,8 @@ package com.petrolpark.destroy.mixin.client;
 
 import javax.annotation.Nullable;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,14 +43,14 @@ public abstract class CreativeModeInventoryScreenMixin extends EffectRenderingIn
     /**
      * Don't add Extended Inventory Slots to the Survival Inventory section of the Creative Inventory in the normal way.
      */
-    @Redirect(
-        method = "Lnet/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen;selectTab(Lnet/minecraft/world/item/CreativeModeTab;)V",
+    @WrapOperation(
+        method = "selectTab",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/core/NonNullList;size()I"
         )
     )
-    public int addLimitedSlots(NonNullList<Slot> slots) {
+    public int addLimitedSlots(NonNullList<Slot> slots, Operation<Integer> original) {
         return 46;
     };
 
