@@ -1,13 +1,5 @@
 package com.petrolpark.destroy;
 
-import com.simibubi.create.AllContraptionTypes;
-import com.simibubi.create.content.equipment.potatoCannon.AllPotatoProjectileBlockHitActions;
-import com.simibubi.create.content.equipment.potatoCannon.AllPotatoProjectileEntityHitActions;
-import com.simibubi.create.content.equipment.potatoCannon.AllPotatoProjectileRenderModes;
-import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
-import com.simibubi.create.content.kinetics.mechanicalArm.AllArmInteractionPointTypes;
-import com.simibubi.create.content.logistics.item.filter.attribute.AllItemAttributeTypes;
-import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -35,9 +27,9 @@ import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import net.createmod.catnip.lang.FontHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
+import net.createmod.catnip.lang.FontHelper.Palette;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -49,6 +41,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(Destroy.MOD_ID)
 public class Destroy {

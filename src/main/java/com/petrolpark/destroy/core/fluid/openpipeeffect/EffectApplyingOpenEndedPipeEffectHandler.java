@@ -3,7 +3,6 @@ package com.petrolpark.destroy.core.fluid.openpipeeffect;
 import java.util.List;
 
 import com.simibubi.create.api.effect.OpenPipeEffectHandler;
-import com.simibubi.create.content.fluids.OpenEndedPipe;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
