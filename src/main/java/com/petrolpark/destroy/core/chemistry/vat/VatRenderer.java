@@ -2,21 +2,22 @@ package com.petrolpark.destroy.core.chemistry.vat;
 
 import java.util.Optional;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.petrolpark.destroy.DestroyBlockEntityTypes;
 import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 import com.petrolpark.destroy.client.DestroyPartials;
-import com.petrolpark.destroy.client.DestroyRenderTypes;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.VecHelper;
 
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -61,54 +62,54 @@ public class VatRenderer extends SafeBlockEntityRenderer<VatControllerBlockEntit
             Direction facing = vatSide.direction;
             switch (vatSide.getDisplayType()) {
                 case PIPE: {
-                    CachedBufferer.partialFacing(DestroyPartials.VAT_SIDE_PIPE, state, facing)
+                    CachedBuffers.partialFacing(DestroyPartials.VAT_SIDE_PIPE, state, facing)
                         .translate(sidePos.subtract(controller.getBlockPos()))
                         .light(light)
                         .renderInto(ms, vbSolid);
                     break;
 
                 } case BAROMETER: {
-                    CachedBufferer.partialFacing(DestroyPartials.VAT_SIDE_BAROMETER, state, facing)
+                    CachedBuffers.partialFacing(DestroyPartials.VAT_SIDE_BAROMETER, state, facing)
                         .translate(sidePos.subtract(controller.getBlockPos()))
                         .light(light)
                         .renderInto(ms, vbSolid);
                     if (facing.getAxis() == Axis.Y) break;
                     ms.pushPose();
-                    CachedBufferer.partial(DestroyPartials.VAT_SIDE_BAROMETER_DIAL, state)
+                    CachedBuffers.partial(DestroyPartials.VAT_SIDE_BAROMETER_DIAL, state)
                         .translate(sidePos.subtract(controller.getBlockPos()))
-                        .centre()
-                        .rotateY((facing.getAxis() == Axis.X ? facing.getClockWise() : facing.getCounterClockWise()).toYRot())
-                        .unCentre()
+                        .center()
+                        .rotateYDegrees((facing.getAxis() == Axis.X ? facing.getClockWise() : facing.getCounterClockWise()).toYRot())
+                        .uncenter()
                         .translate(2 / 16f, 0, 0)
                         .translate(0d, dialPivot, dialPivot)
-                        .rotateX(-90 - 180 * Mth.clamp(controller.getClientPressure(partialTicks) / controller.getVatOptional().get().getMaxPressure(), -1f, 1f))
+                        .rotateXDegrees(-90 - 180 * Mth.clamp(controller.getClientPressure(partialTicks) / controller.getVatOptional().get().getMaxPressure(), -1f, 1f))
                         .light(light)
                         .renderInto(ms, vbSolid);
                     ms.popPose();
                     break;
                 } case THERMOMETER: {
-                    CachedBufferer.partialFacing(DestroyPartials.VAT_SIDE_THERMOMETER, state, facing)
+                    CachedBuffers.partialFacing(DestroyPartials.VAT_SIDE_THERMOMETER, state, facing)
                         .translate(sidePos.subtract(controller.getBlockPos()))
                         .light(light)
                         .renderInto(ms, vbCutout);
                     break;
                 } case BAROMETER_BLOCKED: case THERMOMETER_BLOCKED: {
-                    CachedBufferer.partialFacing(DestroyPartials.VAT_SIDE_REDSTONE_INTERFACE, state, facing)
+                    CachedBuffers.partialFacing(DestroyPartials.VAT_SIDE_REDSTONE_INTERFACE, state, facing)
                         .translate(sidePos.subtract(controller.getBlockPos()))
                         .light(light)
                         .renderInto(ms, vbCutout);
                     break;
                 } case OPEN_VENT: case CLOSED_VENT: {
-                    CachedBufferer.partial(DestroyPartials.VAT_SIDE_VENT, state)
+                    CachedBuffers.partial(DestroyPartials.VAT_SIDE_VENT, state)
                         .translate(sidePos.subtract(controller.getBlockPos()))
                         .light(light)
                         .renderInto(ms, vbSolid);
                     for (boolean top : Iterate.trueAndFalse) {
                         for (int i = 0; i < 5; i++) {
-                            CachedBufferer.partial(DestroyPartials.VAT_SIDE_VENT_BAR, state)
+                            CachedBuffers.partial(DestroyPartials.VAT_SIDE_VENT_BAR, state)
                                 .translate(sidePos.subtract(controller.getBlockPos()))
                                 .translate((4 / 16f) + (i * 2 / 16f), top ? 17.5 / 16f : -1.5 / 16f, 0f)
-                                .rotateZ(vatSide.ventOpenness.getValue(partialTicks) * -75)
+                                .rotateZDegrees(vatSide.ventOpenness.getValue(partialTicks) * -75)
                                 .light(light)
                                 .renderInto(ms, vbSolid);
                         };
@@ -116,22 +117,6 @@ public class VatRenderer extends SafeBlockEntityRenderer<VatControllerBlockEntit
                     break;
                 } default: {}
             };
-        };
-
-        // Fluids
-        FluidStack fluidStack = controller.getLiquidTankContents();
-        if (!fluidStack.isEmpty()) {
-            FluidRenderer.renderFluidBox(fluidStack,
-                (float)relativeInternalLowerCorner.x + 1 / 32f, (float)relativeInternalLowerCorner.y, (float)relativeInternalLowerCorner.z + 1 / 32f,
-                (float)relativeInternalUpperCorner.x - 1 / 32f, relativeFluidLevel, (float)relativeInternalUpperCorner.z - 1 / 32f,
-                bufferSource.getBuffer(DestroyRenderTypes.fluidNoCull()), ms, light, true);
-        };
-        FluidStack gasStack = MixtureFluid.gasOf(controller.getGasTankContents());
-        if (!gasStack.isEmpty()) {
-            FluidRenderer.renderFluidBox(gasStack,
-                (float)relativeInternalLowerCorner.x + 1 / 32f, relativeFluidLevel, (float)relativeInternalLowerCorner.z + 1 / 32f,
-                (float)relativeInternalUpperCorner.x - 1 / 32f, (float)relativeInternalUpperCorner.y, (float)relativeInternalUpperCorner.z - 1 / 32f,
-                bufferSource.getBuffer(DestroyRenderTypes.fluidNoCull()), ms, light, true);
         };
 
         // Items
@@ -153,16 +138,32 @@ public class VatRenderer extends SafeBlockEntityRenderer<VatControllerBlockEntit
                     ms.pushPose();
                     if (fluidLevel > 0) ms.translate(0, (Mth.sin(AnimationTickHolder.getRenderTime(controller.getLevel()) / 12f + angle) + 1.5f) * 1 / 32f, 0); // Bobbing
                     ms.translate(itemPosition.x(), itemPosition.y(), itemPosition.z()); // Position
-                    TransformStack.cast(ms) // Rotation of Item itself
-                        .rotateY(angle + 35)
-                        .rotateX(65);
+                    TransformStack.of(ms) // Rotation of Item itself
+                        .rotateYDegrees(angle + 35)
+                        .rotateXDegrees(65);
                     renderItem(ms, bufferSource, light, overlay, stack);
                     ms.popPose();
 
                     nthItem++;
-                    angle += 10 + 270 / nthItem;
+                    angle += 10 + 270.f / nthItem;
                 };
             };
+        };
+
+        // Fluids
+        FluidStack fluidStack = controller.getLiquidTankContents();
+        if (!fluidStack.isEmpty()) {
+            FluidRenderer.renderFluidBox(fluidStack.getRawFluid(), fluidStack.getAmount(),
+                    (float)relativeInternalLowerCorner.x + 1 / 32f, (float)relativeInternalLowerCorner.y, (float)relativeInternalLowerCorner.z + 1 / 32f,
+                    (float)relativeInternalUpperCorner.x - 1 / 32f, relativeFluidLevel, (float)relativeInternalUpperCorner.z - 1 / 32f,
+                    bufferSource, ms, light, true, true, fluidStack.getTag());
+        };
+        FluidStack gasStack = MixtureFluid.gasOf(controller.getGasTankContents());
+        if (!gasStack.isEmpty()) {
+            FluidRenderer.renderFluidBox(gasStack.getRawFluid(), gasStack.getAmount(),
+                    (float)relativeInternalLowerCorner.x + 1 / 32f, relativeFluidLevel, (float)relativeInternalLowerCorner.z + 1 / 32f,
+                    (float)relativeInternalUpperCorner.x - 1 / 32f, (float)relativeInternalUpperCorner.y, (float)relativeInternalUpperCorner.z - 1 / 32f,
+                    bufferSource, ms, light, true, true, gasStack.getTag());
         };
     };
 
@@ -172,7 +173,7 @@ public class VatRenderer extends SafeBlockEntityRenderer<VatControllerBlockEntit
 	};
 
     @Override
-    public boolean shouldRenderOffScreen(VatControllerBlockEntity controller) {
+    public boolean shouldRenderOffScreen(@NotNull VatControllerBlockEntity controller) {
         return true;
     };
     
