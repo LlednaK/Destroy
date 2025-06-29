@@ -30,9 +30,9 @@ import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
+import net.createmod.catnip.lang.FontHelper.Palette;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,6 +44,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(Destroy.MOD_ID)
 public class Destroy {
@@ -104,9 +105,9 @@ public class Destroy {
         DestroyLoot.register(modEventBus);
         DestroyDamageTypes.register();
         DestroyStats.register(modEventBus);
-        DestroyItemAttributes.register();
         DestroyAttributes.register(modEventBus);
         DestroyMovementChecks.register();
+        DestroyDisplaySources.register();
 
         // Events
         MinecraftForge.EVENT_BUS.register(this);
@@ -116,6 +117,7 @@ public class Destroy {
 
         // Initiation Events
         modEventBus.addListener(Destroy::init);
+        modEventBus.addListener(Destroy::onRegister);
         if (!datagen) modEventBus.addListener(DestroySoundEvents::register);
         modEventBus.addListener(DestroyClient::clientInit);
         modEventBus.addListener(EventPriority.LOWEST, Destroy::gatherData);
@@ -145,7 +147,6 @@ public class Destroy {
         VatMaterial.registerDestroyVatMaterials();
         DestroyOpenEndedPipeEffectHandlers.register();
         DestroyAdvancementTrigger.register();
-        DestroyPotatoCannonProjectileTypes.register();
         DestroyBlockExtrusions.register();
 
         // Chemistry
@@ -158,6 +159,13 @@ public class Destroy {
         // Config
         GogglesItem.addIsWearingPredicate(player -> player.isCreative() && DestroyAllConfigs.SERVER.automaticGoggles.get());
     };
+
+
+    public static void onRegister(final RegisterEvent event) {
+        DestroyItemAttributeTypes.init();
+        DestroyPotatoProjectileEntityHitActions.init();
+        DestroyPotatoProjectileBlockHitActions.init();
+    }
 
     // Datagen
     public static void gatherData(GatherDataEvent event) {
