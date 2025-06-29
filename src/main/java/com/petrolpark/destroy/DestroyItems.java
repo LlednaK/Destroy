@@ -740,8 +740,6 @@ public class DestroyItems {
     DISCHARGED_VOLTAIC_PILE = REGISTRATE.item("discharged_voltaic_pile", Item::new)
         .tag(DestroyTags.Items.LIABLE_TO_CHANGE.tag)
         .register(),
-    PAPER_PULP = REGISTRATE.item("paper_pulp", Item::new)
-        .register(),
     MESH = REGISTRATE.item("mesh", Item::new)
         .register(),
     TEAR_BOTTLE = REGISTRATE.item("tear_bottle", Item::new)

@@ -69,7 +69,6 @@ import com.petrolpark.destroy.core.explosion.mixedexplosive.MixedExplosiveBlockI
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
-import com.simibubi.create.foundation.utility.Pair;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -86,7 +85,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
-import mezz.jei.library.plugins.vanilla.anvil.AnvilRecipe;
+import net.createmod.catnip.data.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -327,7 +326,7 @@ public class DestroyJEI implements IModPlugin {
         registration.addRecipes(RecipeTypes.CRAFTING, ExtendedDurationFireworkRocketRecipe.exampleRecipes());
 
         // Anvil repairs
-        registration.addRecipes(RecipeTypes.ANVIL, getAnvilRepairs());
+        registration.addRecipes(RecipeTypes.ANVIL, getAnvilRepairs(registration));
 	};
 
     @Override
@@ -434,7 +433,7 @@ public class DestroyJEI implements IModPlugin {
 
     };
 
-    private static List<IJeiAnvilRecipe> getAnvilRepairs() {
+    private static List<IJeiAnvilRecipe> getAnvilRepairs(IRecipeRegistration registration) {
         List<Pair<Item, Ingredient>> repairables = List.of(
             Pair.of(DestroyItems.HAZMAT_SUIT.get(), DestroyArmorMaterials.HAZMAT.getRepairIngredient()),
             Pair.of(DestroyItems.HAZMAT_LEGGINGS.get(), DestroyArmorMaterials.HAZMAT.getRepairIngredient()),
@@ -446,14 +445,22 @@ public class DestroyJEI implements IModPlugin {
             Pair.of(DestroyItems.GOLD_LABORATORY_GOGGLES.get(), DestroyItems.GOLD_LABORATORY_GOGGLES.get().getRepairIngredient())
         );
 
-        return repairables.stream().map(pair -> makeRepairRecipe(new ItemStack(pair.getFirst()), pair.getSecond())).toList();
+        return repairables.stream().map(pair -> makeRepairRecipe(registration, new ItemStack(pair.getFirst()), pair.getSecond())).toList();
     };
 
-    public static IJeiAnvilRecipe makeRepairRecipe(ItemStack input, Ingredient repairItem) {
+    static int anvilRecipeId = 0;
+
+    public static IJeiAnvilRecipe makeRepairRecipe(IRecipeRegistration registration, ItemStack input, Ingredient repairItem) {
         ItemStack halfDurability = input.copy();
         halfDurability.setDamageValue(halfDurability.getMaxDamage() / 2);
         ItemStack threeQuarterDurability = input.copy();
         threeQuarterDurability.setDamageValue(threeQuarterDurability.getMaxDamage() * 3 / 4);
-        return new AnvilRecipe(Collections.singletonList(halfDurability), Arrays.asList(repairItem.getItems()), Collections.singletonList(threeQuarterDurability), null);
+
+        return registration.getVanillaRecipeFactory().createAnvilRecipe(
+            Collections.singletonList(halfDurability),
+            Arrays.asList(repairItem.getItems()),
+            Collections.singletonList(threeQuarterDurability),
+            Destroy.asResource(input.getDescriptionId()+"_repair_"+anvilRecipeId++)
+        );
     };
 };
