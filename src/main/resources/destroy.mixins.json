@@ -48,7 +48,6 @@
         "ItemEntityMixin",
         "LevelSettingsMixin",
         "MechanicalMixerBlockEntityMixin",
-        "MobEffectInstanceMixin",
         "MultiPlayerGameModeMixin",
         "PipeConnectionMixin",
         "PlayerMixin",
@@ -80,7 +79,6 @@
         "client.LevelRendererMixin",
         "client.MinecraftMixin",
         "client.MultiPlayerGameModeMixin",
-        "client.PonderWorldMixin",
         "client.PostPassMixin",
         "client.PonderLevelMixin",
         "client.RecipeBookComponentMixin"
