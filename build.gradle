@@ -60,7 +60,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             arg '-mixin.config=destroy.mixins.json'
-            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
+            //jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
             property 'forge.logging.console.level', 'info'
             mods {
                 destroy {
@@ -126,9 +126,9 @@ repositories {
         }
     }
 
-    /*flatDir {
+    flatDir {
         dirs "../petrolpark_local_maven/petrolpark/petrolpark-${minecraft_version}/${petrolpark_library_version}"
-    }*/
+    }
 
     flatDir {
         dirs "../petrolpark_local_maven/cbc-${minecraft_version}/"
@@ -204,7 +204,7 @@ dependencies {
     compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // Petrolpark Library (temporary)
-    implementation fg.deobf("maven.modrinth:petrolpark:${minecraft_version}-${petrolpark_library_version}:all")
+    implementation fg.deobf("com.petrolpark:petrolpark:${minecraft_version}-${petrolpark_library_version}")
 
     // JGraphT
     jarJar(implementation("org.jgrapht:jgrapht-core:[${jgrapht_version}]"))
