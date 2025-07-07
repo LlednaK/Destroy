@@ -1,48 +1,29 @@
-package com.petrolpark.petrolsparts.content.double_cardan_shaft;
+package com.petrolpark.petrolsparts.content.corner_shaft;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.petrolpark.petrolsparts.PetrolsPartsBlockEntityTypes;
-import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
-import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implements IBE<DoubleCardanShaftBlockEntity>, ProperWaterloggedBlock {
+public abstract class AbstractCornerShaftBlock extends DirectionalAxisKineticBlock implements IBE<CornerShaftBlockEntity> {
 
-    public DoubleCardanShaftBlock(Properties properties) {
+    public AbstractCornerShaftBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
-    };
-
-    @Override
-    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
-        super.createBlockStateDefinition(builder);
     };
 
     @Override
@@ -54,49 +35,22 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
         } else {
             direction2 = context.getNearestLookingVerticalDirection();
         };
-        return withWater(getBlockstateConnectingDirections(direction1, direction2), context);
+        return getBlockstateConnectingDirections(direction1, direction2);
 	};
 
-    @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        updateWater(level, state, pos);
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    public static boolean hasShaftTowards(BlockState state, Direction face) {
+        return Arrays.asList(getDirectionsConnectedByState(state)).contains(face);
     };
 
     @Override
 	public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
-        return Arrays.asList(getDirectionsConnectedByState(state)).contains(face);
+        return hasShaftTowards(state, face);
 	};
 
     @Override
     public BlockState getRotatedBlockState(BlockState originalState, Direction targetedFace) {
         return transform(originalState, new StructureTransform(new BlockPos(0, 0, 0), targetedFace.getAxis(), Rotation.CLOCKWISE_90, Mirror.NONE));
     };
-
-    @Override
-	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Direction xDirection = null, yDirection = null, zDirection = null;
-        for (Direction direction : getDirectionsConnectedByState(state)) {
-            switch (direction.getAxis()) {
-                case X:
-                    xDirection = direction;
-                    break;
-                case Y:
-                    yDirection = direction;
-                    break;
-                case Z:
-                    zDirection = direction;
-            };
-        };
-        return new AllShapes.Builder(Block.box(
-            xDirection == Direction.WEST ? 0d : 5d,
-            yDirection == Direction.DOWN ? 0d : 5d,
-            zDirection == Direction.NORTH ? 0d : 5d,
-            xDirection == Direction.EAST ? 16d : 11,
-            yDirection == Direction.UP ? 16d : 11d,
-            zDirection == Direction.SOUTH ? 16d : 11d
-        )).build();
-	};
 
     /**
      * XYZXYZ
@@ -117,8 +71,8 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
      * -X WEST   false          +Z SOUTH
      * +Y UP     true           +Z SOUTH
      * +Y UP     false          -X WEST
-     * -Y DOWN   true           -Z SOUTH
-     * -Y DOWN   false          +Z NORTH
+     * -Y DOWN   true           -Z NORTH
+     * -Y DOWN   false          +Z EAST
      */
     public static Direction[] getDirectionsConnectedByState(BlockState state) {
         Direction facing = state.getValue(DirectionalKineticBlock.FACING);
@@ -140,7 +94,7 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
         return new Direction[]{facing, Direction.fromAxisAndDirection(secondDirectionAxis, facing.getAxisDirection() == AxisDirection.POSITIVE ^ axisAlongFirst ? AxisDirection.NEGATIVE : AxisDirection.POSITIVE)};
     };
 
-    public static BlockState getBlockstateConnectingDirections(Direction direction1, Direction direction2) {
+    public BlockState getBlockstateConnectingDirections(Direction direction1, Direction direction2) {
         boolean axisAlongFirst = (direction1.getAxisDirection() == direction2.getAxisDirection());
         Map<Axis, Direction> directionsForEachAxis = Map.of(direction1.getAxis(), direction1, direction2.getAxis(), direction2);
         List<Axis> axes = new ArrayList<>();
@@ -161,7 +115,7 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
             default:
                 throw new IllegalStateException("Unknown axis");
         };
-        return PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT.getDefaultState().setValue(DirectionalKineticBlock.FACING, directionsForEachAxis.get(primaryAxis)).setValue(DirectionalAxisKineticBlock.AXIS_ALONG_FIRST_COORDINATE, axisAlongFirst);
+        return defaultBlockState().setValue(DirectionalKineticBlock.FACING, directionsForEachAxis.get(primaryAxis)).setValue(DirectionalAxisKineticBlock.AXIS_ALONG_FIRST_COORDINATE, axisAlongFirst);
     };
 
     public static boolean isPositiveDirection(Direction direction) {
@@ -192,18 +146,8 @@ public class DoubleCardanShaftBlock extends DirectionalAxisKineticBlock implemen
     };
 
     @Override
-    protected FluidState getFluidState(BlockState state) {
-        return fluidState(state);
-    };
-
-    @Override
-    public Class<DoubleCardanShaftBlockEntity> getBlockEntityClass() {
-        return DoubleCardanShaftBlockEntity.class;
-    };
-
-    @Override
-    public BlockEntityType<? extends DoubleCardanShaftBlockEntity> getBlockEntityType() {
-        return PetrolsPartsBlockEntityTypes.DOUBLE_CARDAN_SHAFT.get();
+    public Class<CornerShaftBlockEntity> getBlockEntityClass() {
+        return CornerShaftBlockEntity.class;
     };
     
 };

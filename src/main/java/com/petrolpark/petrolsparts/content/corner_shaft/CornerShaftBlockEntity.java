@@ -1,4 +1,4 @@
-package com.petrolpark.petrolsparts.content.double_cardan_shaft;
+package com.petrolpark.petrolsparts.content.corner_shaft;
 
 import com.simibubi.create.content.kinetics.transmission.SplitShaftBlockEntity;
 
@@ -7,9 +7,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DoubleCardanShaftBlockEntity extends SplitShaftBlockEntity {
+public class CornerShaftBlockEntity extends SplitShaftBlockEntity {
 
-    public DoubleCardanShaftBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public CornerShaftBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     };
 

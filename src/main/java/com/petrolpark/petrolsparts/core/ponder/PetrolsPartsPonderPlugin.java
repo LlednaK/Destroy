@@ -37,9 +37,9 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
         HELPER.forComponents(PetrolsPartsBlocks.DIFFERENTIAL)
             .addStoryBoard("differential", PetrolsPartsScenes::differential);
 
-        // Double Cardan Shaft
-        HELPER.forComponents(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT)
-            .addStoryBoard("double_cardan_shaft", PetrolsPartsScenes::doubleCardanShaft);
+        // Double Corner Shaft
+        HELPER.forComponents(PetrolsPartsBlocks.CORNER_SHAFT)
+            .addStoryBoard("corner_shaft", PetrolsPartsScenes::cornerShaft);
 
         // Hydraulic Transmission
         HELPER.forComponents(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION)
@@ -70,7 +70,7 @@ public class PetrolsPartsPonderPlugin implements PonderPlugin {
             .add(PetrolsPartsBlocks.COAXIAL_GEAR)
             .add(PetrolsPartsBlocks.COLOSSAL_COGWHEEL)
             .add(PetrolsPartsBlocks.DIFFERENTIAL)
-            .add(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT)
+            .add(PetrolsPartsBlocks.CORNER_SHAFT)
             .add(PetrolsPartsBlocks.LARGE_COAXIAL_GEAR)
             .add(PetrolsPartsBlocks.HYDRAULIC_TRANSMISSION)
             .add(PetrolsPartsBlocks.PLANETARY_GEARSET)

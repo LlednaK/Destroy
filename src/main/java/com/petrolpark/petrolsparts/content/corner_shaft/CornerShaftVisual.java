@@ -1,4 +1,4 @@
-package com.petrolpark.petrolsparts.content.double_cardan_shaft;
+package com.petrolpark.petrolsparts.content.corner_shaft;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
 
@@ -9,9 +9,9 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.phys.Vec3;
 
 //TODO
-public abstract class DoubleCardanShaftVisual extends KineticBlockEntityVisual<DoubleCardanShaftBlockEntity> implements DynamicVisual {
+public abstract class CornerShaftVisual extends KineticBlockEntityVisual<CornerShaftBlockEntity> implements DynamicVisual {
 
-    public DoubleCardanShaftVisual(VisualizationContext context, DoubleCardanShaftBlockEntity blockEntity, float partialTick) {
+    public CornerShaftVisual(VisualizationContext context, CornerShaftBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
     };
     

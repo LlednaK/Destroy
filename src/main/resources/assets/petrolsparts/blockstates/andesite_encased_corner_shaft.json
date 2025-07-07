@@ -1,0 +1,68 @@
+{
+    "variants": {
+        "facing=north,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased"
+        },
+        "facing=south,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "y": 180,
+            "uvlock": true
+        },
+        "facing=east,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 270,
+            "y": 180,
+            "uvlock": true
+        },
+        "facing=west,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 90,
+            "uvlock": true
+        },
+        "facing=up,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 270,
+            "y": 270,
+            "uvlock": true
+        },
+        "facing=down,axis_along_first=true": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 90,
+            "y": 90,
+            "uvlock": true
+        },
+        "facing=north,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 270,
+            "y": 90,
+            "uvlock": true
+        },
+        "facing=south,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 90,
+            "y": 270,
+            "uvlock": true
+        },
+        "facing=east,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "y": 90,
+            "uvlock": true
+        },
+        "facing=west,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "y": 270,
+            "uvlock": true
+        },
+        "facing=up,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 270,
+            "uvlock": true
+        },
+        "facing=down,axis_along_first=false": {
+            "model": "petrolsparts:block/corner_shaft/andesite_encased",
+            "x": 90,
+            "y": 180,
+            "uvlock": true
+        }
+    }
+  }

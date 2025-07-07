@@ -2,19 +2,18 @@ package com.petrolpark.petrolsparts;
 
 import static com.petrolpark.petrolsparts.PetrolsParts.REGISTRATE;
 
-import com.petrolpark.petrolsparts.content.chained_cogwheel.ChainedCogwheelBlockEntity;
-import com.petrolpark.petrolsparts.content.chained_cogwheel.ChainedCogwheelRenderer;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlockEntity;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearVisual;
 import com.petrolpark.petrolsparts.content.coaxial_gear.LongShaftBlockEntity;
 import com.petrolpark.petrolsparts.content.coaxial_gear.LongShaftVisual;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelBlockEntity;
 import com.petrolpark.petrolsparts.content.colossal_cogwheel.ColossalCogwheelRenderer;
+import com.petrolpark.petrolsparts.content.corner_shaft.CornerShaftBlockEntity;
+import com.petrolpark.petrolsparts.content.corner_shaft.CornerShaftRenderer;
+import com.petrolpark.petrolsparts.content.corner_shaft.EncasedCornerShaftRenderer;
 import com.petrolpark.petrolsparts.content.differential.DifferentialBlockEntity;
 import com.petrolpark.petrolsparts.content.differential.DifferentialRenderer;
 import com.petrolpark.petrolsparts.content.differential.DummyDifferentialBlockEntity;
-import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftBlockEntity;
-import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftRenderer;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionBlockEntity;
 import com.petrolpark.petrolsparts.content.hydraulic_transmission.HydraulicTransmissionRenderer;
 import com.petrolpark.petrolsparts.content.planetary_gearset.PlanetaryGearsetBlockEntity;
@@ -26,11 +25,11 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class PetrolsPartsBlockEntityTypes {
     
-    public static final BlockEntityEntry<ChainedCogwheelBlockEntity> CHAINED_COGWHEEL = REGISTRATE
-        .blockEntity("chained_cogwheel", ChainedCogwheelBlockEntity::new)
-        .validBlocks(PetrolsPartsBlocks.CHAINED_COGWHEEL, PetrolsPartsBlocks.CHAINED_LARGE_COGWHEEL)
-        .renderer(() -> ChainedCogwheelRenderer::new)
-        .register();
+    // public static final BlockEntityEntry<ChainedCogwheelBlockEntity> CHAINED_COGWHEEL = REGISTRATE
+    //     .blockEntity("chained_cogwheel", ChainedCogwheelBlockEntity::new)
+    //     .validBlocks(PetrolsPartsBlocks.CHAINED_COGWHEEL, PetrolsPartsBlocks.CHAINED_LARGE_COGWHEEL)
+    //     .renderer(() -> ChainedCogwheelRenderer::new)
+    //     .register();
 
     public static final BlockEntityEntry<CoaxialGearBlockEntity> COAXIAL_GEAR = REGISTRATE
         .blockEntity("coaxial_gear", CoaxialGearBlockEntity::new)
@@ -45,11 +44,17 @@ public class PetrolsPartsBlockEntityTypes {
         .renderer(() -> ColossalCogwheelRenderer::new)
         .register();
 
-        public static final BlockEntityEntry<DoubleCardanShaftBlockEntity> DOUBLE_CARDAN_SHAFT = REGISTRATE
-        .blockEntity("double_cardan_shaft", DoubleCardanShaftBlockEntity::new)
-        //.visual(() -> DoubleCardanShaftvisual::new) //TODO fix
-        .validBlock(PetrolsPartsBlocks.DOUBLE_CARDAN_SHAFT)
-        .renderer(() -> DoubleCardanShaftRenderer::new)
+    public static final BlockEntityEntry<CornerShaftBlockEntity> CORNER_SHAFT = REGISTRATE
+        .blockEntity("corner_shaft", CornerShaftBlockEntity::new)
+        //.visual(() -> CornerShaftvisual::new) //TODO fix
+        .validBlock(PetrolsPartsBlocks.CORNER_SHAFT)
+        .renderer(() -> CornerShaftRenderer::new)
+        .register();
+
+    public static final BlockEntityEntry<CornerShaftBlockEntity> ENCASED_CORNER_SHAFT = REGISTRATE
+        .blockEntity("encased_corner_shaft", CornerShaftBlockEntity::new)
+        .validBlocks(PetrolsPartsBlocks.ANDESITE_ENCASED_CORNER_SHAFT, PetrolsPartsBlocks.BRASS_ENCASED_CORNER_SHAFT)
+        .renderer(() -> EncasedCornerShaftRenderer::new)
         .register();
 
     public static final BlockEntityEntry<DifferentialBlockEntity> DIFFERENTIAL = REGISTRATE

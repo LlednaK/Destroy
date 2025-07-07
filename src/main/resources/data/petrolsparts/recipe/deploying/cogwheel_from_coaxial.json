@@ -1,0 +1,16 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "create:shaft"
+    },
+    {
+      "item": "petrolsparts:coaxial_gear"
+    }
+  ],
+  "results": [
+    {
+      "id": "create:cogwheel"
+    }
+  ]
+}

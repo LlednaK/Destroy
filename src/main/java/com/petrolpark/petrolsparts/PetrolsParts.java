@@ -15,6 +15,7 @@ import net.createmod.catnip.lang.FontHelper.Palette;
 import net.createmod.catnip.placement.PlacementHelpers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
@@ -60,6 +61,7 @@ public class PetrolsParts {
     
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::onRegister);
+        modEventBus.addListener(EventPriority.LOWEST, PetrolsPartsDatagen::gatherData);
     };
 
     private void onRegister(final RegisterEvent event) {

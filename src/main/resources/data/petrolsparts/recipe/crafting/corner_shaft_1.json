@@ -1,8 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-      "SA",
-      " S"
+      "AS",
+      "S "
     ],
     "key": {
       "A": {
@@ -13,7 +13,7 @@
       }
     },
     "result": {
-      "id": "petrolsparts:double_cardan_shaft",
+      "id": "petrolsparts:corner_shaft",
       "count": 2
     }
   }

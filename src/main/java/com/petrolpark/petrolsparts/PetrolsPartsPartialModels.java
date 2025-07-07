@@ -13,11 +13,11 @@ public class PetrolsPartsPartialModels {
     LARGE_COAXIAL_GEAR = block("large_coaxial_gear"),
     LONG_SHAFT = block("long_shaft"),
 
-    // Double Cardan Shaft
-    DCS_CENTER_SHAFT = block("double_cardan_shaft/center_shaft"),
-    DCS_SIDE_SHAFT = block("double_cardan_shaft/side_shaft"),
-    DCS_SIDE_GRIP = block("double_cardan_shaft/side_grip"),
-    DCS_GIMBAL = block("double_cardan_shaft/gimbal"),
+    // Corner Shaft
+    CORNER_SHAFT_CENTER = block("corner_shaft/center_shaft"),
+    CORNER_SHAFT_SIDE = block("corner_shaft/side_shaft"),
+    CORNER_SHAFT_SIDE_GRIP = block("corner_shaft/side_grip"),
+    CORNER_SHAFT_GIMBAL = block("corner_shaft/gimbal"),
 
     // Planetary Gearset
     PG_SUN_GEAR = block("planetary_gearset/sun_gear"),

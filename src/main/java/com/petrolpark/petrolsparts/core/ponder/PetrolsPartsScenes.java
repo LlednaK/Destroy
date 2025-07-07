@@ -4,7 +4,6 @@ import com.petrolpark.client.ponder.instruction.CameraShakeInstruction;
 import com.petrolpark.client.ponder.particle.PetrolparkEmitters;
 import com.petrolpark.petrolsparts.PetrolsPartsBlocks;
 import com.petrolpark.petrolsparts.content.coaxial_gear.CoaxialGearBlock;
-import com.petrolpark.petrolsparts.content.double_cardan_shaft.DoubleCardanShaftBlock;
 import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeBlockEntity;
 import com.petrolpark.petrolsparts.content.pneumatic_tube.PneumaticTubeTransportInstruction;
 import com.petrolpark.petrolsparts.core.block.DirectionalRotatedPillarKineticBlock;
@@ -439,9 +438,9 @@ public class PetrolsPartsScenes {
         scene.markAsFinished();
     };
 
-    public static void doubleCardanShaft(SceneBuilder baseScene, SceneBuildingUtil util) {
+    public static void cornerShaft(SceneBuilder baseScene, SceneBuildingUtil util) {
         CreateSceneBuilder scene = new CreateSceneBuilder(baseScene);
-        scene.title("double_cardan_shaft", "This text is defined in a language file.");
+        scene.title("corner_shaft", "This text is defined in a language file.");
         scene.configureBasePlate(0, 0, 5);
         scene.showBasePlate();
 
@@ -472,13 +471,13 @@ public class PetrolsPartsScenes {
         scene.overlay().showControls(util.vector().blockSurface(dcs, Direction.NORTH), Pointing.RIGHT, 20)
             .withItem(AllItems.WRENCH.asStack());
         scene.idle(5);
-        scene.world().setBlock(dcs, DoubleCardanShaftBlock.getBlockstateConnectingDirections(Direction.SOUTH, Direction.UP), false);
+        scene.world().setBlock(dcs, PetrolsPartsBlocks.CORNER_SHAFT.get().getBlockstateConnectingDirections(Direction.SOUTH, Direction.UP), false);
         scene.world().setKineticSpeed(util.select().fromTo(3, 1, 2, 4, 1, 2), 0);
         scene.idle(25);
         scene.overlay().showControls(util.vector().blockSurface(dcs, Direction.NORTH), Pointing.RIGHT, 20)
             .withItem(AllItems.WRENCH.asStack());
         scene.idle(5);
-        scene.world().setBlock(dcs, DoubleCardanShaftBlock.getBlockstateConnectingDirections(Direction.SOUTH, Direction.WEST), false);
+        scene.world().setBlock(dcs, PetrolsPartsBlocks.CORNER_SHAFT.get().getBlockstateConnectingDirections(Direction.SOUTH, Direction.WEST), false);
         scene.world().setKineticSpeed(secondShaft, 16);
         scene.idle(15);
 
