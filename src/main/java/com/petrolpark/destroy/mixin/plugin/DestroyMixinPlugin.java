@@ -21,7 +21,7 @@ public class DestroyMixinPlugin extends PetrolparkMixinPlugin {
 
         // Fixes a compatibility issue with TFMG caused by the way it registers its own custom pumps
         // Not a permanent solution (hopefully)
-        MixinCancellerRegistrar.register((targetClassNames, mixinClassName) -> mixinClassName.equals("com.drmangotea.tfmg.mixins.FluidPropagatorMixin"));
+        MixinCancellerRegistrar.register((targetClassNames, mixinClassName) -> mixinClassName.equals("com.drmangotea.tfmg.mixin.FluidPropagatorMixin"));
     };
     
 };
