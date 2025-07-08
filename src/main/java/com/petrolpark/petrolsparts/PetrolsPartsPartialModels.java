@@ -6,7 +6,7 @@ public class PetrolsPartsPartialModels {
 
     public static final PartialModel
 
-    CHAIN_LINK = block("chain_link"),
+    //CHAIN_LINK = block("chain_link"),
 
     // Coaxial Gears
     COAXIAL_GEAR = block("coaxial_gear"),
