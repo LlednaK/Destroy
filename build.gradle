@@ -229,8 +229,12 @@ dependencies {
 
     // Embeddium
     compileOnly fg.deobf("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}")
-    
+
     // ANNOTATION PROCESSORS
+
+    // MixinSquared's annotationProcessor MUST be registered BEFORE Mixin's one.
+    compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixin_squared_version}"))
+    implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-forge:${mixin_squared_version}")) {jarJar.ranged(it, "[${mixin_squared_version},)")}
 
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
