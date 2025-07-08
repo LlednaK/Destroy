@@ -219,9 +219,6 @@ dependencies {
     // Curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-    
-    // TFMG
-    compileOnly fg.deobf("curse.maven:create-industry-693815:5558101")
 
     // CBC
     compileOnly fg.deobf("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}")
