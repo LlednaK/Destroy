@@ -6,14 +6,9 @@ import com.petrolpark.destroy.DestroyItems;
 import com.petrolpark.destroy.core.chemistry.vat.material.VatMaterial;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
+
 import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
 import net.createmod.ponder.api.registration.TagBuilder;
-import net.createmod.ponder.foundation.PonderIndex;
-import net.createmod.ponder.foundation.PonderTag;
-import net.createmod.ponder.foundation.registration.DefaultPonderTagRegistrationHelper;
-import net.createmod.ponder.foundation.registration.PonderLocalization;
-import net.createmod.ponder.foundation.registration.PonderTagBuilder;
-import net.createmod.ponder.foundation.registration.PonderTagRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 public class DestroyPonderTags {

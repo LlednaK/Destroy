@@ -60,7 +60,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
             arg '-mixin.config=destroy.mixins.json'
-            jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
+            //jvmArgs += ['-XX:+AllowEnhancedClassRedefinition']
             property 'forge.logging.console.level', 'info'
             mods {
                 destroy {
@@ -130,10 +130,6 @@ repositories {
         dirs "../petrolpark_local_maven/petrolpark/petrolpark-${minecraft_version}/${petrolpark_library_version}"
     }
 
-    flatDir {
-        dirs "../petrolpark_local_maven/cbc-${minecraft_version}/"
-    }
-
     maven {
         // Curios
         url = "https://maven.theillusivec4.top/"
@@ -201,7 +197,7 @@ dependencies {
     implementation "com.petrolpark:petrolpark:${minecraft_version}-${petrolpark_library_version}"
 
     // JGraphT
-    jarJar(implementation("org.jgrapht:jgrapht-core:[${jgrapht_version}]"))
+    //jarJar(implementation("org.jgrapht:jgrapht-core:[${jgrapht_version}]"))
 
     // CDK
     //implementation "org.openscience.cdk:cdk-bundle:2.9"
@@ -232,7 +228,6 @@ dependencies {
     // MixinSquared's annotationProcessor MUST be registered BEFORE Mixin's one.
     compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixin_squared_version}"))
     implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-forge:${mixin_squared_version}")) {jarJar.ranged(it, "[${mixin_squared_version},)")}
-
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
