@@ -39,23 +39,22 @@ public class PipeConnectionMixin {
      * these change a lot. We don't want to try restarting the flow every tick.
      */
     @WrapOperation(
-            method="Lcom/simibubi/create/content/fluids/PipeConnection;manageFlows(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraftforge/fluids/FluidStack;Ljava/util/function/Predicate;)Z",
-            at=@At(
-                    value="INVOKE",
-                    target="Lnet/minecraftforge/fluids/FluidStack;isFluidEqual(Lnet/minecraftforge/fluids/FluidStack;)Z"
-            ),
-            remap=false
+        method="Lcom/simibubi/create/content/fluids/PipeConnection;manageFlows(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraftforge/fluids/FluidStack;Ljava/util/function/Predicate;)Z",
+        at=@At(
+                value="INVOKE",
+                target="Lnet/minecraftforge/fluids/FluidStack;isFluidEqual(Lnet/minecraftforge/fluids/FluidStack;)Z"
+        ),
+        remap=false
     )
     private boolean considerMixturesEqual(FluidStack fluid, FluidStack other, Operation<Boolean> original) {
-        if(original.call(fluid, other))
+        if (original.call(fluid, other))
             return true;
-        else if(DestroyFluids.isMixture(fluid) && DestroyFluids.isMixture(other)) {
+        else if (DestroyFluids.isMixture(fluid) && DestroyFluids.isMixture(other)) {
             ((PipeConnectionAccessor)this).getFlow().get().fluid = fluid;
-            if(retainedNetwork.get().isPresent())
-                ((FluidNetworkAccessor)(retainedNetwork.get()).get()).setFluid(fluid);
+            if(retainedNetwork.get().isPresent()) ((FluidNetworkAccessor)(retainedNetwork.get()).get()).setFluid(fluid);
             return true;
-        }
+        };
 
         return false;
-    }
+    };
 };

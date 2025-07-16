@@ -63,7 +63,4 @@ public abstract class AbstractContainerMenuMixin implements DelayedSlotPopulatio
         carried = pCarried;
         stateId = pStateId;
     };
-
-
-
 };
