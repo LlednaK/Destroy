@@ -21,7 +21,6 @@ import com.petrolpark.destroy.content.processing.cooler.CoolerBlock;
 import com.petrolpark.destroy.content.processing.distillation.BubbleCapBlock;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlock;
 import com.petrolpark.destroy.content.processing.dynamo.arcfurnace.ArcFurnaceLidBlock;
-import com.petrolpark.destroy.content.processing.extrusion.ExtrusionDieBlock;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlock;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeItem;
 import com.petrolpark.destroy.content.processing.moltenblock.BorosilicateGlassFiberBlock;
@@ -233,14 +232,6 @@ public class DestroyBlocks {
         ).transform(TagGen.pickaxeOnly())
         .item()
         .build()
-        .register();
-
-    public static final BlockEntry<ExtrusionDieBlock> EXTRUSION_DIE = REGISTRATE.block("extrusion_die", ExtrusionDieBlock::new)
-        .initialProperties(SharedProperties::softMetal)
-        .properties(BlockBehaviour.Properties::noCollission
-        ).transform(TagGen.pickaxeOnly())
-        .item()
-        .transform(customItemModel())
         .register();
 
     public static final BlockEntry<KeypunchBlock> KEYPUNCH = REGISTRATE.block("keypunch", KeypunchBlock::new)
@@ -1012,17 +1003,6 @@ public class DestroyBlocks {
         .register();
 
     // FOOD
-
-    public static final BlockEntry<Block> MASHED_POTATO_BLOCK = REGISTRATE.block("mashed_potato_block", Block::new)
-        .initialProperties(() -> Blocks.CLAY)
-        .properties(p -> p
-            .mapColor(MapColor.COLOR_YELLOW)
-            .sound(SoundType.SLIME_BLOCK)
-            .strength(0.2f)
-        ).tag(BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
-        .item()
-        .build()
-        .register();
 
     public static final BlockEntry<RotatedPillarBlock> RAW_FRIES_BLOCK = REGISTRATE.block("raw_fries_block", RotatedPillarBlock::new)
         .initialProperties(() -> Blocks.CLAY)

@@ -3,7 +3,7 @@
     "criteria": {
       "extrude": {
         "conditions": {},
-        "trigger": "destroy:extrude"
+        "trigger": "petrolpark:extrude"
       }
     },
     "display": {
@@ -12,7 +12,7 @@
         "translate": "advancement.destroy.extrude.description"
       },
       "icon": {
-        "item": "destroy:extrusion_die"
+        "item": "petrolpark:extrusion_die"
       },
       "title": {
         "translate": "advancement.destroy.extrude"

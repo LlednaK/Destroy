@@ -6,6 +6,7 @@ import java.util.Map;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.ComposterBlock;
 
+@Deprecated // use Neo datamaps
 public class DestroyCompostables {
 
     private static Map<ItemLike, Float> DESTROY_COMPOSTABLES;
@@ -27,16 +28,13 @@ public class DestroyCompostables {
         add(0.85f, DestroyItems.QUARTZ_INFUSED_BEETROOT.get());
         add(0.85f, DestroyItems.REDSTONE_INFUSED_BEETROOT.get());
         add(0.85f, DestroyItems.ZINC_INFUSED_BEETROOT.get());
-        add(0.7f, DestroyItems.MASHED_POTATO.get());
         add(0.4f, DestroyItems.YEAST.get());
-        add(1.0f, DestroyBlocks.MASHED_POTATO_BLOCK.get());
     };
 
     private static void add(float chance, ItemLike item) {
         DESTROY_COMPOSTABLES.put(item.asItem(), chance);
     };
 
-    @SuppressWarnings("deprecation")
     public static void register() {
         DESTROY_COMPOSTABLES.forEach((itemLike, chance) -> {
             ComposterBlock.COMPOSTABLES.put(itemLike.asItem(), chance);

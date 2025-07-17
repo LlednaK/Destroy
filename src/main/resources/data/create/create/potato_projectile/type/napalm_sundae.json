@@ -1,7 +1,7 @@
 {
   "damage": 7,
   "items": "destroy:napalm_sundae",
-  "velocity": 0.9,
+  "velocity_multiplier": 0.9,
   "reload_ticks": 20,
   "render_mode": {
     "type": "create:tumble"

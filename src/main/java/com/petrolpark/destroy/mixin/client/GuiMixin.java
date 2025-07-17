@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.petrolpark.destroy.Destroy;
+import com.petrolpark.destroy.MoveToPetrolparkLibrary;
 import com.petrolpark.destroy.config.DestroyClientConfigs;
 import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory;
 
@@ -48,6 +49,7 @@ public abstract class GuiMixin {
             target = "Lnet/minecraft/client/gui/Gui;renderSlot(Lnet/minecraft/client/gui/GuiGraphics;IIFLnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V"
         )
     )
+    @MoveToPetrolparkLibrary
     private void renderOffhandItemOffset(Gui gui, GuiGraphics pGuiGraphics, int pX, int pY, float pPartialTick, Player pPlayer, ItemStack pStack, int pSeed) {
         Player player = getCameraPlayer();
         if (pStack == pPlayer.getOffhandItem()) { // If we're rendering the offhand Item
@@ -70,6 +72,7 @@ public abstract class GuiMixin {
             target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V"
         )
     )
+    @MoveToPetrolparkLibrary
     private void renderOffhandBackgroundOffset(GuiGraphics pGuiGraphics, ResourceLocation pAtlasLocation, int pX, int pY, int pUOffset, int pVOffset, int pUWidth, int pVHeight) {
         if ((pUOffset == 24 || pUOffset == 53) && pVOffset == 22 && pUWidth == 29 && pVHeight == 24) { // If we're rendering the offhand background
             Player player = getCameraPlayer();

@@ -12,7 +12,7 @@
         "tag": "forge:raw_pork"
       },
       {
-        "item": "destroy:mashed_potato"
+        "tag": "c:foods/mashed_potato"
       }
     ],
     "result": {

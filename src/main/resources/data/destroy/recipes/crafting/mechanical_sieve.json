@@ -5,7 +5,7 @@
     ],
     "key": {
       "S": {
-        "item": "destroy:mesh"
+        "item": "petrolpark:mesh"
       },
       "A": {
         "item": "create:andesite_alloy"

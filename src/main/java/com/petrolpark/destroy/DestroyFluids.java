@@ -7,7 +7,6 @@ import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid;
 import com.petrolpark.destroy.chemistry.minecraft.MixtureFluid.MixtureFluidType;
 import com.petrolpark.destroy.content.processing.moltenblock.MoltenBorosilicateGlassFluid;
 import com.petrolpark.destroy.content.processing.moltenblock.MoltenStainlessSteelFluid;
-import com.petrolpark.destroy.core.fluid.ColoredFluidType;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.VirtualFluid;
@@ -70,8 +69,6 @@ public class DestroyFluids {
         .register(),
     CHORUS_WINE = coloredSwirlingFluid("chorus_wine", 0x808000C0)
         .register(),
-    CREAM = virtualFluid("cream")
-        .register(),
     CRUDE_OIL = virtualFluid("crude_oil")
         .tag(AllTags.forgeFluidTag("crude_oil"), Fluids.AMPLIFIES_SMOG.tag)
         .bucket()
@@ -86,8 +83,6 @@ public class DestroyFluids {
         .tag(Fluids.AMPLIFIES_SMOG.tag)
         .register(),
     PERFUME = coloredSwirlingFluid("perfume", 0x80ffcff7)
-        .register(),
-    SKIMMED_MILK = coloredWaterFluid("skimmed_milk", 0xFF000000)
         .register(),
     MOONSHINE = coloredWaterFluid("moonshine", 0xC0A18666)
         .register(),

@@ -6,13 +6,13 @@
     ],
     "key": {
       "S": {
-        "tag": "forge:string"
+        "tag": "c:string"
       },
       "M": {
-        "item": "destroy:mesh"
+        "item": "petrolpark:mesh"
       },
       "P": {
-        "item": "minecraft:paper"
+        "tag": "c:paper"
       }
     },
     "result": {

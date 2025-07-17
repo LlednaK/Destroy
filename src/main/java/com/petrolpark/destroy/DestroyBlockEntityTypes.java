@@ -21,28 +21,27 @@ import com.petrolpark.destroy.content.processing.distillation.BubbleCapRenderer;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoBlockEntity;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoCogVisual;
 import com.petrolpark.destroy.content.processing.dynamo.DynamoRenderer;
-import com.petrolpark.destroy.content.processing.extrusion.ExtrusionDieBlockEntity;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntity;
 import com.petrolpark.destroy.content.processing.glassblowing.BlowpipeBlockEntityRenderer;
 import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveBlockEntity;
-import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveVisual;
 import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveRenderer;
+import com.petrolpark.destroy.content.processing.sieve.MechanicalSieveVisual;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapBlockEntity;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapInstance;
 import com.petrolpark.destroy.content.processing.treetap.TreeTapRenderer;
 import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchBlockEntity;
-import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchVisual;
 import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchRenderer;
+import com.petrolpark.destroy.content.processing.trypolithography.keypunch.KeypunchVisual;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockEntity;
 import com.petrolpark.destroy.content.redstone.programmer.RedstoneProgrammerBlockEntityRenderer;
 import com.petrolpark.destroy.content.sandcastle.SandCastleBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.ElementTankBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.ElementTankRenderer;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankBlockEntity.SimplePlaceableMixtureTankBlockEntity;
-import com.petrolpark.destroy.core.chemistry.storage.measuringcylinder.MeasuringCylinderBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.SimpleMixtureTankRenderer;
-import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackRenderer;
+import com.petrolpark.destroy.core.chemistry.storage.measuringcylinder.MeasuringCylinderBlockEntity;
 import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackBlockEntity;
+import com.petrolpark.destroy.core.chemistry.storage.testtube.TestTubeRackRenderer;
 import com.petrolpark.destroy.core.chemistry.vat.VatControllerBlockEntity;
 import com.petrolpark.destroy.core.chemistry.vat.VatRenderer;
 import com.petrolpark.destroy.core.chemistry.vat.VatSideBlockEntity;
@@ -132,11 +131,6 @@ public class DestroyBlockEntityTypes {
         .blockEntity("element_tank", ElementTankBlockEntity::new)
         .validBlocks(DestroyBlocks.ELEMENT_TANK)
         .renderer(() -> ElementTankRenderer::new)
-        .register();
-
-    public static final BlockEntityEntry<ExtrusionDieBlockEntity> EXTRUSION_DIE = REGISTRATE
-        .blockEntity("extrusion_die", ExtrusionDieBlockEntity::new)
-        .validBlocks(DestroyBlocks.EXTRUSION_DIE)
         .register();
 
     public static final BlockEntityEntry<KeypunchBlockEntity> KEYPUNCH = REGISTRATE

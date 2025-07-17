@@ -1,7 +1,7 @@
 {
   "damage": 5,
   "items": "destroy:nether_crocoite_infused_beetroot",
-  "velocity": 0.9,
+  "velocity_multiplier": 0.9,
   "knockback": 1.5,
   "reload_ticks": 20,
   "render_mode": {

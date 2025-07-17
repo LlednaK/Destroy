@@ -9,7 +9,6 @@
     "destroy:dynamo",
     "destroy:arc_furnace_lid",
     "destroy:element_tank",
-    "destroy:extrusion_die",
     "destroy:keypunch",
     "destroy:mechanical_sieve",
     "destroy:pollutometer",

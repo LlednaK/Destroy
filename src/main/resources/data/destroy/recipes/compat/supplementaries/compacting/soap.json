@@ -15,7 +15,7 @@
         "concentration": 5.0
       },
       {
-        "fluid": "destroy:cream",
+        "fluidTag": "c:cream",
         "amount": 250
       }
     ],

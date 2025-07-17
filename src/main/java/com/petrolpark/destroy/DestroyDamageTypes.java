@@ -18,8 +18,7 @@ public class DestroyDamageTypes {
             HEADACHE = key("headache"),
             BABY_BLUE_OVERDOSE = key("baby_blue_overdose"),
             SELF_NEEDLE = key("self_needle"),
-            NEEDLE = key("needle"),
-            EXTRUSION_DIE = key("extrusion_die");
+            NEEDLE = key("needle");
     };
 
     public static void register() {};
@@ -69,11 +68,5 @@ public class DestroyDamageTypes {
     NEEDLE = new DamageTypeBuilder(Keys.NEEDLE)
         .exhaustion(0.1f)
         .scaling(DamageScaling.ALWAYS)
-        .build(),
-
-    EXTRUSION_DIE = new DamageTypeBuilder(Keys.EXTRUSION_DIE)
-        .exhaustion(0.1f)
-        .scaling(DamageScaling.ALWAYS)
-        .effects(DamageEffects.POKING)
         .build();
 };

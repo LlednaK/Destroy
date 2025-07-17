@@ -16,7 +16,6 @@ public class DestroyFoods {
     // Foods
     public static final FoodProperties
     APPLE_JUICE = new FoodProperties.Builder().nutrition(5).saturationMod(0.4f).alwaysEat().effect(() -> new MobEffectInstance(DestroyMobEffects.FULL_BLADDER.get(), 600, 0, false, false, true), 1f).build(),
-    BUTTER = new FoodProperties.Builder().nutrition(6).saturationMod(0.1f).build(),
     CREATINE = new FoodProperties.Builder().nutrition(0).saturationMod(0f).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 1), 1f).build(),
     RAW_FRIES = new FoodProperties.Builder().nutrition(2).saturationMod(0.6f).build(),
     FRIES = new FoodProperties.Builder().nutrition(6).saturationMod(1.5f).build(),

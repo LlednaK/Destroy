@@ -94,9 +94,6 @@ public class DestroyVoxelShapes {
         .add(10, 2, 6, 14, 8, 10)
         .forHorizontalAxis(),
 
-    EXTRUSION_DIE = shape(0, 0, 7, 16, 16, 9)
-        .forDirectional(Direction.SOUTH),
-
     POLLUTOMETER = shape(6, 0, 6, 10, 12, 10)
         .add(5, 3, 3, 11, 9, 6)
         .forDirectional(Direction.NORTH),

@@ -9,7 +9,7 @@
         "amount": 250
       },
       {
-        "fluid": "destroy:cream",
+        "fluidTag": "c:cream",
         "amount": 250
       }
     ],

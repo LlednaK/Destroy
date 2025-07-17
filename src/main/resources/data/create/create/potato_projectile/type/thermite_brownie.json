@@ -1,7 +1,7 @@
 {
   "damage": 6,
   "items": "destroy:thermite_brownie",
-  "velocity": 1.0,
+  "velocity_multiplier": 1.0,
   "reload_ticks": 15,
   "render_mode": {
     "type": "create:tumble"

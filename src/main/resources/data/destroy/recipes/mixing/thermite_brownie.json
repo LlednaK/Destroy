@@ -11,7 +11,7 @@
         "item": "minecraft:cocoa_beans"
       },
       {
-        "item": "destroy:butter"
+        "tag": "c:foods/butter"
       },
       {
         "item": "create:cinder_flour"

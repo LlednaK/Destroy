@@ -6,10 +6,6 @@
       },
       {
         "type": "single",
-        "resource": "destroy:fluid/cream"
-      },
-      {
-        "type": "single",
         "resource": "destroy:fluid/crude_oil"
       },
       {

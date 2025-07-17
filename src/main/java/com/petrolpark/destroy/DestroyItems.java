@@ -466,10 +466,6 @@ public class DestroyItems {
 
     // FOOD AND DRINK
 
-    BUTTER = REGISTRATE.item("butter", Item::new)
-        .properties(p -> p
-            .food(DestroyFoods.BUTTER)
-        ).register(),
     RAW_FRIES = REGISTRATE.item("raw_fries", Item::new)
         .properties(p -> p
             .food(DestroyFoods.RAW_FRIES)
@@ -477,10 +473,6 @@ public class DestroyItems {
     FRIES = REGISTRATE.item("fries", Item::new)
         .properties(p -> p
             .food(DestroyFoods.FRIES)
-        ).register(),
-    MASHED_POTATO = REGISTRATE.item("mashed_potato", Item::new)
-        .properties(p -> p
-            .food(DestroyFoods.MASHED_POTATO)
         ).register(),
     EMPTY_CARTON = REGISTRATE.item("empty_carton", Item::new)
         .tag(AllItemTags.UPRIGHT_ON_BELT.tag)
@@ -572,9 +564,6 @@ public class DestroyItems {
         .tab(null)
         .register(),
     UNFINISHED_UNVARNISHED_PLYWOOD = REGISTRATE.item("unfinished_unvarnished_plywood", SequencedAssemblyItem::new)
-        .tab(null)
-        .register(),
-    UNPROCESSED_MASHED_POTATO = REGISTRATE.item("unprocessed_mashed_potato", SequencedAssemblyItem::new)
         .tab(null)
         .register(),
     UNPROCESSED_NAPALM_SUNDAE = REGISTRATE.item("unprocessed_napalm_sundae", SequencedAssemblyItem::new)
@@ -739,8 +728,6 @@ public class DestroyItems {
 
     DISCHARGED_VOLTAIC_PILE = REGISTRATE.item("discharged_voltaic_pile", Item::new)
         .tag(DestroyTags.Items.LIABLE_TO_CHANGE.tag)
-        .register(),
-    MESH = REGISTRATE.item("mesh", Item::new)
         .register(),
     TEAR_BOTTLE = REGISTRATE.item("tear_bottle", Item::new)
         .tag(AllItemTags.UPRIGHT_ON_BELT.tag)

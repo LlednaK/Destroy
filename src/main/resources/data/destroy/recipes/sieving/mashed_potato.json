@@ -2,7 +2,7 @@
     "type": "destroy:sieving",
     "ingredients": [
       {
-        "item": "destroy:mashed_potato"
+        "tag": "c:foods/mashed_potato"
       }
     ],
     "results": [
@@ -11,7 +11,7 @@
         "chance": 0.02
       },
       {
-        "item": "destroy:mashed_potato",
+        "item": "petrolpark:mashed_potato",
         "chance": 0.4
       }
     ],
