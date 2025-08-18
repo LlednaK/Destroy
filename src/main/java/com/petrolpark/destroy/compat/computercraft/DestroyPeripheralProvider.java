@@ -20,7 +20,7 @@ import java.util.function.Function;
 public final class DestroyPeripheralProvider<O extends BlockEntity> implements ICapabilityProvider {
     public static final Capability<IPeripheral> CAPABILITY_PERIPHERAL = CapabilityManager.get(new CapabilityToken<>() {
     });
-    private static final ResourceLocation PERIPHERAL = new ResourceLocation(Destroy.MOD_ID, "peripheral");
+    private static final ResourceLocation PERIPHERAL = ResourceLocation.fromNamespaceAndPath(Destroy.MOD_ID, "peripheral");
 
     private final O blockEntity;
     private final Function<O, IPeripheral> factory;
