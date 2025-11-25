@@ -1,8 +1,0 @@
-{
-	"parent": "petrolsparts:block/corner_shaft/andesite_encased",
-	"textures": {
-		"hole": "create:block/brass_gearbox",
-		"particle": "create:block/brass_casing",
-		"casing": "create:block/brass_casing"
-	}
-}

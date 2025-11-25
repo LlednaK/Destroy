@@ -1,0 +1,14 @@
+{
+    "required": "true",
+    "package": "petrolpark.mc.destroy.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "refmap": "destroy.refmap.json",
+    "plugin": "petrolpark.mc.destroy.mixin.plugin.DestroyMixinPlugin",
+    "mixins": [
+
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "minVersion": "0.8"
+}
