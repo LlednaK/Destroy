@@ -16,7 +16,7 @@
       ],
       "vmArgs": [
         "@C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dpetrolsparts%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
+        "-Dfml.modFolders\u003ddestroy%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -38,7 +38,7 @@
       ],
       "vmArgs": [
         "@C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\build\\moddev\\dataRunVmArgs.txt",
-        "-Dfml.modFolders\u003dpetrolsparts%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
+        "-Dfml.modFolders\u003ddestroy%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -60,7 +60,7 @@
       ],
       "vmArgs": [
         "@C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dpetrolsparts%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
+        "-Dfml.modFolders\u003ddestroy%%C:\\Users\\p3tr0\\Documents\\Mod Development\\Destroy-Neo\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
