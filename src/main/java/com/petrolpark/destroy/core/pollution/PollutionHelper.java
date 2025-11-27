@@ -1,10 +1,5 @@
 package com.petrolpark.destroy.core.pollution;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.joml.Vector3f;
-
 import com.petrolpark.destroy.Destroy;
 import com.petrolpark.destroy.DestroyFluids;
 import com.petrolpark.destroy.DestroyMessages;
@@ -14,7 +9,7 @@ import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.core.chemistry.hazard.ChemistryHazardHelper;
 import com.petrolpark.destroy.core.fluid.gasparticle.EvaporatingFluidS2CPacket;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-
+import com.petrolpark.destroy.core.pollution.pollutedareas.ContaminatedVolumeHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +23,10 @@ import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fluids.FluidStack;
+import org.joml.Vector3f;
+
+import java.util.List;
+import java.util.Optional;
 
 public class PollutionHelper {
 
@@ -106,9 +105,9 @@ public class PollutionHelper {
      * @see PollutionHelper#pollute(Level, BlockPos, int, FluidStack...) Harming Entities and showing evaporation particles too
      */
     @SuppressWarnings("deprecation")
-    public static void pollute(Level level, BlockPos pos, float multiplier, FluidStack fluidStack) {
+    public static void pollute(Level level, BlockPos pos, float multiplier, FluidStack fluidStack, boolean canPolluteLocally) {
         if (DestroyFluids.isMixture(fluidStack) && fluidStack.getOrCreateTag().contains("Mixture", Tag.TAG_COMPOUND)) {
-            polluteMixture(level, pos, multiplier, fluidStack.getAmount(), fluidStack.getOrCreateTag());
+            polluteMixture(level, pos, multiplier, fluidStack.getAmount(), fluidStack.getOrCreateTag(), canPolluteLocally);
         } else {
             for (PollutionType pollutionType : PollutionType.values()) {
                 if (fluidStack.getFluid().is(pollutionType.fluidTag)) {
@@ -123,7 +122,15 @@ public class PollutionHelper {
         };
     };
 
-    public static void polluteMixture(Level level, BlockPos pos, float multiplier, int amount, CompoundTag fluidTag) {
+    public static void pollute(Level level, BlockPos pos, float multiplier, FluidStack fluidStack) {
+        pollute(level, pos, multiplier, fluidStack, true);
+    }
+
+    public static void polluteMixture(Level level, BlockPos pos, float multiplier, int amount, CompoundTag fluidTag, boolean canPolluteLocally) {
+        if (canPolluteLocally) {
+            ContaminatedVolumeHandler.polluteWithMixture(level, pos, multiplier, amount, fluidTag);
+            return;
+        }
         ReadOnlyMixture mixture = ReadOnlyMixture.readNBT(ReadOnlyMixture::new, fluidTag.getCompound("Mixture"));
         for (LegacySpecies molecule : mixture.getContents(true)) {
             float pollutionAmount = multiplier * mixture.getConcentrationOf(molecule) * amount / 1000; // One mole of polluting Molecule = one point of Pollution

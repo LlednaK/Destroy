@@ -1,15 +1,5 @@
 package com.petrolpark.destroy.core.chemistry.vat;
 
-import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NotNull;
-import org.joml.Math;
-
 import com.petrolpark.destroy.DestroyBlocks;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.client.DestroyLang.TemperatureUnit;
@@ -20,6 +10,8 @@ import com.petrolpark.destroy.core.chemistry.vat.observation.RedstoneQuantityMon
 import com.petrolpark.destroy.core.chemistry.vat.uv.IUVLampBlock;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 import com.petrolpark.destroy.core.pollution.PollutionHelper;
+import com.petrolpark.destroy.core.pollution.pollutedareas.ContaminatedVolume;
+import com.petrolpark.destroy.core.pollution.pollutedareas.IPollutionMaker;
 import com.simibubi.create.api.equipment.goggles.IHaveHoveringInformation;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;
@@ -30,7 +22,6 @@ import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchObser
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.item.TooltipHelper;
-
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.lang.FontHelper;
 import net.createmod.catnip.math.VecHelper;
@@ -56,8 +47,16 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Math;
 
-public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGoggleInformation, IHaveHoveringInformation, ThresholdSwitchObservable {
+import javax.annotation.Nullable;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGoggleInformation, IHaveHoveringInformation, ThresholdSwitchObservable, IPollutionMaker {
 
     private static final int BUFFER_TANK_CAPACITY = 1000;
 
@@ -94,6 +93,8 @@ public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGo
     public FluidStack spoutingFluid;
     public LerpedFloat ventOpenness = LerpedFloat.linear().startWithValue(0f);
 
+    private ContaminatedVolume currentContaminatedVolume = null;
+
     public VatSideBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         displayType = DisplayType.NORMAL;
@@ -107,6 +108,15 @@ public class VatSideBlockEntity extends CopycatBlockEntity implements IHaveLabGo
         refreshItemCapability();
         refreshFluidCapability();
     };
+
+    @Override
+    public @Nullable ContaminatedVolume getCurrentContaminatedVolume() {
+        return this.currentContaminatedVolume;
+    }
+
+    public void setCurrentContaminatedVolume(ContaminatedVolume currentContaminatedVolume) {
+        this.currentContaminatedVolume = currentContaminatedVolume;
+    }
 
     @Override
     protected AABB createRenderBoundingBox() {

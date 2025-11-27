@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
 
+import com.petrolpark.destroy.core.pollution.pollutedareas.ContaminatedVolumeHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
@@ -27,8 +28,27 @@ public class PollutionCommand {
                     }))))
                 )
             )
+            .then(Commands.literal("local")
+                    .then(Commands.literal("create")
+                            .then(Commands.argument("position", BlockPosArgument.blockPos())
+                                    .executes(commandContext ->
+                                        createPollutedArea(commandContext.getSource(), BlockPosArgument.getLoadedBlockPos(commandContext, "position"))
+                                    )
+                            )
+                    )
+                    .then(Commands.literal("clear")
+                            .executes(commandContext -> clearPollutedArea())
+                    )
+            )
         );
-    };
+    }
+
+    private int clearPollutedArea() {
+        ContaminatedVolumeHandler.clear();
+        return 1;
+    }
+
+    ;
 
     private int queryLevelPollution(CommandSourceStack source, BlockPos pos, PollutionType pollutionType) {
         int pollutionLevel = PollutionHelper.getPollution(source.getLevel(), pos, pollutionType);
@@ -47,4 +67,10 @@ public class PollutionCommand {
         source.sendSuccess(() ->  Component.translatable("commands.destroy.pollution.set", pollutionType.name(), pollutionLevel), true);
         return pollutionLevel;
     };
+
+    private int createPollutedArea(CommandSourceStack source, BlockPos pos) {
+        ContaminatedVolumeHandler.newPollutionArea(source.getLevel(), pos);
+        source.sendSuccess(() -> Component.literal("Uwu"), true);
+        return 1;
+    }
 };

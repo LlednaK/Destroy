@@ -191,10 +191,10 @@ dependencies {
     implementation fg.deobf("dev.engine-room.flywheel:flywheel-forge-${minecraft_version}:${flywheel_version}")
 
     // Registrate
-    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // Petrolpark Library (temporary)
-    implementation "com.petrolpark:petrolpark:${minecraft_version}-${petrolpark_library_version}"
+    implementation fg.deobf("com.petrolpark:petrolpark:${minecraft_version}-${petrolpark_library_version}")
 
     // JGraphT
     //jarJar(implementation("org.jgrapht:jgrapht-core:[${jgrapht_version}]"))
@@ -207,7 +207,7 @@ dependencies {
     // JEI
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     // Farmer's Delight
     compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmersdelight_version}")

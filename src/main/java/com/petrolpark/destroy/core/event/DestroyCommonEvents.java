@@ -1,22 +1,7 @@
 package com.petrolpark.destroy.core.event;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import com.petrolpark.destroy.Destroy;
-import com.petrolpark.destroy.DestroyAdvancementTrigger;
-import com.petrolpark.destroy.DestroyAttributes;
-import com.petrolpark.destroy.DestroyBlocks;
-import com.petrolpark.destroy.DestroyItems;
-import com.petrolpark.destroy.DestroyMessages;
-import com.petrolpark.destroy.DestroyMobEffects;
-import com.petrolpark.destroy.DestroyTags;
+import com.petrolpark.destroy.*;
 import com.petrolpark.destroy.DestroyTags.MobEffects;
-import com.petrolpark.destroy.DestroyTrades;
-import com.petrolpark.destroy.DestroyVillagers;
 import com.petrolpark.destroy.client.DestroyLang;
 import com.petrolpark.destroy.config.DestroyAllConfigs;
 import com.petrolpark.destroy.content.oil.ChunkCrudeOil;
@@ -47,12 +32,10 @@ import com.petrolpark.destroy.core.explosion.mixedexplosive.ExplosiveProperties;
 import com.petrolpark.destroy.core.extendedinventory.ExtendedInventory;
 import com.petrolpark.destroy.core.player.PlayerCrouchingCapability;
 import com.petrolpark.destroy.core.player.PlayerPreviousPositionsCapability;
-import com.petrolpark.destroy.core.pollution.LevelPollutionS2CPacket;
-import com.petrolpark.destroy.core.pollution.Pollution;
+import com.petrolpark.destroy.core.pollution.*;
 import com.petrolpark.destroy.core.pollution.Pollution.PollutionType;
-import com.petrolpark.destroy.core.pollution.PollutionCommand;
-import com.petrolpark.destroy.core.pollution.PollutionHelper;
-import com.petrolpark.destroy.core.pollution.SyncChunkPollutionS2CPacket;
+import com.petrolpark.destroy.core.pollution.pollutedareas.ContaminatedVolume;
+import com.petrolpark.destroy.core.pollution.pollutedareas.ContaminatedVolumeHandler;
 import com.petrolpark.recipe.ingredient.BlockIngredient;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
@@ -60,7 +43,6 @@ import com.simibubi.create.content.processing.burner.BlazeBurnerBlockItem;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler.Frequency;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.createmod.catnip.data.Couple;
 import net.createmod.ponder.api.level.PonderLevel;
@@ -108,6 +90,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.event.entity.living.LivingBreatheEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -121,6 +104,12 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = Destroy.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class DestroyCommonEvents {
@@ -611,4 +600,30 @@ public class DestroyCommonEvents {
 		Destroy.CIRCUIT_PUNCHER_HANDLER.onUnloadWorld(event.getLevel());
         Destroy.CIRCUIT_PATTERN_HANDLER.onLevelUnloaded(event.getLevel());
 	};
+
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        ContaminatedVolumeHandler.checkStatuses();
+    }
+
+    @SubscribeEvent
+    public static void onItemUsed(PlayerInteractEvent.RightClickBlock event) {
+        Player entity = event.getEntity();
+        BlockPos pos = entity.getOnPos().offset(0, 1, 0);
+
+        if ( ContaminatedVolumeHandler.getVolumeForPos(pos.getCenter()).isPresent() ) {
+            if (event.getItemStack().getItem() == Items.FLINT_AND_STEEL) {
+                entity.level().explode(entity, pos.getX(), pos.getY(), pos.getZ(), 20, Level.ExplosionInteraction.TNT);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityBreathe(LivingBreatheEvent event) {
+        LivingEntity entity = event.getEntity();
+        Vec3 eyePosition = entity.getEyePosition();
+        Optional<ContaminatedVolume> optionalCV = ContaminatedVolumeHandler.getVolumeForPos(eyePosition);
+
+        optionalCV.ifPresent(contaminatedVolume -> contaminatedVolume.applyContaminationEffects(entity));
+    }
 };
